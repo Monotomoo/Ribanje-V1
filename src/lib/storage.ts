@@ -37,13 +37,45 @@ const CREW_NAME_MIGRATIONS: Record<string, { from: string; to: string }> = {
   c6: { from: "Ivan's brother", to: 'Luka Paladina' },
 };
 
+/* One-time clearing of legacy seed rate values + deal-structure notes.
+   These were placeholder assumptions baked in before any actual deals
+   were made. Only clears if the saved record still holds the original
+   seed string — user-entered rates and notes are preserved. */
+const LEGACY_CREW_RATES: Record<string, string> = {
+  c1: 'Equity + per diem',
+  c2: 'DOP day rate + kit',
+  c3: 'Per diem + back-end equity',
+  c4: 'Per diem + back-end equity',
+  c5: 'Day rate',
+  c6: 'Project fee',
+};
+
+const LEGACY_CREW_NOTES: Record<string, { from: string; to: string }> = {
+  c6: {
+    from: 'Luka. Family connection to Ivan. In-kind via Ivan, modest fee budgeted.',
+    to: 'Luka. Family connection to Ivan.',
+  },
+};
+
 function migrateCrewNames(crew: AppState['crew']): AppState['crew'] {
   return crew.map((c) => {
-    const rule = CREW_NAME_MIGRATIONS[c.id];
-    if (rule && c.name === rule.from) {
-      return { ...c, name: rule.to };
+    let next = c;
+    /* Name migration */
+    const nameRule = CREW_NAME_MIGRATIONS[c.id];
+    if (nameRule && next.name === nameRule.from) {
+      next = { ...next, name: nameRule.to };
     }
-    return c;
+    /* Clear legacy rate placeholders */
+    const legacyRate = LEGACY_CREW_RATES[c.id];
+    if (legacyRate && next.rate === legacyRate) {
+      next = { ...next, rate: undefined };
+    }
+    /* Clean legacy deal-structure notes */
+    const noteRule = LEGACY_CREW_NOTES[c.id];
+    if (noteRule && next.notes === noteRule.from) {
+      next = { ...next, notes: noteRule.to };
+    }
+    return next;
   });
 }
 

@@ -169,12 +169,12 @@ export const SEED_SPONSORS: Sponsor[] = [
 /* ---------- Crew ---------- */
 
 export const SEED_CREW: CrewMember[] = [
-  { id: 'c1', name: 'Tomislav Kovacic', role: 'Producer / Director',              rate: 'Equity + per diem',           link: 'https://terminimal.com',     notes: 'Tomo. Production lead. Bridges creative and execution.' },
-  { id: 'c2', name: 'Tom Lebarić',      role: 'Director of Photography',          rate: 'DOP day rate + kit',          link: 'https://tom-lebaric.com',    notes: 'Trinity owner / underwater specialist / ACO/SOC/SOA.' },
-  { id: 'c3', name: 'Ivan Paladina',    role: 'Principal / Lead talent / Sailor', rate: 'Per diem + back-end equity',                                      notes: 'Show owner. Permits and access. Lead fisherman.' },
-  { id: 'c4', name: 'Rene Bakalović',   role: 'Principal / Co-host',              rate: 'Per diem + back-end equity',                                      notes: 'Wine and food encyclopedist. Storytelling principal.' },
-  { id: 'c5', name: 'Marko Stanic',     role: 'Camera B / Sound recordist',       rate: 'Day rate',                                                        notes: 'Marko. Third on camera boat. Multi-discipline.' },
-  { id: 'c6', name: 'Luka Paladina',    role: 'Captain (talent boat) / Sailor',   rate: 'Project fee',                                                     notes: 'Luka. Family connection to Ivan. In-kind via Ivan, modest fee budgeted.' },
+  { id: 'c1', name: 'Tomislav Kovacic', role: 'Producer / Director',              link: 'https://terminimal.com',  notes: 'Tomo. Production lead. Bridges creative and execution.' },
+  { id: 'c2', name: 'Tom Lebarić',      role: 'Director of Photography',          link: 'https://tom-lebaric.com', notes: 'Trinity owner / underwater specialist / ACO/SOC/SOA.' },
+  { id: 'c3', name: 'Ivan Paladina',    role: 'Principal / Lead talent / Sailor',                                  notes: 'Show owner. Permits and access. Lead fisherman.' },
+  { id: 'c4', name: 'Rene Bakalović',   role: 'Principal / Co-host',                                               notes: 'Wine and food encyclopedist. Storytelling principal.' },
+  { id: 'c5', name: 'Marko Stanic',     role: 'Camera B / Sound recordist',                                        notes: 'Marko. Third on camera boat. Multi-discipline.' },
+  { id: 'c6', name: 'Luka Paladina',    role: 'Captain (talent boat) / Sailor',                                    notes: 'Luka. Family connection to Ivan.' },
 ];
 
 /* ---------- Risks ---------- */
