@@ -1,0 +1,293 @@
+@import 'tailwindcss';
+
+/* Fraunces — variable serif, optical-sized. Italic axis used heavily for editorial display. */
+@import '@fontsource/fraunces/400.css';
+@import '@fontsource/fraunces/500.css';
+@import '@fontsource/fraunces/400-italic.css';
+@import '@fontsource/fraunces/500-italic.css';
+
+/* Spectral — designed by Production Type for long-form on-screen reading. */
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/500.css';
+@import '@fontsource/spectral/400-italic.css';
+
+/* Inter — UI labels, small caps tracked, navigation. */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+/*
+  Ribanje 2026 — "Stari Grad library" tokens
+  Editorial atelier journal. Limestone paper, Adriatic-deep ink, brass + olive + sunset coral.
+  No mono. Numbers and headers in italic serif. UI labels in tracked Inter small caps.
+*/
+@theme {
+  /* Surfaces */
+  --color-chrome: #0e1e36;
+  --color-chrome-deep: #07101d;
+  --color-chrome-elevated: #16273f;
+  --color-paper: #f2ead9;
+  --color-paper-light: #f8f2e2;
+  --color-paper-deep: #e5dbc4;
+  --color-paper-card: #fbf6e8;
+
+  /* Transitional steel */
+  --color-steel: #2d4a6b;
+  --color-steel-light: #4a6b91;
+
+  /* Text on chrome */
+  --color-on-chrome: #f2ead9;
+  --color-on-chrome-muted: rgba(242, 234, 217, 0.62);
+  --color-on-chrome-faint: rgba(242, 234, 217, 0.36);
+
+  /* Text on paper */
+  --color-on-paper: #0e1e36;
+  --color-on-paper-muted: rgba(14, 30, 54, 0.62);
+  --color-on-paper-faint: rgba(14, 30, 54, 0.4);
+
+  /* Borders */
+  --color-border-chrome: rgba(242, 234, 217, 0.1);
+  --color-border-chrome-strong: rgba(242, 234, 217, 0.2);
+  --color-border-paper: rgba(14, 30, 54, 0.1);
+  --color-border-paper-strong: rgba(14, 30, 54, 0.2);
+  --color-border-brass: rgba(201, 169, 97, 0.45);
+
+  /* Accents */
+  --color-dock: #3d7280; /* deep teal — interactive */
+  --color-dock-deep: #2c5560;
+  --color-brass: #c9a961;
+  --color-brass-deep: #a8884a;
+  --color-olive: #788064;
+  --color-olive-deep: #5e6651;
+  --color-coral: #c26a4a;
+  --color-coral-deep: #a05133;
+
+  /* Status */
+  --color-success: #788064; /* olive */
+  --color-warn: #d9a93e;
+  --color-danger: #c26a4a; /* coral, replaces buoy red */
+
+  /* Fonts */
+  --font-serif: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Spectral', 'Georgia', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Type scale */
+  --text-micro: 10.5px;
+  --text-tag: 11px;
+  --text-body: 14.5px;
+  --text-section: 16px;
+  --text-kpi: 56px;
+  --text-page: 52px;
+  --text-display: 96px;
+
+  /* Radii */
+  --radius-card: 4px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--color-paper);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-on-paper);
+  background: var(--color-paper);
+  font-feature-settings: 'tnum' 1, 'cv02' 1, 'cv03' 1, 'cv04' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(61, 114, 128, 0.25);
+  color: var(--color-on-paper);
+}
+
+/*
+  Paper texture — softer than terminal grain.
+  Multiply blend, low opacity, ink-warm. Reads like aged Adriatic limestone paper, not a CRT.
+*/
+body::after {
+  content: '';
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='5'/><feColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.12  0 0 0 0 0.21  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 280px 280px;
+  mix-blend-mode: multiply;
+  animation: grain-shift 1.4s steps(8) infinite;
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -4%); }
+  20%  { transform: translate(-6%, 2%); }
+  30%  { transform: translate(3%, -8%); }
+  40%  { transform: translate(-1%, 8%); }
+  50%  { transform: translate(-5%, 3%); }
+  60%  { transform: translate(6%, 0); }
+  70%  { transform: translate(0, 5%); }
+  80%  { transform: translate(2%, -5%); }
+  90%  { transform: translate(-4%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Letterbox bars (splash + print) */
+.letterbox-top,
+.letterbox-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: var(--color-chrome-deep);
+  z-index: 100;
+  pointer-events: none;
+}
+.letterbox-top { top: 0; }
+.letterbox-bottom { bottom: 0; }
+
+/* Subtle vignette for splash + hero areas */
+.vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.32) 100%
+  );
+}
+
+/*
+  Editorial typography utilities
+*/
+
+/* Small-caps tracked label (Inter, used for technical labels and section heads) */
+.label-caps {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Italic serif display (Fraunces) */
+.display-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* Body prose (Spectral) */
+.prose-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Hairline brass divider — used between sections */
+.rule-brass {
+  border-top: 0.5px solid var(--color-border-brass);
+}
+
+/* Ornamental section mark — small italic asterisk in brass, centered */
+.ornament-mark::before {
+  content: '*';
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-brass);
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Custom scrollbar — paper aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 30, 54, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 30, 54, 0.3);
+}
+
+.scrollbar-chrome::-webkit-scrollbar-thumb {
+  background: rgba(242, 234, 217, 0.1);
+}
+.scrollbar-chrome::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 234, 217, 0.2);
+}
+
+/* Focus ring — dock teal */
+*:focus-visible {
+  outline: 1.5px solid var(--color-dock);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* Print mode */
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm;
+  }
+  body::after { display: none; }
+  body {
+    overflow: visible;
+    background: white;
+  }
+  html { background: white; }
+  .no-print { display: none !important; }
+  aside { display: none !important; }
+  /* Allow content to flow naturally without scrolling viewport */
+  .h-screen { height: auto !important; }
+  .overflow-hidden { overflow: visible !important; }
+  .overflow-y-auto { overflow: visible !important; }
+  /* Each pitch-deck slide on its own A4 page */
+  .print-slide {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    page-break-after: always;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .print-slide:last-child { page-break-after: auto; }
+}
