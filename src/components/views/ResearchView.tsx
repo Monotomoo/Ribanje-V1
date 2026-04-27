@@ -70,7 +70,7 @@ export function ResearchView() {
   return (
     <div className="space-y-7 max-w-[1400px]">
       {/* Stat strip */}
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <Tile
           icon={BookOpen}
           label="Sources"
@@ -182,7 +182,7 @@ function HektorovicTab() {
         <h3 className="display-italic text-[20px] text-[color:var(--color-on-paper)] mb-3">
           Per-episode spine
         </h3>
-        <ul className="grid grid-cols-2 gap-4">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {allEpisodes.map((ep) => {
             const extras = state.episodeExtras[ep.id];
             if (!extras) return null;
@@ -563,7 +563,7 @@ function ProducersTab() {
         </button>
       </div>
 
-      <ul className="grid grid-cols-2 gap-3">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {filtered.map((p) => {
           const ep = p.episodeId
             ? state.episodes.find((e) => e.id === p.episodeId) ?? null
@@ -741,7 +741,7 @@ function SubjectsTab() {
           <span>add subject</span>
         </button>
       </div>
-      <ul className="grid grid-cols-2 gap-3">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {state.subjects.map((s) => {
           const ep = allEpisodes.find((e) => e.id === s.episodeId);
           return (

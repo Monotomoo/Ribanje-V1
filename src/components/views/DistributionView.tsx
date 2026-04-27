@@ -38,7 +38,7 @@ export function DistributionView() {
   return (
     <div className="space-y-7 max-w-[1400px]">
       {/* Stat strip */}
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <Tile
           icon={Send}
           label="Sales agents"
@@ -502,7 +502,7 @@ function MarketsTab() {
           <span>add market</span>
         </button>
       </div>
-      <ul className="grid grid-cols-2 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sorted.map((m) => {
           const days = m.applicationDeadline
             ? Math.ceil(

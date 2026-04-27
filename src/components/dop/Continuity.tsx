@@ -160,23 +160,28 @@ export function Continuity() {
                   </p>
                 )}
               </header>
-              <div className="grid grid-cols-[40px_1fr_50px_140px_70px_70px_120px_70px_70px_70px] gap-2 px-4 py-2 bg-[color:var(--color-paper)] border-b-[0.5px] border-[color:var(--color-border-paper)] label-caps text-[color:var(--color-on-paper-faint)] text-[9px]">
-                <span>#</span>
-                <span>desc</span>
-                <span>cam</span>
-                <span>lens</span>
-                <span>fps</span>
-                <span>shutter</span>
-                <span>filter</span>
-                <span>iso</span>
-                <span>wb K</span>
-                <span>status</span>
+              {/* Phase 11: wrap the wide 10-col grid in horizontal scroll on phone. */}
+              <div className="overflow-x-auto md:overflow-visible">
+                <div className="min-w-[820px] md:min-w-0">
+                  <div className="grid grid-cols-[40px_1fr_50px_140px_70px_70px_120px_70px_70px_70px] gap-2 px-4 py-2 bg-[color:var(--color-paper)] border-b-[0.5px] border-[color:var(--color-border-paper)] label-caps text-[color:var(--color-on-paper-faint)] text-[9px]">
+                    <span>#</span>
+                    <span>desc</span>
+                    <span>cam</span>
+                    <span>lens</span>
+                    <span>fps</span>
+                    <span>shutter</span>
+                    <span>filter</span>
+                    <span>iso</span>
+                    <span>wb K</span>
+                    <span>status</span>
+                  </div>
+                  <ul>
+                    {g.shots.map((sh) => (
+                      <ContinuityRow key={sh.id} shot={sh} onPatch={(p) => patch(sh.id, p)} />
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <ul>
-                {g.shots.map((sh) => (
-                  <ContinuityRow key={sh.id} shot={sh} onPatch={(p) => patch(sh.id, p)} />
-                ))}
-              </ul>
             </section>
           ))}
         </div>

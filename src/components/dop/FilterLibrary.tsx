@@ -175,7 +175,7 @@ export function FilterLibrary() {
         {visible.map((f) => (
           <li
             key={f.name}
-            className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] px-5 py-3 grid grid-cols-[100px_220px_120px_1fr] gap-4 items-baseline"
+            className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] px-5 py-3 flex flex-col md:grid md:grid-cols-[100px_220px_120px_1fr] gap-2 md:gap-4 md:items-baseline"
           >
             <span className={`label-caps tracking-[0.10em] text-[10px] ${CATEGORY_TONE[f.category]}`}>
               {f.category}

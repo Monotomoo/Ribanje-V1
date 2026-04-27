@@ -204,7 +204,7 @@ export function DeckVariants() {
           </p>
         </header>
 
-        <div className="grid grid-cols-2 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
           {/* Emphasis */}
           <div>
             <div className="label-caps text-[color:var(--color-brass-deep)] mb-3">

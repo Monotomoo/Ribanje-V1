@@ -49,10 +49,11 @@ export function ShootCalendar() {
   function handleDragEnter(dayId: string) {
     if (dragSourceId && dragSourceId !== dayId) setDropTargetId(dayId);
   }
-  function handleDrop(targetId: string) {
-    if (!dragSourceId || dragSourceId === targetId) return;
-    const src = state.shootDays.find((d) => d.id === dragSourceId);
-    const tgt = state.shootDays.find((d) => d.id === targetId);
+
+  function performSwap(srcId: string, tgtId: string) {
+    if (srcId === tgtId) return;
+    const src = state.shootDays.find((d) => d.id === srcId);
+    const tgt = state.shootDays.find((d) => d.id === tgtId);
     if (!src || !tgt) return;
     /* Swap content (preserve dates + ids) */
     dispatch({
@@ -77,6 +78,28 @@ export function ShootCalendar() {
     });
     setDragSourceId(null);
     setDropTargetId(null);
+  }
+
+  function handleDrop(targetId: string) {
+    if (!dragSourceId) return;
+    performSwap(dragSourceId, targetId);
+  }
+
+  /* Phase 11 — touch-friendly tap-to-swap path. Tapping the grip handle
+     cycles through: select source → swap with target → deselect. Same
+     dragSourceId state powers visual indicators as the HTML5 drag flow. */
+  function handleGripTap(dayId: string) {
+    if (!dragSourceId) {
+      setDragSourceId(dayId);
+      setDropTargetId(null);
+      return;
+    }
+    if (dragSourceId === dayId) {
+      setDragSourceId(null);
+      setDropTargetId(null);
+      return;
+    }
+    performSwap(dragSourceId, dayId);
   }
 
   return (
@@ -126,9 +149,29 @@ export function ShootCalendar() {
             onDragEnd={handleDragEnd}
             onDragEnter={() => handleDragEnter(day.id)}
             onDrop={() => handleDrop(day.id)}
+            onGripTap={() => handleGripTap(day.id)}
           />
         ))}
       </div>
+
+      {/* Tap-to-swap hint (touch + phone) */}
+      {dragSourceId && (
+        <div className="bg-[color:var(--color-brass)]/15 border-l-2 border-[color:var(--color-brass)] px-4 py-2 prose-body italic text-[12px] text-[color:var(--color-on-paper)] flex items-center justify-between gap-3">
+          <span>
+            Day selected for swap. Tap another day's grip handle to swap, or tap the same day's grip again to cancel.
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setDragSourceId(null);
+              setDropTargetId(null);
+            }}
+            className="label-caps tracking-[0.10em] text-[10px] text-[color:var(--color-brass-deep)] hover:text-[color:var(--color-on-paper)] shrink-0"
+          >
+            cancel
+          </button>
+        </div>
+      )}
 
       {/* Per-episode summary table */}
       <EpisodeRotationTable days={days} />
@@ -164,6 +207,7 @@ function DayCell({
   onDragEnd,
   onDragEnter,
   onDrop,
+  onGripTap,
 }: {
   day: ShootDay;
   isDragSource: boolean;
@@ -172,6 +216,7 @@ function DayCell({
   onDragEnd: () => void;
   onDragEnter: () => void;
   onDrop: () => void;
+  onGripTap: () => void;
 }) {
   const { state, dispatch } = useApp();
   const ep = day.episodeId
@@ -237,18 +282,29 @@ function DayCell({
     >
       <header className="flex items-baseline justify-between mb-1">
         <div className="flex items-baseline gap-1">
-          <span
+          {/* Grip handle: HTML5-drag on desktop · tap-to-select on touch */}
+          <button
+            type="button"
             draggable
             onDragStart={(e) => {
               e.dataTransfer.effectAllowed = 'move';
               onDragStart();
             }}
             onDragEnd={onDragEnd}
-            className="cursor-grab active:cursor-grabbing text-[color:var(--color-on-paper-faint)] hover:text-[color:var(--color-brass-deep)] transition-colors translate-y-[1px]"
-            title="Drag to swap with another day"
+            onClick={(e) => {
+              e.stopPropagation();
+              onGripTap();
+            }}
+            className={`cursor-grab active:cursor-grabbing transition-colors translate-y-[1px] p-0.5 -m-0.5 ${
+              isDragSource
+                ? 'text-[color:var(--color-brass-deep)]'
+                : 'text-[color:var(--color-on-paper-faint)] hover:text-[color:var(--color-brass-deep)]'
+            }`}
+            title="Drag (desktop) or tap (touch) to swap days"
+            aria-label={isDragSource ? 'Selected for swap — tap another day' : 'Tap or drag to swap'}
           >
             <GripVertical size={11} />
-          </span>
+          </button>
           <span className="display-italic text-[20px] text-[color:var(--color-on-paper)] tabular-nums leading-none">
             {dn}
           </span>

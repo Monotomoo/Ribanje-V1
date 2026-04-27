@@ -513,8 +513,9 @@ function PowerStorageStats({ day }: { day: ShootDay }) {
         />
       </div>
 
-      {/* Per-cam breakdown */}
-      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-hidden">
+      {/* Per-cam breakdown — Phase 11: 6-col table wraps in horizontal scroll on phone */}
+      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-x-auto md:overflow-hidden">
+        <div className="min-w-[640px] md:min-w-0">
         <div className="grid grid-cols-[100px_1fr_140px_70px_90px_90px] gap-3 px-5 py-2.5 border-b-[0.5px] border-[color:var(--color-border-brass)]/40 label-caps text-[color:var(--color-on-paper-faint)]">
           <span>Slot</span>
           <span>Camera</span>
@@ -572,6 +573,7 @@ function PowerStorageStats({ day }: { day: ShootDay }) {
           <span className="display-italic text-[14px] text-[color:var(--color-on-paper)] tabular-nums text-right">
             {Math.round(compute.totalWh)}
           </span>
+        </div>
         </div>
       </div>
 

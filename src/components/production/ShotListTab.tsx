@@ -345,7 +345,7 @@ function SceneBlock({
         </div>
       </header>
 
-      {/* Shots table */}
+      {/* Shots table — Phase 11: 10-col grid wraps in horizontal scroll on phone */}
       {filtered.length === 0 ? (
         <div className="px-5 py-7 text-center">
           <p className="prose-body italic text-[12px] text-[color:var(--color-on-paper-faint)]">
@@ -355,30 +355,32 @@ function SceneBlock({
           </p>
         </div>
       ) : (
-        <ul>
-          {filtered.map((shot, idx) => {
-            const isOpen = openShotIds.has(shot.id);
-            const takes = state.takes.filter((t) => t.shotId === shot.id);
-            return (
-              <li
-                key={shot.id}
-                className="border-b-[0.5px] border-[color:var(--color-border-paper)] last:border-b-0"
-              >
-                <ShotRow
-                  shot={shot}
-                  takes={takes}
-                  isOpen={isOpen}
-                  isFirst={idx === 0}
-                  isLast={idx === filtered.length - 1}
-                  onToggle={() => onToggleShot(shot.id)}
-                  onMoveUp={() => onMoveShot(shot.id, -1)}
-                  onMoveDown={() => onMoveShot(shot.id, 1)}
-                />
-                {isOpen && <TakeLog shot={shot} takes={takes} />}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="overflow-x-auto md:overflow-visible">
+          <ul className="min-w-[760px] md:min-w-0">
+            {filtered.map((shot, idx) => {
+              const isOpen = openShotIds.has(shot.id);
+              const takes = state.takes.filter((t) => t.shotId === shot.id);
+              return (
+                <li
+                  key={shot.id}
+                  className="border-b-[0.5px] border-[color:var(--color-border-paper)] last:border-b-0"
+                >
+                  <ShotRow
+                    shot={shot}
+                    takes={takes}
+                    isOpen={isOpen}
+                    isFirst={idx === 0}
+                    isLast={idx === filtered.length - 1}
+                    onToggle={() => onToggleShot(shot.id)}
+                    onMoveUp={() => onMoveShot(shot.id, -1)}
+                    onMoveDown={() => onMoveShot(shot.id, 1)}
+                  />
+                  {isOpen && <TakeLog shot={shot} takes={takes} />}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </article>
   );

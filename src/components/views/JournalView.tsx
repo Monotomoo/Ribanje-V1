@@ -265,7 +265,7 @@ function DecisionsTab() {
                 </button>
                 {open && (
                   <div className="px-5 pb-5 pt-1 space-y-4 bg-[color:var(--color-paper)]">
-                    <div className="grid grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                       <DecisionField label="Date">
                         <input
                           type="date"

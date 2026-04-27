@@ -70,7 +70,7 @@ export function Applications() {
         </button>
       </header>
 
-      <div className="grid grid-cols-[280px_1fr] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4 md:gap-6">
         {/* Application sidebar */}
         <aside>
           <ul className="space-y-2">
