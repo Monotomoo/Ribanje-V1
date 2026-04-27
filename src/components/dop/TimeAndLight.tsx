@@ -3,6 +3,7 @@ import SunCalc from 'suncalc';
 import { useApp } from '../../state/AppContext';
 import { GoldenHourPanel } from './GoldenHourPanel';
 import { LightStressTimeline } from './LightStressTimeline';
+import { SunArcTideOverlay } from './SunArcTideOverlay';
 
 function fmt(d: Date | null | undefined): string {
   if (!d || isNaN(d.getTime())) return '—';
@@ -27,6 +28,9 @@ export function TimeAndLight() {
       <GoldenHourPanel />
 
       <SunArc locId={locId} date={date} />
+
+      {/* Sun-arc + tide overlay — top-down boat-relative compass + framing advice */}
+      <SunArcTideOverlay locId={locId} date={date} />
 
       {/* 30-day light stress timeline — every shoot day's golden/blue windows */}
       <LightStressTimeline />

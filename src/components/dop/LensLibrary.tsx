@@ -1,6 +1,7 @@
 import { useApp } from '../../state/AppContext';
 import type { DOPKitItem } from '../../types';
 import { LensCharacterMatrix } from './LensCharacterMatrix';
+import { PerBeatLensPrescription } from './PerBeatLensPrescription';
 
 export function LensLibrary() {
   const { state } = useApp();
@@ -16,6 +17,9 @@ export function LensLibrary() {
     <div className="space-y-10">
       {/* Lens character matrix — 2D scatter plot */}
       <LensCharacterMatrix />
+
+      {/* Per-beat lens prescription — every beat → recommended lens */}
+      <PerBeatLensPrescription />
 
       <section>
         <header>

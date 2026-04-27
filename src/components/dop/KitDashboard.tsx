@@ -6,6 +6,7 @@ import { EditableNumber } from '../primitives/EditableNumber';
 import { LCDCard } from '../primitives/LCDCard';
 import { newId } from '../episode/shared';
 import { KitStatusBoard } from './KitStatusBoard';
+import { KitFailureSimulator } from './KitFailureSimulator';
 
 const CATEGORY_LABEL: Record<DOPCategory, string> = {
   camera: 'Cameras',
@@ -63,6 +64,9 @@ export function KitDashboard() {
     <div className="space-y-7">
       {/* Live kit status board — DURING-shoot grid */}
       <KitStatusBoard />
+
+      {/* Kit failure simulator — disaster-scenario decision support */}
+      <KitFailureSimulator />
 
       <section className="grid grid-cols-4 gap-5">
         <LCDCard

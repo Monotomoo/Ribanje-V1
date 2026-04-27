@@ -9,6 +9,7 @@ import { ColorScript } from './ColorScript';
 import { FrameLineComposer } from './FrameLineComposer';
 import { ShotReferenceLibrary } from './ShotReferenceLibrary';
 import { WaveformVectorscope } from './WaveformVectorscope';
+import { ReferenceFilmMimicry } from './ReferenceFilmMimicry';
 
 export function ColorAndLook() {
   const { state, dispatch } = useApp();
@@ -37,6 +38,9 @@ export function ColorAndLook() {
 
       {/* Waveform + vectorscope — DP power tool, paste a still */}
       <WaveformVectorscope />
+
+      {/* Reference film mimicry — quantified palette/exposure/framing match scores */}
+      <ReferenceFilmMimicry />
 
       {/* Color script per episode */}
       <ColorScript />

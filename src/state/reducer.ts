@@ -25,6 +25,7 @@ import type {
   IncidentEntry,
   JournalEntry,
   KlapaEntry,
+  Location,
   LUT,
   MarketEvent,
   MicPlacement,
@@ -174,6 +175,8 @@ export type Action =
   | { type: 'ADD_SHOOT_DAY'; day: ShootDay }
   | { type: 'UPDATE_SHOOT_DAY'; id: string; patch: Partial<ShootDay> }
   | { type: 'DELETE_SHOOT_DAY'; id: string }
+  /* Locations */
+  | { type: 'UPDATE_LOCATION'; id: string; patch: Partial<Location> }
   /* LUTs */
   | { type: 'ADD_LUT'; lut: LUT }
   | { type: 'UPDATE_LUT'; id: string; patch: Partial<LUT> }
@@ -743,6 +746,15 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         shootDays: state.shootDays.filter((d) => d.id !== action.id),
+      };
+
+    /* Locations */
+    case 'UPDATE_LOCATION':
+      return {
+        ...state,
+        locations: state.locations.map((l) =>
+          l.id === action.id ? { ...l, ...action.patch } : l
+        ),
       };
 
     /* LUTs */

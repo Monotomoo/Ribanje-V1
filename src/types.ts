@@ -211,6 +211,11 @@ export interface Location {
   type: LocationType;
   notes: string;
   goldenHourNotes?: string;
+  /* Phase 10 — Sun-arc + tide overlay */
+  bowHeadingDeg?: number;     // typical bow heading at anchor (0=N, 90=E, 180=S, 270=W)
+  tideAmplitudeM?: number;    // typical tidal range, meters (Adriatic ~0.3m, head of Adriatic up to 1m)
+  tideLowTime?: string;       // approx low-tide local time, free-form e.g. "06:30"
+  tideHighTime?: string;      // approx high-tide local time
 }
 
 export interface Route {

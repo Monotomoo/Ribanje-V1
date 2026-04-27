@@ -8,61 +8,57 @@
 - **Dev server:** `npm run dev` → `http://localhost:5173/`
 - **Skip splash for fast iteration:** `http://localhost:5173/?nosplash=1`
 - **Plan file (full historical record + Phase 9):** `C:\Users\Tomo\.claude\plans\i-m-building-a-local-first-cosmic-island.md`
-- **Current build:** TypeScript + bundle clean. **Main bundle 919 KB / 215 KB gzipped** after Cinematography deep upgrades (4 of 10 wired, 3 written-but-not-yet-wired, 3 still to build). Third-party chunks split.
+- **Current build:** TypeScript + bundle clean. **Main bundle 1.097 MB / 257 KB gzipped** after Phase 10 final mile. Third-party chunks split (motion · dnd-kit · icons · fuse · suncalc).
+- **Repo:** [github.com/Monotomoo/Ribanje-V1](https://github.com/Monotomoo/Ribanje-V1) on `main`. `vercel.json` committed; Vercel deploy deferred — Tomo can connect via Vercel Dashboard whenever ready.
 
-## ⚡ WHERE WE LEFT OFF — MID-CINEMATOGRAPHY UPGRADE PHASE (compacting now)
+## ⚡ WHERE WE ARE NOW — PHASE 10 SHIPPED · BOAT-TRIP READY
 
-**Context:** Tomo meets DP **Tom Lebarić tomorrow**. We are mid-way through shipping the 10 candidate Cinematography upgrades to make the dashboard land like *Tom's cockpit*, not a producer's checklist.
+All 21 Cinematography surfaces wired, Overview + Schedule reworked into actual tools, names + rates cleaned up, repo on GitHub. Tomo's earlier ask "now go through all the plans" was answered with a Phase 10 final mile that landed:
 
-### Already shipped + wired (working in the app)
+### Phase 10 — Move A · 3 cinematography components wired (this session)
 
-1. **Multi-cam shoot day matrix** — central section in Daily Plan tab. 5 cameras × scenes for selected day, pulls from Production data.
-2. **Power + storage real-compute** — replaced placeholder math in Daily Plan. Per-camera × codec × hours = Wh + GB. Default V-mount budget 600Wh.
-3. **Shooting-conditions matrix** — sea state × wind decision grid in Daily Plan. Per-rig thresholds (Trinity ≤2m sea / ≤14 m/s · Drone ≤4m / ≤12 m/s · UW ≤2m / viz ≥5m).
-4. **DOF + focus calculator** — 5th sub-tab in Specialty. Sensor (Super 35 / FF / MFT / 1" / 1/2.3") × focal × aperture × distance → near/far/total/hyperfocal + visual focus-latitude bar.
+1. **`KitFailureSimulator`** wired into `KitDashboard.tsx` (top of Kit tab, above LCD card row). Tomo picks one or more kit items to "fail" → shows direct hits (lost shots), salvageable via fallback (Cam A → Cam B path), and a recovery plan.
+2. **`PerBeatLensPrescription`** wired into `LensLibrary.tsx` (below the character matrix). Every beat → keyword-matched recommended lens with reasoning. Tom-set overrides save permanently.
+3. **`ReferenceFilmMimicry`** wired into `ColorAndLook.tsx` (between Waveform/Vectorscope and Color script). Pick a reference, upload a frame, get palette + exposure + framing match scores with diagnosis text.
 
-### Written but NOT yet wired (files exist on disk, need sidebar/tab integration)
+### Phase 10 — Move C · Sun-arc + tide overlay (this session)
 
-5. **`src/components/dop/Continuity.tsx`** — full continuity tracker, per-shot technical metadata (lens · ISO · WB · filter · fps · shutter angle · framing · status). Reads from extended `Shot` type. **TO WIRE:** add as new top-level tab in `DOPView.tsx` (becomes 7th tab between "Daily plan" and "Specialty").
-6. **`src/components/dop/FilterLibrary.tsx`** — 24 pre-curated filters (ND grades 0.3-1.8 · IRND for digital · CPL · Grad ND · Black Pro-Mist 1/8-1/2 · Glimmerglass · Hot Mirror · Streak) with marine notes. Plus 8-scene recommender (falkuša midday · sunset wide · UW catch · elder interview · drone establish · klapa · stones · Hektorović verse). **TO WIRE:** add as 6th sub-tab in `SpecialtyTab.tsx` (UW · Drone · Stab · Frame rate · DOF · **Filters**).
-7. **`src/components/dop/RigConfigurations.tsx`** — saved rig setups in Tom's vocabulary. **TO WIRE:** add as 7th sub-tab in `SpecialtyTab.tsx` (UW · Drone · Stab · Frame rate · DOF · Filters · **Rigs**). 4 pre-seeded rigs already in `SEED_RIG_CONFIGURATIONS`: *Falkuša handheld* · *Sunset wide* · *Elder interview* · *Drone establish*.
+New section in **Time + light** tab (Cinematography). Per anchorage × shoot date:
+- **Top-down compass diagram** — boat icon at center oriented to bowHeading, sun positions plotted around the rim at sunrise / golden AM / noon / golden PM / sunset (size scales with altitude)
+- **Bow heading slider** — drag to predict anchor swing for tomorrow's wind
+- **Per-window framing table** — sun azimuth · altitude · sun-vs-bow angle · advice (frontlit / sidelit-port / backlit / sidelit-stbd) per window
+- **Tide info** — editable amplitude + low/high tide times per anchorage (persisted to Location)
+- **Golden hour notes** per anchorage (also persisted)
+- New types on Location: `bowHeadingDeg`, `tideAmplitudeM`, `tideLowTime`, `tideHighTime`. New reducer action `UPDATE_LOCATION`.
 
-### Still to build (3 components left from the 10 candidates)
+### Bundle after Phase 10
 
-8. **#5 Frame-line composer** — SVG with aspect-ratio guides (1.85:1 · 2.39:1 · 16:9 · 9:16 · 1:1) overlaid on a sample/uploaded still per episode. Toggle between guide sets. **PLACE:** new section in `ColorAndLook.tsx` between Touchstone graph and Color script. Pure UI tool, no new types.
-9. **#9 Shot reference library** — image gallery grouped by `sceneTag` (already added field to `Reference` type). Predefined tags: interview · catch · sunset · klapa · stones · meal · departure · homecoming · drone-establish · elder. **PLACE:** new section in `ColorAndLook.tsx` below Frame-line composer. Reads existing References with type='image', extends with new sceneTag dropdown.
-10. **#10 Pre-shoot kit checklist** — per-shoot-day discipline. Items: sensors cleaned · batteries cycled · media formatted · lens rings · monitor calibrated · firmware · backup body · UW housing pressure-tested · drone props · Trinity bias-axis. State lives in `ShootDay.kitChecklist` (already added field). **PLACE:** new section at top of `DailyPlan.tsx` (above Multi-cam matrix).
+**1.097 MB / 257 KB gzipped** (up ~+39 KB raw / +9 KB gzipped from Phase 9 post-rework baseline). Build clean, no console errors expected.
 
-### Data model state — Cinematography upgrades (all type-safe, in storage migration)
+### What's wired across all of Cinematography (21 surfaces)
 
-- **Shot extended** with: `isoValue?`, `wbKelvin?`, `filter?`, `frameRate?`, `shutterAngle?`
-- **ShootDay extended** with: `kitChecklist?: Record<string, boolean>`
-- **Reference extended** with: `sceneTag?: string`
-- **NEW `RigConfiguration` type** — id · name · description · cameraSlot · kitItemIds[] · audioRouting · lightingNotes · movementNotes · notes
-- **Reducer:** ADD/UPDATE/DELETE `RIG_CONFIG` actions
-- **Storage migration:** `rigConfigurations` field added to defaults
+**Kit** — Live status board · Failure simulator · LCD totals · per-category lists
+**Lenses** — Character matrix · Per-beat prescription · Lens library
+**Color & look** — Palette studio · Touchstone graph · Frame-line composer · Waveform/vectorscope · Reference film mimicry · Color script · Shot reference library · LUTs · Reference films
+**Time + light** — Golden hour panel · Sun arc · **Sun-arc + tide overlay** · 30-day light stress timeline · Best-windows table
+**Daily plan** — Live Roll Cockpit · Pre-shoot kit checklist · Multi-cam matrix · Shot list radar · Power/storage compute · Shooting conditions matrix · Whole-shoot rollup
+**Continuity** — Auto-detected warnings · Per-shot technical tracker
+**Specialty** — UW · Drone · Stab · Frame rate · DOF · Filters · Rigs · **Trinity counterweight calc**
 
-### Resume instructions for next session
+### Other Phase 10 work in this session
 
-When continuing:
-1. **Wire 3 in-flight components** (#5, #6, #7 above) — small edits to `DOPView.tsx` + `SpecialtyTab.tsx`. ~10 min.
-2. **Build #5 Frame-line composer** as `src/components/dop/FrameLineComposer.tsx`, then add as section to `ColorAndLook.tsx`.
-3. **Build #9 Shot reference library** as `src/components/dop/ShotReferenceLibrary.tsx`, then add as section to `ColorAndLook.tsx`.
-4. **Build #10 Pre-shoot kit checklist** as `src/components/dop/KitChecklist.tsx`, then add as section to top of `DailyPlan.tsx`.
-5. Verify build + update this STATE.md with everything wired + Tom-meeting demo path.
+- **Overview rebuilt** as cockpit (TodayBrief · 8 Cockpit Gauges · 30-Day Production Ribbon · Decisions Inbox · Activity Feed · Voyage strip kept · Finance pill collapsed). 6 duplicate sections removed (StoryProgress · PeoplePipeline · GeographyOverview · ScheduleSnapshot · RiskProfile · SponsorGauge · old RecentActivity).
+- **Schedule made functional**: drag-edit Gantt · click-to-edit phase popover · critical path highlight · owner avatars · inline phase + milestone add · slip simulator with cascade mode · drag-rearrange shoot calendar · conflict detector · quick-action deadlines (snooze/done/reopen) · 3-row filter chips · inline owner.
+- **Crew cleanup**: Tomo → Tomislav Kovacic · Marko → Marko Stanic · Ivan's brother → Luka Paladina (proper names). Rate fields cleared + deal-structure assumptions removed from notes pending real deals. Auto-migration in storage.ts only clears legacy seed strings, preserves user edits.
 
-After Cinematography is done, return to Tomo's earlier ask: deep upgrades for the **other 16 modules** (he said "lets return to the plan" — that's the per-module 2 ultimate upgrades exercise from the meta-thinking turn).
+### Tom-meeting demo path (90 sec walkthrough · updated)
 
-### Tom-meeting demo path (90 sec walkthrough planned)
-
-1. ⌘8 → Cinematography → **Daily plan** → preview-day picker `2026-10-12` → multi-cam matrix populates with Day 12 / Lavsa / 36 pre-seeded shots distributed across A · B · drone
-2. Scroll → power/storage real-compute (~580 Wh, 4× V-mount budget)
-3. Scroll → shooting-conditions grid (Trinity / Drone / UW thresholds) — Tom will have opinions
-4. **Specialty** tab → flip through UW · Drone · Stab · Frame rate · **DOF + focus** → dial Cooke 32mm + Alexa 35 + T2.8 + 3m
-5. (After wiring) **Specialty** → **Filters** + **Rigs** sub-tabs
-6. (After build) **Continuity** tab → all-shot continuity table
-
-Five things Tom should react to: Trinity-aware Cam A column · codec defaults per slot · rig wind/sea thresholds · 5-camera slot completeness · DOF advice card.
+1. ⌘8 → Cinematography → **Kit** → toggle a kit item to "down" on the Failure Simulator → see lost vs salvageable shots
+2. **Lenses** → click a lens dot in the character matrix → adjust warmth/sharpness sliders. Scroll down → per-beat prescriptions pre-fill from beat keywords.
+3. **Color & look** → upload a still to Waveform/Vectorscope → see luma + chroma scopes. Scroll to Reference Film Mimicry → load a reference, upload our frame, see match %.
+4. **Time + light** → SunArcTideOverlay top-down compass → drag bow heading slider → see framing advice update per window.
+5. **Daily plan** → preview-day picker `2026-10-12` → toggle Live Roll Cockpit on → ROLL/CUT buttons + voice memo.
+6. **Specialty** → Trinity → Counterweight Calculator → pick cam + lens + accessories.
 
 ## Visual identity (locked)
 
@@ -355,27 +351,19 @@ So Production reads alive on the boat trip — the team edits + adds rather than
 - Map image swap (~30 min once provided — calibrate 4 anchor pins)
 - Real content drop-in (Hektorović verses, Tom's actual kit confirmed, real talent prospects, klapa shortlist, festival fits, outreach log entries)
 
-**Phase 9 Tier B (remaining post-trip, ~3–5 days):**
-- Schedule deepenings (post-prod lane · burn-down)
-- Risks deepenings (weather pane · burn-down)
-- Sponsors deepenings (ROI · deliverables tracker)
-- Cinematography color-script per episode (frame-by-frame palette evolution)
-- Sound deepenings (Hektorović audio · music budget · cue sheet builder ↔ Post-production cue sheet)
-- Pitch deepenings (per-audience deck variants · festival fit calculator)
+**Vercel deploy** — `vercel.json` committed and pushed. Three paths:
+- A) Tomo imports the GitHub repo at `vercel.com/new` (every future push auto-deploys)
+- B) Trigger via Vercel MCP from a future Claude session
+- C) Wait
 
-**Phase 9 Tier C (long arc, ~10–14 days):**
-- Research module (Hektorović sources · fishing tradition · gastronomy · klapa catalogue · wine + olive producer dir · subject DB)
-- Mood board generator
-- Cinematic touchstone graph
-- Fishing calendar
-- Sun-arc + tide overlay
-- Decision register
-- Lookbook
-- Theme system extraction (Stari Grad → reusable preset)
-- iPad / touch responsive
-- Vercel deploy
-- AI features (Claude API integration · optional)
-- Bundle code-splitting
+**Optional Tier C remaining (low urgency):**
+- Lookbook — image-rich gallery, episode/scene/mood-tagged (~45 min)
+- Theme system extraction → reusable preset for future projects (~2d)
+- iPad / touch responsive pass — Phase 1 round 5 deferred, re-evaluate post-trip (~2d)
+
+**Decided out:**
+- AI co-pilot / Anthropic SDK integration (Q3=D — broke local-first purity)
+- Crew Day-rate matrix — deferred until real deals exist
 
 ## Pre-demo acceptance check
 
