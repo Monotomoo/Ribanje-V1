@@ -132,7 +132,7 @@ export function KitStatusBoard() {
           </div>
 
           {/* Grid */}
-          <ul className="px-5 py-4 grid grid-cols-3 gap-2">
+          <ul className="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filtered.map((k) => (
               <KitCard key={k.id} item={k} onCycle={() => cycle(k)} />
             ))}

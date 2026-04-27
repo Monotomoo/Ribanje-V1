@@ -97,7 +97,7 @@ export function CockpitGauges({ onJump }: GaugeJumpProps) {
           click any gauge to drill in
         </span>
       </div>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {/* Funding — donut */}
         <DonutGauge
           label="Funding raised"

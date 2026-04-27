@@ -68,7 +68,7 @@ export function KitDashboard() {
       {/* Kit failure simulator — disaster-scenario decision support */}
       <KitFailureSimulator />
 
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <LCDCard
           label="Kit weight"
           value={`${totalWeight.toFixed(1)}kg`}
@@ -95,7 +95,7 @@ export function KitDashboard() {
         />
       </section>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
         {CATEGORY_ORDER.map((cat) => {
           const items = state.dopKit.filter((k) => k.category === cat);
           return (

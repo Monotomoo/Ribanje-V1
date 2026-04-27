@@ -128,7 +128,7 @@ export function RisksView() {
       </div>
 
       {/* Stats strip */}
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <LCDCard label="Total risks" value={`${summary.total}`} />
         <LCDCard
           label="Critical"
@@ -161,7 +161,7 @@ export function RisksView() {
       </section>
 
       {/* Mode toggle */}
-      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit">
+      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto">
         {(['register', 'matrix'] as ViewMode[]).map((m) => {
           const active = mode === m;
           return (

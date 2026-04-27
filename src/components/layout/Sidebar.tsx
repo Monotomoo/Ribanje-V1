@@ -75,8 +75,20 @@ const GROUPS: NavGroup[] = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  /* Phase 11 — drawer-mode props for phone. On md+ these are ignored. */
+  drawerOpen?: boolean;
+  onCloseDrawer?: () => void;
+}
+
+export function Sidebar({ drawerOpen = false, onCloseDrawer }: SidebarProps = {}) {
   const { state, dispatch, undo, redo, canUndo, canRedo } = useApp();
+
+  function setView(view: ViewKey) {
+    dispatch({ type: 'SET_VIEW', view });
+    /* Close drawer after navigation on phone — desktop ignores this. */
+    onCloseDrawer?.();
+  }
 
   function handleReset() {
     if (
@@ -89,7 +101,14 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="w-[260px] shrink-0 h-full flex flex-col bg-[color:var(--color-chrome)] border-r-[0.5px] border-[color:var(--color-border-chrome-strong)] scrollbar-chrome">
+    <aside
+      className={`w-[260px] shrink-0 h-full flex flex-col bg-[color:var(--color-chrome)] border-r-[0.5px] border-[color:var(--color-border-chrome-strong)] scrollbar-chrome
+        fixed top-0 left-0 z-40 transition-transform duration-200 ease-out
+        lg:static lg:z-auto lg:translate-x-0 lg:transition-none
+        ${drawerOpen ? 'translate-x-0 shadow-[8px_0_32px_rgba(0,0,0,0.35)]' : '-translate-x-full lg:shadow-none'}
+      `}
+      aria-hidden={!drawerOpen ? undefined : 'false'}
+    >
       {/* Wordmark */}
       <div className="px-7 pt-8 pb-9">
         <h1 className="display-italic text-[34px] text-[color:var(--color-on-chrome)] leading-none">
@@ -122,7 +141,7 @@ export function Sidebar() {
                   <li key={item.key}>
                     <button
                       type="button"
-                      onClick={() => dispatch({ type: 'SET_VIEW', view: item.key })}
+                      onClick={() => setView(item.key)}
                       className={`relative w-full text-left flex items-center gap-3 px-3 py-2 rounded-[3px] transition-colors duration-150 ${
                         active
                           ? 'bg-[color:var(--color-chrome-elevated)] text-[color:var(--color-on-chrome)]'

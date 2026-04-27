@@ -362,7 +362,7 @@ function InboxRow({
   const Icon = meta.icon;
   return (
     <li
-      className={`bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] border-l-2 rounded-[3px] px-4 py-2.5 grid grid-cols-[1fr_auto] gap-4 items-baseline ${
+      className={`bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] border-l-2 rounded-[3px] px-4 py-2.5 flex flex-col gap-2 md:grid md:grid-cols-[1fr_auto] md:gap-4 md:items-baseline ${
         PRIORITY_TONE[item.priority]
       }`}
     >

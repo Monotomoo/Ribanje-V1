@@ -233,7 +233,8 @@ function MulticamMatrix({ day }: { day: ShootDay }) {
         </span>
       </div>
 
-      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-hidden">
+      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-x-auto md:overflow-hidden">
+        <div className="min-w-[720px] md:min-w-0">
         {/* Camera column headers */}
         <div className="grid grid-cols-5 border-b-[0.5px] border-[color:var(--color-border-brass)]/40">
           {SLOT_ORDER.map((slot) => {
@@ -397,6 +398,7 @@ function MulticamMatrix({ day }: { day: ShootDay }) {
             })}
           </div>
         )}
+        </div>
       </div>
     </section>
   );
@@ -479,7 +481,7 @@ function PowerStorageStats({ day }: { day: ShootDay }) {
       </div>
 
       {/* Hero stats */}
-      <div className="grid grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4">
         <BudgetTile
           icon={Battery}
           label="Power load"
@@ -738,7 +740,7 @@ function ShootingConditionsMatrix() {
       </div>
 
       {/* Per-rig thresholds */}
-      <div className="grid grid-cols-5 gap-2 mt-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mt-3">
         {RIGS.map((r) => {
           const Icon = r.icon;
           return (

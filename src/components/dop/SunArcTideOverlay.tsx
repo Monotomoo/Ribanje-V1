@@ -142,7 +142,7 @@ export function SunArcTideOverlay({
         </span>
       </header>
 
-      <div className="grid grid-cols-[420px_1fr] gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-4 lg:gap-5">
         {/* Top-down compass */}
         <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] p-4">
           <svg viewBox={`0 0 ${COMPASS_SIZE} ${COMPASS_SIZE}`} className="w-full">
@@ -412,7 +412,7 @@ export function SunArcTideOverlay({
                 tide · {loc.label}
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-faint)] mb-0.5">
                   amplitude (m)

@@ -118,7 +118,7 @@ export function SponsorsView() {
       </div>
 
       {/* Goals strip */}
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <LCDCard
           label="Pipeline target"
           value={`${health.target}k`}
@@ -150,7 +150,7 @@ export function SponsorsView() {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {grouped.map((col) => (
             <Column
               key={col.status}

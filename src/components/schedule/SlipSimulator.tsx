@@ -104,7 +104,7 @@ export function SlipSimulator() {
         </div>
       </header>
 
-      <div className="grid grid-cols-[300px_1fr] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-4 md:gap-5">
         {/* Controls */}
         <aside className="bg-[color:var(--color-paper-light)] border-l-2 border-[color:var(--color-brass)] px-4 py-4 space-y-4">
           <div>
@@ -205,7 +205,7 @@ export function SlipSimulator() {
 
         {/* Preview list */}
         <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-hidden">
-          <header className="px-5 py-2 bg-[color:var(--color-paper)] border-b-[0.5px] border-[color:var(--color-border-paper)] grid grid-cols-[1fr_180px_180px] gap-3 label-caps text-[color:var(--color-on-paper-faint)]">
+          <header className="px-5 py-2 bg-[color:var(--color-paper)] border-b-[0.5px] border-[color:var(--color-border-paper)] hidden md:grid md:grid-cols-[1fr_180px_180px] gap-3 label-caps text-[color:var(--color-on-paper-faint)]">
             <span>phase</span>
             <span>current</span>
             <span>after slip</span>
@@ -229,7 +229,7 @@ function SlipRow({
   const dim = !row.affected;
   return (
     <li
-      className={`grid grid-cols-[1fr_180px_180px] gap-3 px-5 py-2 border-b-[0.5px] border-[color:var(--color-border-paper)] last:border-b-0 items-baseline transition-opacity ${
+      className={`grid grid-cols-1 md:grid-cols-[1fr_180px_180px] gap-1 md:gap-3 px-5 py-2 border-b-[0.5px] border-[color:var(--color-border-paper)] last:border-b-0 md:items-baseline transition-opacity ${
         dim ? 'opacity-40' : ''
       }`}
     >

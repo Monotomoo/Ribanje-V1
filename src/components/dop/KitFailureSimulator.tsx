@@ -196,7 +196,7 @@ export function KitFailureSimulator() {
         )}
       </header>
 
-      <div className="grid grid-cols-[320px_1fr] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-[320px_1fr] gap-4 md:gap-5">
         {/* Failure picker */}
         <aside className="space-y-3">
           {failableCategories.map((g) => (
@@ -256,7 +256,7 @@ export function KitFailureSimulator() {
           ) : (
             <>
               {/* Impact summary */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <ImpactTile
                   label="Lost"
                   count={counts.lost}

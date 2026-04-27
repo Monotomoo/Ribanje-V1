@@ -32,7 +32,7 @@ export function DOPView() {
         </p>
       </div>
 
-      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit">
+      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto">
         {TABS.map((t) => {
           const active = tab === t;
           return (

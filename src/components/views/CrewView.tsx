@@ -69,7 +69,7 @@ export function CrewView() {
       </div>
 
       {/* Stats strip */}
-      <section className="grid grid-cols-4 gap-5">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
         <LCDCard label="Crew" value={`${state.crew.length}`} sub="people" />
         <LCDCard
           label="Tasks open"
@@ -90,7 +90,7 @@ export function CrewView() {
       </section>
 
       {/* Tabs */}
-      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit">
+      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto">
         {TABS.map((t) => {
           const active = tab === t;
           return (
@@ -120,7 +120,7 @@ export function CrewView() {
 
       {tab === 'Roster' && (
         <section>
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {state.crew.map((m) => {
               const counts = taskCounts[m.id];
               const pinnedNotes = state.notes.filter(

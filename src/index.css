@@ -107,6 +107,8 @@ body,
 
 html {
   background: var(--color-paper);
+  /* iOS Safari: respect dynamic viewport (account for browser chrome). */
+  height: 100%;
 }
 
 body {
@@ -119,6 +121,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow: hidden;
+  /* iOS Safari: kill the grey tap-highlight on touch. We render our own active states. */
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent overscroll bounce on iOS (containers handle their own scroll). */
+  overscroll-behavior: none;
+}
+
+/* Phase 11 — touch device tap targets.
+   On coarse-pointer (touch) devices, bump small actionable elements to 44×44. */
+@media (pointer: coarse) {
+  button, [role="button"], a {
+    min-height: 32px;
+  }
 }
 
 ::selection {

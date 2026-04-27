@@ -202,7 +202,7 @@ function FeedRow({
   const Icon = meta.icon;
   return (
     <li
-      className="px-4 py-2.5 grid grid-cols-[80px_70px_1fr_auto] gap-3 items-baseline cursor-pointer hover:bg-[color:var(--color-paper-deep)]/15 transition-colors"
+      className="px-4 py-2.5 grid grid-cols-[70px_1fr_auto] md:grid-cols-[80px_70px_1fr_auto] gap-2 md:gap-3 items-baseline cursor-pointer hover:bg-[color:var(--color-paper-deep)]/15 transition-colors"
       onClick={() => e.jumpTo && onJump(e.jumpTo)}
     >
       <span className="prose-body italic text-[11px] text-[color:var(--color-on-paper-faint)] tabular-nums">

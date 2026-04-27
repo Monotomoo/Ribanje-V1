@@ -200,7 +200,7 @@ export function TodayBrief({ onJump }: { onJump: (view: ViewKey) => void }) {
   return (
     <section className="space-y-5">
       {/* Date + countdown + verse */}
-      <header className="grid grid-cols-[1fr_360px] gap-6 items-start">
+      <header className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-4 md:gap-6 items-start">
         <div>
           <div className="label-caps tracking-[0.14em] text-[color:var(--color-on-paper-faint)] mb-1">
             today
@@ -255,7 +255,7 @@ export function TodayBrief({ onJump }: { onJump: (view: ViewKey) => void }) {
             </p>
           </div>
         ) : (
-          <ul className="grid grid-cols-3 gap-3">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {focusItems.map((item) => (
               <FocusCard key={item.id} item={item} onJump={onJump} />
             ))}

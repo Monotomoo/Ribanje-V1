@@ -360,7 +360,7 @@ export function LiveRollCockpit() {
           </div>
 
           {/* Camera lanes */}
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
             {SLOT_ORDER.map((slot) => (
               <CameraLane
                 key={slot}
@@ -656,7 +656,7 @@ function CutModal({
             <div className="label-caps text-[color:var(--color-brass-deep)] mb-2">
               status
             </div>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-2 md:gap-2">
               {(['NG', 'OK', 'PRINT'] as TakeStatus[]).map((s) => {
                 const active = status === s;
                 const tone =

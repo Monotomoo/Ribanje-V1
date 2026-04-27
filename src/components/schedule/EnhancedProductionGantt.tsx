@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Plus, X, Zap } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
 import type { Milestone, MilestoneCategory, SchedulePhase } from '../../types';
 import { newId } from '../episode/shared';
 import { EditableText } from '../primitives/EditableText';
+import { usePointerDrag } from '../../lib/usePointerDrag';
 
 /* Enhanced Production Gantt — drag-edit + critical path + owner avatars +
    inline milestone add + click-to-edit popover.
@@ -127,84 +128,91 @@ export function EnhancedProductionGantt() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortedMilestones]);
 
-  /* Drag handlers — pixel deltas → ms */
-  function startDrag(
-    phase: SchedulePhase,
-    edge: 'left' | 'right' | 'both',
-    e: React.MouseEvent
-  ) {
-    e.stopPropagation();
-    const startMs = new Date(phase.start).getTime();
-    const endMs = new Date(phase.end).getTime();
-    setDrag({
-      phaseId: phase.id,
-      edge,
-      startClientX: e.clientX,
-      origStart: startMs,
-      origEnd: endMs,
-      curStart: startMs,
-      curEnd: endMs,
-    });
-  }
+  /* Drag handlers — pixel deltas → ms.
+     Phase 11: unified mouse + touch via usePointerDrag. */
+  const pointerDrag = usePointerDrag<{
+    phaseId: string;
+    edge: 'left' | 'right' | 'both';
+    origStart: number;
+    origEnd: number;
+  }>();
 
   function pxDeltaToMs(deltaPx: number): number {
     if (!svgWrapRef.current) return 0;
     const rect = svgWrapRef.current.getBoundingClientRect();
     if (rect.width === 0) return 0;
-    const fractionDelta = (deltaPx / rect.width) * (W / W);
-    /* Map deltaPx to viewBox px → ms */
     const vbDelta = (deltaPx / rect.width) * W;
-    void fractionDelta;
     return (vbDelta / innerW) * span;
   }
 
-  /* Mouse move + up handlers attached to window when dragging.
-     Uses refs to avoid stale closures during the drag session. */
-  const dragRef = useRef(drag);
-  dragRef.current = drag;
-
-  useEffect(() => {
-    if (!drag) return;
-    function onMove(e: MouseEvent) {
-      const cur = dragRef.current;
-      if (!cur) return;
-      const deltaPx = e.clientX - cur.startClientX;
-      const deltaMs = pxDeltaToMs(deltaPx);
-      let newStart = cur.origStart;
-      let newEnd = cur.origEnd;
-      if (cur.edge === 'left' || cur.edge === 'both') newStart = cur.origStart + deltaMs;
-      if (cur.edge === 'right' || cur.edge === 'both') newEnd = cur.origEnd + deltaMs;
-      if (newEnd - newStart < 86_400_000) {
-        if (cur.edge === 'left') newStart = newEnd - 86_400_000;
-        else newEnd = newStart + 86_400_000;
-      }
-      setDrag({ ...cur, curStart: newStart, curEnd: newEnd });
-    }
-    function onUp() {
-      const cur = dragRef.current;
-      if (cur) {
-        let s = Math.round(cur.curStart / 86_400_000) * 86_400_000;
-        let e = Math.round(cur.curEnd / 86_400_000) * 86_400_000;
-        if (e <= s) e = s + 86_400_000;
+  function startDrag(
+    phase: SchedulePhase,
+    edge: 'left' | 'right' | 'both',
+    e: React.MouseEvent | React.TouchEvent
+  ) {
+    e.stopPropagation();
+    const origStart = new Date(phase.start).getTime();
+    const origEnd = new Date(phase.end).getTime();
+    /* Seed live preview state immediately so the visual updates from frame 0 */
+    setDrag({
+      phaseId: phase.id,
+      edge,
+      startClientX: 'touches' in e ? e.touches[0].clientX : e.clientX,
+      origStart,
+      origEnd,
+      curStart: origStart,
+      curEnd: origEnd,
+    });
+    pointerDrag.start(e, { phaseId: phase.id, edge, origStart, origEnd }, {
+      onMove: (s) => {
+        const deltaPx = s.curX - s.startX;
+        const deltaMs = pxDeltaToMs(deltaPx);
+        let newStart = s.data.origStart;
+        let newEnd = s.data.origEnd;
+        if (s.data.edge === 'left' || s.data.edge === 'both')
+          newStart = s.data.origStart + deltaMs;
+        if (s.data.edge === 'right' || s.data.edge === 'both')
+          newEnd = s.data.origEnd + deltaMs;
+        if (newEnd - newStart < 86_400_000) {
+          if (s.data.edge === 'left') newStart = newEnd - 86_400_000;
+          else newEnd = newStart + 86_400_000;
+        }
+        setDrag({
+          phaseId: s.data.phaseId,
+          edge: s.data.edge,
+          startClientX: s.startX,
+          origStart: s.data.origStart,
+          origEnd: s.data.origEnd,
+          curStart: newStart,
+          curEnd: newEnd,
+        });
+      },
+      onEnd: (s) => {
+        const deltaPx = s.curX - s.startX;
+        const deltaMs = pxDeltaToMs(deltaPx);
+        let newStart = s.data.origStart;
+        let newEnd = s.data.origEnd;
+        if (s.data.edge === 'left' || s.data.edge === 'both')
+          newStart = s.data.origStart + deltaMs;
+        if (s.data.edge === 'right' || s.data.edge === 'both')
+          newEnd = s.data.origEnd + deltaMs;
+        const dayMs = 86_400_000;
+        let snappedStart = Math.round(newStart / dayMs) * dayMs;
+        let snappedEnd = Math.round(newEnd / dayMs) * dayMs;
+        if (snappedEnd <= snappedStart) snappedEnd = snappedStart + dayMs;
         dispatch({
           type: 'UPDATE_PHASE',
-          id: cur.phaseId,
+          id: s.data.phaseId,
           patch: {
-            start: new Date(s).toISOString().slice(0, 10),
-            end: new Date(e).toISOString().slice(0, 10),
+            start: new Date(snappedStart).toISOString().slice(0, 10),
+            end: new Date(snappedEnd).toISOString().slice(0, 10),
           },
         });
-      }
-      setDrag(null);
-    }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-    return () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [drag !== null]);
+        setDrag(null);
+      },
+      onCancel: () => setDrag(null),
+    });
+  }
 
   /* Inline phase add */
   function addPhase() {
@@ -402,6 +410,7 @@ export function EnhancedProductionGantt() {
                   strokeWidth={isCritical ? 1.5 : isHover ? 1 : 0.5}
                   style={{ cursor: 'grab' }}
                   onMouseDown={(e) => startDrag(p, 'both', e)}
+                  onTouchStart={(e) => startDrag(p, 'both', e)}
                   onClick={(e) => {
                     e.stopPropagation();
                     if (!drag) setEditingId(p.id);
@@ -430,6 +439,7 @@ export function EnhancedProductionGantt() {
                   fill="transparent"
                   style={{ cursor: 'ew-resize' }}
                   onMouseDown={(e) => startDrag(p, 'left', e)}
+                  onTouchStart={(e) => startDrag(p, 'left', e)}
                 />
                 {/* Right edge handle */}
                 <rect
@@ -440,6 +450,7 @@ export function EnhancedProductionGantt() {
                   fill="transparent"
                   style={{ cursor: 'ew-resize' }}
                   onMouseDown={(e) => startDrag(p, 'right', e)}
+                  onTouchStart={(e) => startDrag(p, 'right', e)}
                 />
                 {/* Edge visual indicators when hovered */}
                 {isHover && (

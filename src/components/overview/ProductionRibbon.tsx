@@ -115,9 +115,9 @@ export function ProductionRibbon({
         </div>
       </div>
 
-      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-hidden">
+      <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-x-auto md:overflow-hidden">
         {/* Phase strip */}
-        <div className="flex h-[14px] border-b-[0.5px] border-[color:var(--color-border-paper)]">
+        <div className="flex h-[14px] border-b-[0.5px] border-[color:var(--color-border-paper)] min-w-[860px] md:min-w-0">
           {cells.map((c, i) => (
             <div
               key={i}
@@ -133,7 +133,7 @@ export function ProductionRibbon({
         </div>
 
         {/* Day cells */}
-        <ul className="flex">
+        <ul className="flex min-w-[860px] md:min-w-0">
           {cells.map((c, i) => (
             <DayPill
               key={c.iso}

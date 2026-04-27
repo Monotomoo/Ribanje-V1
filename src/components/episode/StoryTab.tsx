@@ -126,7 +126,7 @@ export function StoryTab({ episodeId }: { episodeId: string }) {
         </Field>
 
         {/* Three-column row: Library · Timeline · Hektorović + Refs */}
-        <div className="grid grid-cols-[220px_1fr_280px] gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] xl:grid-cols-[220px_1fr_280px] gap-4 md:gap-6">
           <BeatLibrary />
           <BeatTimeline episodeId={episodeId} />
           <aside className="space-y-6">

@@ -13,7 +13,7 @@ export function VoyageStrip({ onJump }: Props) {
   const { state } = useApp();
 
   return (
-    <div className="grid grid-cols-6 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       {state.episodes.map((ep) => (
         <EpisodeCard key={ep.id} ep={ep} onJump={onJump} />
       ))}

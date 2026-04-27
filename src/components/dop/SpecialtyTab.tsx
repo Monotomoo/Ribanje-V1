@@ -34,7 +34,7 @@ export function SpecialtyTab() {
     <div className="space-y-6">
       <nav
         role="tablist"
-        className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit"
+        className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto"
       >
         {(
           [
@@ -132,7 +132,7 @@ function RigShell({ icon: Icon, title, blurb, category, prepChecklist }: RigShel
         </div>
       </header>
 
-      <div className="grid grid-cols-[1fr_300px] gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-5 md:gap-7">
         {/* Kit list */}
         <section>
           <div className="flex items-baseline justify-between mb-3">

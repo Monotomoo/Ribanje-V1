@@ -66,7 +66,7 @@ export function PitchView() {
         </button>
       </div>
 
-      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit no-print">
+      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto no-print">
         {TABS.map((t) => {
           const active = tab === t;
           return (
@@ -121,7 +121,7 @@ function DecksAndLetters({
 }) {
   return (
     <div className="space-y-6">
-      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit no-print">
+      <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto no-print">
         {ARTIFACTS.map((a) => {
           const active = artifact === a;
           return (

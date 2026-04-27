@@ -155,7 +155,7 @@ export function LensCharacterMatrix() {
         </p>
       </header>
 
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-4 md:gap-6">
         {/* SVG matrix */}
         <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] p-4">
           <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="w-full">

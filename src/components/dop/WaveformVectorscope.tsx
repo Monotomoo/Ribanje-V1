@@ -221,7 +221,7 @@ export function WaveformVectorscope() {
       ) : (
         <div className="space-y-4">
           {/* Image preview + stats */}
-          <div className="grid grid-cols-[1fr_240px] gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_240px] gap-4">
             <img
               src={scope.imageUrl}
               alt="Source"
@@ -261,7 +261,7 @@ export function WaveformVectorscope() {
           </div>
 
           {/* Scopes */}
-          <div className="grid grid-cols-[1fr_320px] gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4">
             {/* Waveform */}
             <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] p-4">
               <div className="label-caps text-[color:var(--color-brass-deep)] mb-2">

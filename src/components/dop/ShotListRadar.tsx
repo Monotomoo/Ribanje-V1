@@ -137,7 +137,7 @@ export function ShotListRadar() {
         </select>
       </header>
 
-      <div className="grid grid-cols-[1fr_240px] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_240px] gap-4 md:gap-5">
         {/* Radar */}
         <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] p-4 flex items-center justify-center">
           <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full max-w-[460px]">

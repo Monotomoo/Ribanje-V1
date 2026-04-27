@@ -292,7 +292,7 @@ export function KitChecklist() {
 
       {/* Body */}
       {!collapsed && (
-        <div className="px-5 py-4 grid grid-cols-3 gap-x-5 gap-y-4">
+        <div className="px-5 py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-4">
           {CHECKLIST.map((g) => {
             const groupDone = g.items.filter((it) => checks[it.key]).length;
             return (

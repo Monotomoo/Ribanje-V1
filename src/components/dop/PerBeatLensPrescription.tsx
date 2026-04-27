@@ -260,7 +260,7 @@ export function PerBeatLensPrescription() {
           {beatsWithRec.map(({ beat, lens, reasoning, isOverride }) => (
             <li
               key={beat.id}
-              className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] px-5 py-4 grid grid-cols-[1fr_280px] gap-5"
+              className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] px-5 py-4 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-4 md:gap-5"
             >
               {/* Beat */}
               <div>

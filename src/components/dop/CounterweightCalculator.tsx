@@ -132,7 +132,7 @@ export function CounterweightCalculator() {
         </div>
       </header>
 
-      <div className="grid grid-cols-[1fr_400px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-4 lg:gap-6">
         {/* Inputs */}
         <div className="space-y-5">
           <Section label="Camera">
