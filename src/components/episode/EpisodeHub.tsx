@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 import type { Episode, EpisodeStatus } from '../../types';
 import { Pill } from '../primitives/Pill';
 import { EditableText } from '../primitives/EditableText';
@@ -11,8 +13,14 @@ import { PeopleTab } from './PeopleTab';
 import { SubjectTab } from './SubjectTab';
 import { CraftTab } from './CraftTab';
 
-const TABS = ['Story', 'People', 'Subject', 'Craft'] as const;
-type Tab = (typeof TABS)[number];
+type TabKey = 'story' | 'people' | 'subject' | 'craft';
+
+const TABS: { key: TabKey; labelKey: StringKey }[] = [
+  { key: 'story',   labelKey: 'epHub.tab.story' },
+  { key: 'people',  labelKey: 'epHub.tab.people' },
+  { key: 'subject', labelKey: 'epHub.tab.subject' },
+  { key: 'craft',   labelKey: 'epHub.tab.craft' },
+];
 
 const STATUS_CYCLE: EpisodeStatus[] = ['concept', 'scripted', 'shot', 'cut', 'locked'];
 
@@ -25,13 +33,14 @@ interface Props {
 
 export function EpisodeHub({ episodeId, onBack }: Props) {
   const { state, dispatch } = useApp();
-  const [tab, setTab] = useState<Tab>('Story');
+  const t = useT();
+  const [tab, setTab] = useState<TabKey>('story');
 
   const ep = [...state.episodes, ...state.specials].find((e) => e.id === episodeId);
   if (!ep) {
     return (
       <div className="prose-body italic text-[color:var(--color-on-paper-muted)]">
-        Episode not found.
+        {t('epHub.not.found')}
       </div>
     );
   }
@@ -60,7 +69,7 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
         className="flex items-center gap-1.5 label-caps text-[color:var(--color-on-paper-muted)] hover:text-[color:var(--color-brass-deep)] transition-colors"
       >
         <ArrowLeft size={12} />
-        Episodes
+        {t('epHub.back')}
       </button>
 
       <header>
@@ -79,7 +88,7 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
             type="button"
             onClick={cycleStatus}
             className="shrink-0"
-            title="cycle status"
+            title={t('epHub.cycle.status')}
           >
             <Pill variant={ep.status}>{ep.status}</Pill>
           </button>
@@ -100,7 +109,7 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
           <EditableNumber
             value={ep.runtime}
             onChange={(v) => patch({ runtime: v })}
-            suffix=" min"
+            suffix={` ${t('episodes.runtime.suffix')}`}
             size="sm"
           />
         </div>
@@ -108,13 +117,13 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
 
       {/* Tab strip */}
       <div className="flex items-baseline gap-1 border-b-[0.5px] border-[color:var(--color-border-paper)]">
-        {TABS.map((t) => {
-          const active = tab === t;
+        {TABS.map((tabDef) => {
+          const active = tab === tabDef.key;
           return (
             <button
-              key={t}
+              key={tabDef.key}
               type="button"
-              onClick={() => setTab(t)}
+              onClick={() => setTab(tabDef.key)}
               className={`relative px-5 py-3 transition-colors duration-150 ${
                 active
                   ? 'text-[color:var(--color-on-paper)]'
@@ -128,7 +137,7 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
                     : 'font-sans text-[12px] tracking-[0.16em] uppercase'
                 }
               >
-                {t}
+                {t(tabDef.labelKey)}
               </span>
               {active && (
                 <span className="absolute bottom-[-0.5px] left-3 right-3 h-[2px] bg-[color:var(--color-brass)]" />
@@ -140,10 +149,10 @@ export function EpisodeHub({ episodeId, onBack }: Props) {
 
       {/* Tab content */}
       <div>
-        {tab === 'Story' && <StoryTab episodeId={ep.id} />}
-        {tab === 'People' && <PeopleTab episodeId={ep.id} />}
-        {tab === 'Subject' && <SubjectTab episodeId={ep.id} />}
-        {tab === 'Craft' && <CraftTab episodeId={ep.id} />}
+        {tab === 'story' && <StoryTab episodeId={ep.id} />}
+        {tab === 'people' && <PeopleTab episodeId={ep.id} />}
+        {tab === 'subject' && <SubjectTab episodeId={ep.id} />}
+        {tab === 'craft' && <CraftTab episodeId={ep.id} />}
       </div>
     </motion.div>
   );

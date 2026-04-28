@@ -37,6 +37,7 @@ import { CrewPositionBoard } from './CrewPositionBoard';
 import { TwoBoatTimeline } from '../schedule/TwoBoatTimeline';
 import { RiskTriggerWatch } from './RiskTriggerWatch';
 import { ProductionPulse } from './ProductionPulse';
+import { useT } from '../../i18n';
 
 interface Props {
   /* Optional override — used by the Production shell's "preview day N" picker. */
@@ -45,12 +46,13 @@ interface Props {
 
 export function TodayTab({ previewDateIso }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const resolved = resolveShootDay(state, previewDateIso);
 
   if (!resolved) {
     return (
       <div className="prose-body italic text-[14px] text-[color:var(--color-on-paper-muted)]">
-        No shoot days configured. Add shoot days in Schedule first.
+        {t('prod.today.no.shootdays')}
       </div>
     );
   }
@@ -81,15 +83,15 @@ export function TodayTab({ previewDateIso }: Props) {
           <div>
             <div className="label-caps text-[color:var(--color-brass-deep)] mb-1">
               {isToday
-                ? 'Today on the boat'
+                ? t('prod.today.title.onboard')
                 : isPreShoot
-                ? `Pre-production · T-minus ${Math.abs(daysAway)} days`
+                ? `${t('prod.today.title.preprod')} · T-minus ${Math.abs(daysAway)} ${t('time.days').toLowerCase()}`
                 : isPostShoot
-                ? `Wrap · ${Math.abs(daysAway)} days past`
-                : `Day ${index} preview`}
+                ? `${t('prod.today.title.wrap')} · ${Math.abs(daysAway)} ${t('time.days').toLowerCase()} ${t('time.ago')}`
+                : `${t('prod.today.day')} ${index} ${t('prod.today.title.daypreview').toLowerCase()}`}
             </div>
             <h2 className="display-italic text-[34px] text-[color:var(--color-on-paper)] leading-tight">
-              Day {index} of {total}
+              {t('prod.today.day')} {index} {t('prod.today.day.of')} {total}
               {episode && (
                 <>
                   <span className="text-[color:var(--color-on-paper-muted)] mx-2.5">·</span>
@@ -108,7 +110,7 @@ export function TodayTab({ previewDateIso }: Props) {
                   {anchorage.label}
                 </>
               )}
-              {!anchorage && day.episodeId && ' · anchorage tbd'}
+              {!anchorage && day.episodeId && ' · ' + t('prod.today.anchorage.tbd')}
             </p>
           </div>
           {episode && (
@@ -120,7 +122,7 @@ export function TodayTab({ previewDateIso }: Props) {
               }}
               className="label-caps text-[color:var(--color-brass-deep)] hover:text-[color:var(--color-on-paper)] transition-colors"
             >
-              open episode →
+              {t('prod.today.open.episode')} →
             </button>
           )}
         </div>
@@ -147,7 +149,7 @@ export function TodayTab({ previewDateIso }: Props) {
         )}
         {!anchorage && (
           <div className="prose-body italic text-[12px] text-[color:var(--color-on-paper-faint)] pt-5 border-t-[0.5px] border-[color:var(--color-border-paper)]">
-            Assign an anchorage to this shoot day in Schedule to see sun + light times.
+            {t('prod.today.assign.anchorage')}
           </div>
         )}
       </section>
@@ -183,11 +185,11 @@ export function TodayTab({ previewDateIso }: Props) {
         {/* Today's shots */}
         <Panel
           icon={Clapperboard}
-          title="Today's shots"
+          title={t('prod.today.panel.shots')}
           headerRight={
             shots.length > 0 ? (
               <span className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] tabular-nums">
-                {counts.captured}/{counts.total} captured
+                {counts.captured}/{counts.total} {t('prod.today.captured')}
               </span>
             ) : null
           }
@@ -243,7 +245,7 @@ export function TodayTab({ previewDateIso }: Props) {
         {/* Today's crew */}
         <Panel
           icon={Users}
-          title="Today's crew"
+          title={t('prod.today.panel.crew')}
           headerRight={
             crew.length > 0 ? (
               <span className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] tabular-nums">
@@ -280,7 +282,7 @@ export function TodayTab({ previewDateIso }: Props) {
         </Panel>
 
         {/* Today's kit (top-line summary) */}
-        <Panel icon={Zap} title="Today's kit">
+        <Panel icon={Zap} title={t('prod.today.panel.kit')}>
           {state.dopKit.length === 0 ? (
             <Empty hint="Tom drops kit specs in Cinematography." />
           ) : (
@@ -291,7 +293,7 @@ export function TodayTab({ previewDateIso }: Props) {
 
       {/* Targets row — anti-script + catch + meal */}
       <div className="grid grid-cols-3 gap-6">
-        <Panel icon={Compass} title="Anti-script targets" subtle="don't miss this">
+        <Panel icon={Compass} title={t('prod.today.panel.antiscript')} subtle={t('prod.today.panel.antiscript.sub')}>
           {antiScript.length === 0 ? (
             <Empty hint="Plant moments per episode in Episodes → Story." />
           ) : (
@@ -321,7 +323,7 @@ export function TodayTab({ previewDateIso }: Props) {
           )}
         </Panel>
 
-        <Panel icon={Fish} title="Catch target" subtle="planned this episode">
+        <Panel icon={Fish} title={t('prod.today.panel.catch')} subtle={t('prod.today.panel.catch.sub')}>
           {catches.length === 0 ? (
             <Empty hint="Log catches in Episode → Subject." />
           ) : (
@@ -342,7 +344,7 @@ export function TodayTab({ previewDateIso }: Props) {
           )}
         </Panel>
 
-        <Panel icon={UtensilsCrossed} title="Meal target" subtle="dish of the day">
+        <Panel icon={UtensilsCrossed} title={t('prod.today.panel.meal')} subtle={t('prod.today.panel.meal.sub')}>
           {meals.length === 0 ? (
             <Empty hint="Plan meals in Episode → Subject." />
           ) : (
@@ -367,7 +369,7 @@ export function TodayTab({ previewDateIso }: Props) {
 
       {/* Walkie + safety */}
       <div className="grid grid-cols-2 gap-6">
-        <Panel icon={Mic} title="Walkie channels">
+        <Panel icon={Mic} title={t('prod.today.panel.walkie')}>
           {state.walkieChannels.length === 0 ? (
             <Empty hint="Set RF channels per crew. Coordinate with Sound's frequency map." />
           ) : (
@@ -395,7 +397,7 @@ export function TodayTab({ previewDateIso }: Props) {
           )}
         </Panel>
 
-        <Panel icon={ShieldCheck} title="Safety brief" subtle="check before first call">
+        <Panel icon={ShieldCheck} title={t('prod.today.panel.safety')} subtle={t('prod.today.panel.safety.sub')}>
           <SafetyChecklist
             state={safety}
             onToggle={(field, value) => {
@@ -430,28 +432,28 @@ export function TodayTab({ previewDateIso }: Props) {
         <section className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] px-6 py-5">
           <header className="flex items-baseline justify-between mb-3">
             <h3 className="display-italic text-[18px] text-[color:var(--color-on-paper)]">
-              Today's wrap
+              {t('prod.today.wrap.title')}
             </h3>
             <span className="prose-body italic text-[11px] text-[color:var(--color-on-paper-faint)]">
-              hand-fill in the Wrap tab tonight
+              {t('prod.today.wrap.handfill')}
             </span>
           </header>
           <div className="grid grid-cols-3 gap-5 text-[13px] prose-body italic text-[color:var(--color-on-paper-muted)] leading-relaxed">
             <div>
               <div className="label-caps text-[color:var(--color-brass-deep)] mb-1">
-                What worked
+                {t('prod.today.wrap.what.worked')}
               </div>
               {wrapEntry.whatWorked || '—'}
             </div>
             <div>
               <div className="label-caps text-[color:var(--color-brass-deep)] mb-1">
-                What didn't
+                {t('prod.today.wrap.what.didnt')}
               </div>
               {wrapEntry.whatDidnt || '—'}
             </div>
             <div>
               <div className="label-caps text-[color:var(--color-brass-deep)] mb-1">
-                Tomorrow's tweaks
+                {t('prod.today.wrap.tomorrow')}
               </div>
               {wrapEntry.tomorrowTweaks || '—'}
             </div>
