@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { Power } from 'lucide-react';
 import { TodayTab } from './TodayTab';
 import { ShotListTab } from './ShotListTab';
 import { BoatOpsTab } from './BoatOpsTab';
 import { DataTab } from './DataTab';
 import { SafetyTab } from './SafetyTab';
 import { WrapTab } from './WrapTab';
+import { ShowDayShell } from './ShowDayShell';
+import { useApp } from '../../state/AppContext';
 
 type TabKey = 'today' | 'shots' | 'boat' | 'data' | 'safety' | 'wrap';
 
@@ -24,10 +27,16 @@ const TABS: TabDef[] = [
 ];
 
 export function ProductionShell() {
+  const { state, dispatch } = useApp();
   const [tab, setTab] = useState<TabKey>('today');
   /* Optional preview-day picker (for demo before October 2026 — lets Tomo
      show "what Day 12 will look like" by jumping forward in time). */
   const [previewDateIso, setPreviewDateIso] = useState<string | undefined>(undefined);
+
+  /* When Show Day Mode is on, render the kiosk shell. */
+  if (state.showDayMode) {
+    return <ShowDayShell />;
+  }
 
   return (
     <div className="space-y-7 max-w-[1400px]">
@@ -73,9 +82,21 @@ export function ProductionShell() {
           );
         })}
 
-        {/* Preview-day picker — lives in the tab strip's right edge */}
+        {/* Preview-day picker + Show Day Mode toggle — right edge */}
         <div className="flex-1" />
         <PreviewDatePicker value={previewDateIso} onChange={setPreviewDateIso} />
+        <button
+          type="button"
+          onClick={() => dispatch({ type: 'TOGGLE_SHOW_DAY_MODE', on: true })}
+          className="ml-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[2px] bg-[color:var(--color-on-paper)] text-[color:var(--color-paper-light)] text-[11px] hover:bg-[color:var(--color-brass-deep)] transition-colors group"
+          title="Switch to kiosk-style show-day layout"
+        >
+          <Power
+            size={11}
+            className="group-hover:rotate-180 transition-transform duration-300"
+          />
+          <span className="display-italic text-[12px]">show day</span>
+        </button>
       </nav>
 
       {/* Tab body */}

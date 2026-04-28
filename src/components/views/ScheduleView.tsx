@@ -9,8 +9,14 @@ import { SlipSimulator } from '../schedule/SlipSimulator';
 import { ShootCalendar } from '../schedule/ShootCalendar';
 import { DeadlineTracker } from '../schedule/DeadlineTracker';
 import { ScheduleBurnDown } from '../schedule/ScheduleBurnDown';
+import { TwoBoatTimelineTab } from '../schedule/TwoBoatTimelineTab';
 
-const TABS = ['Production timeline', 'Shoot calendar', 'Deadlines'] as const;
+const TABS = [
+  'Production timeline',
+  'Shoot calendar',
+  'Two boats',
+  'Deadlines',
+] as const;
 type Tab = (typeof TABS)[number];
 
 export function ScheduleView() {
@@ -81,6 +87,7 @@ export function ScheduleView() {
       )}
 
       {tab === 'Shoot calendar' && <ShootCalendar />}
+      {tab === 'Two boats' && <TwoBoatTimelineTab />}
       {tab === 'Deadlines' && <DeadlineTracker />}
     </div>
   );

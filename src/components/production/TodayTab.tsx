@@ -33,6 +33,10 @@ import {
 import { LiveConditionsFeed } from '../conditions/LiveConditionsFeed';
 import { CameraStatusStrip } from '../dop/CameraStatusStrip';
 import { SurpriseCaptureLog } from '../surprise/SurpriseCaptureLog';
+import { CrewPositionBoard } from './CrewPositionBoard';
+import { TwoBoatTimeline } from '../schedule/TwoBoatTimeline';
+import { RiskTriggerWatch } from './RiskTriggerWatch';
+import { ProductionPulse } from './ProductionPulse';
 
 interface Props {
   /* Optional override — used by the Production shell's "preview day N" picker. */
@@ -148,6 +152,9 @@ export function TodayTab({ previewDateIso }: Props) {
         )}
       </section>
 
+      {/* Production pulse — Phase 12 (day health at-a-glance) */}
+      <ProductionPulse date={day.date} compact />
+
       {/* Live conditions strip — Phase 12 */}
       <LiveConditionsFeed date={day.date} locationId={anchorage?.id} />
 
@@ -161,6 +168,15 @@ export function TodayTab({ previewDateIso }: Props) {
         date={day.date}
         compact
       />
+
+      {/* Crew position board — Phase 12 */}
+      <CrewPositionBoard date={day.date} compact />
+
+      {/* Two-boat timeline — Phase 12 (compact read view) */}
+      <TwoBoatTimeline date={day.date} compact />
+
+      {/* Risk trigger watch — Phase 12 */}
+      <RiskTriggerWatch date={day.date} compact />
 
       {/* Three-column body */}
       <div className="grid grid-cols-3 gap-6">

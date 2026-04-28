@@ -23,6 +23,7 @@ import type {
 } from '../../types';
 import { EditableText } from '../primitives/EditableText';
 import { countShotStatus } from './productionSelectors';
+import { ProductionHeatmap } from './ProductionHeatmap';
 
 const SHOT_STATUSES: ShotStatus[] = ['planned', 'captured', 'cut', 'deferred'];
 const STATUS_TONE: Record<ShotStatus, string> = {
@@ -120,6 +121,9 @@ export function ShotListTab() {
 
   return (
     <div className="space-y-7 max-w-[1400px]">
+      {/* Production Heatmap — Phase 12 (top of shot list) */}
+      <ProductionHeatmap groupBy="scene" />
+
       {/* Episode tabs */}
       <nav className="flex items-baseline gap-1 flex-wrap pb-3 border-b-[0.5px] border-[color:var(--color-border-paper)]">
         {allEpisodes.map((ep) => {

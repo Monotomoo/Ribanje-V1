@@ -4,10 +4,12 @@ import type {
   Asset,
   AudioCommission,
   BoatOpsDay,
+  BoatWaypoint,
   Broadcaster,
   BTSCapture,
   CameraStatus,
   Catch,
+  CrewPosition,
   ColorPalette,
   ColorScriptStop,
   ConditionsForecast,
@@ -307,7 +309,17 @@ export type Action =
   /* Phase 12 — Camera live status (per slot per day) */
   | { type: 'UPSERT_CAMERA_STATUS'; status: CameraStatus }
   | { type: 'UPDATE_CAMERA_STATUS'; id: string; patch: Partial<CameraStatus> }
-  | { type: 'DELETE_CAMERA_STATUS'; id: string };
+  | { type: 'DELETE_CAMERA_STATUS'; id: string }
+  /* Phase 12 — Two-Boat Timeline waypoints */
+  | { type: 'ADD_BOAT_WAYPOINT'; waypoint: BoatWaypoint }
+  | { type: 'UPDATE_BOAT_WAYPOINT'; id: string; patch: Partial<BoatWaypoint> }
+  | { type: 'DELETE_BOAT_WAYPOINT'; id: string }
+  /* Phase 12 — Crew Position Board (per crew per day) */
+  | { type: 'UPSERT_CREW_POSITION'; position: CrewPosition }
+  | { type: 'UPDATE_CREW_POSITION'; id: string; patch: Partial<CrewPosition> }
+  | { type: 'DELETE_CREW_POSITION'; id: string }
+  /* Phase 12 — Show-Day Mode toggle */
+  | { type: 'TOGGLE_SHOW_DAY_MODE'; on: boolean };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1398,6 +1410,61 @@ export function reducer(state: AppState, action: Action): AppState {
         ...state,
         cameraStatuses: state.cameraStatuses.filter((s) => s.id !== action.id),
       };
+
+    /* Phase 12 — Two-Boat Timeline waypoints */
+    case 'ADD_BOAT_WAYPOINT':
+      return {
+        ...state,
+        boatWaypoints: [...state.boatWaypoints, action.waypoint],
+      };
+    case 'UPDATE_BOAT_WAYPOINT':
+      return {
+        ...state,
+        boatWaypoints: state.boatWaypoints.map((w) =>
+          w.id === action.id ? { ...w, ...action.patch } : w
+        ),
+      };
+    case 'DELETE_BOAT_WAYPOINT':
+      return {
+        ...state,
+        boatWaypoints: state.boatWaypoints.filter((w) => w.id !== action.id),
+      };
+
+    /* Phase 12 — Crew Position Board */
+    case 'UPSERT_CREW_POSITION': {
+      /* Upsert by (crewId + date) — there's only one current position per
+         crew per day. Re-upserting overwrites, preserving id if present. */
+      const existingIdx = state.crewPositions.findIndex(
+        (p) => p.crewId === action.position.crewId && p.date === action.position.date
+      );
+      if (existingIdx === -1) {
+        return {
+          ...state,
+          crewPositions: [...state.crewPositions, action.position],
+        };
+      }
+      const next = state.crewPositions.slice();
+      next[existingIdx] = action.position;
+      return { ...state, crewPositions: next };
+    }
+    case 'UPDATE_CREW_POSITION':
+      return {
+        ...state,
+        crewPositions: state.crewPositions.map((p) =>
+          p.id === action.id
+            ? { ...p, ...action.patch, updatedAt: new Date().toISOString() }
+            : p
+        ),
+      };
+    case 'DELETE_CREW_POSITION':
+      return {
+        ...state,
+        crewPositions: state.crewPositions.filter((p) => p.id !== action.id),
+      };
+
+    /* Phase 12 — Show-Day Mode toggle */
+    case 'TOGGLE_SHOW_DAY_MODE':
+      return { ...state, showDayMode: action.on };
 
     default:
       return state;

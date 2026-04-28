@@ -1313,6 +1313,9 @@ export function makeInitialState(): AppState {
     /* Phase 12 — Shoot-day live surfaces (empty until first shoot day) */
     conditionsForecasts: [],
     cameraStatuses: [],
+    boatWaypoints: [],
+    crewPositions: [],
+    showDayMode: false,
     selectedEpisodeId: null,
     printMode: false,
     paletteOpen: false,

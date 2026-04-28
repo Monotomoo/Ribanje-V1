@@ -832,6 +832,49 @@ export interface WalkieChannel {
   backup?: string;
 }
 
+/* ---------- Two-Boat Timeline (Phase 12) ----------
+   Synchronised time-axis showing where each boat is hour-by-hour. Talent
+   boat (with subjects, captain Luka) and camera boat (Tom + crew) need to
+   rendezvous at the hero shot. The timeline highlights overlap windows
+   and travel-time gaps. */
+
+export type BoatRole = 'talent' | 'camera' | 'support';
+
+export interface BoatWaypoint {
+  id: string;
+  date: string;                  // ISO YYYY-MM-DD
+  boatRole: BoatRole;
+  time: string;                  // 'HH:MM' local
+  locationId?: string;           // resolved Location reference
+  customLabel?: string;          // free-form if not a known location
+  arriveOrDepart: 'arrive' | 'depart' | 'pass';
+  notes?: string;
+}
+
+/* ---------- Crew Position Board (Phase 12) ----------
+   "Where is everyone right now?" Per-crew snapshot of position during a
+   shoot day. Updated throughout the day — the board is a moveable map of
+   the crew across the operation. */
+
+export type CrewPositionSlot =
+  | 'talent-boat'
+  | 'camera-boat'
+  | 'support-boat'
+  | 'shore'
+  | 'lunch'
+  | 'prep'
+  | 'travel'
+  | 'off';
+
+export interface CrewPosition {
+  id: string;
+  crewId: string;
+  date: string;                  // ISO YYYY-MM-DD — a fresh snapshot per day
+  slot: CrewPositionSlot;
+  updatedAt: string;             // ISO timestamp
+  notes?: string;
+}
+
 /* ---------- Camera status strip (Phase 12) ----------
    Per-camera-slot live status during a shoot day. Big touch tiles, RYG
    colour, readable in sun. Updated by whoever's near the cameras. */
@@ -1347,6 +1390,12 @@ export interface AppState {
   /* Phase 12 — Shoot-day live surfaces */
   conditionsForecasts: ConditionsForecast[];
   cameraStatuses: CameraStatus[];
+  boatWaypoints: BoatWaypoint[];
+  crewPositions: CrewPosition[];
+  /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
+     while the shoot is in flight, off otherwise). Not strictly UI state —
+     it changes which tabs render and affects font sizes / chrome / etc. */
+  showDayMode: boolean;
   /* UI state — not persisted */
   selectedEpisodeId: string | null;
   printMode: boolean;
