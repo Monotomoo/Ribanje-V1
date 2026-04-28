@@ -7,6 +7,7 @@ import { NoteThread } from '../primitives/NoteThread';
 import { LCDCard } from '../primitives/LCDCard';
 import { newId } from '../episode/shared';
 import { CrewDrawer } from '../crew/CrewDrawer';
+import { CrewLoadHeatmap } from '../crew/CrewLoadHeatmap';
 
 const TABS = ['Roster', 'Tasks', 'Cross-team notes', 'Standup'] as const;
 type Tab = (typeof TABS)[number];
@@ -119,7 +120,10 @@ export function CrewView() {
       </div>
 
       {tab === 'Roster' && (
-        <section>
+        <section className="space-y-6">
+          {/* Crew-load heatmap — Phase 12 (top of roster for overcommit detection) */}
+          <CrewLoadHeatmap />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {state.crew.map((m) => {
               const counts = taskCounts[m.id];

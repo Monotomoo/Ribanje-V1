@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import type { Episode, Location } from '../../types';
 import { EPISODE_COLORS } from './AdriaticChart';
 import { LiveConditionsFeed } from '../conditions/LiveConditionsFeed';
+import { BackupLocationChain } from '../locations/BackupLocationChain';
 import { useApp } from '../../state/AppContext';
 
 interface Props {
@@ -108,6 +109,11 @@ export function LocationDrawer({ location, episodes, onClose }: Props) {
                   />
                 </div>
               )}
+
+              {/* Backup chain editor — Phase 12 */}
+              <div className="pt-2">
+                <BackupLocationChain locationId={location.id} compact />
+              </div>
 
               <div className="pt-3 border-t-[0.5px] border-[color:var(--color-border-paper)] prose-body italic text-[12px] text-[color:var(--color-on-paper-muted)]">
                 Editing land in Phase 6 — for now this is read-only.

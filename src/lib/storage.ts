@@ -158,6 +158,7 @@ function migrateState(loaded: Partial<AppState>): AppState {
     cameraStatuses: loaded.cameraStatuses ?? defaults.cameraStatuses,
     boatWaypoints: loaded.boatWaypoints ?? defaults.boatWaypoints,
     crewPositions: loaded.crewPositions ?? defaults.crewPositions,
+    permits: loaded.permits ?? defaults.permits,
     showDayMode: loaded.showDayMode ?? defaults.showDayMode,
     /* Scenarios deserve a per-key merge so a saved state with old funding
        keys doesn't lose the brief's full keyset. Shallow merge is enough

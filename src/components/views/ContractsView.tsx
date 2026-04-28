@@ -3,6 +3,7 @@ import { useApp } from '../../state/AppContext';
 import type { Contract, ContractStatus, ContractType } from '../../types';
 import { EditableText } from '../primitives/EditableText';
 import { newId } from '../episode/shared';
+import { PermitLegalWall } from '../legal/PermitLegalWall';
 
 const TYPES: ContractType[] = [
   'talent-release',
@@ -51,10 +52,10 @@ export function ContractsView() {
       <div className="flex items-baseline justify-between">
         <div>
           <h2 className="display-italic text-[24px] text-[color:var(--color-on-paper)]">
-            Contracts
+            Contracts &amp; legal
           </h2>
           <p className="prose-body italic text-[13px] text-[color:var(--color-on-paper-muted)] mt-0.5">
-            Releases, clearances, and the paperwork that keeps the show shootable.
+            Releases, clearances, permits, insurance — the paperwork that keeps the show shootable.
           </p>
         </div>
         <button
@@ -66,6 +67,9 @@ export function ContractsView() {
           New contract
         </button>
       </div>
+
+      {/* Permit & Legal Wall — Phase 12 (cross-cutting view above the contract table) */}
+      <PermitLegalWall />
 
       <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] overflow-hidden">
         <header className="grid grid-cols-[180px_1fr_180px_140px_140px_40px] items-baseline gap-4 px-6 py-3 border-b-[0.5px] border-[color:var(--color-border-paper)] label-caps text-[color:var(--color-on-paper-faint)]">

@@ -15,6 +15,7 @@ import { SponsorTemplates } from '../pitch/SponsorTemplates';
 import { Lab } from '../pitch/Lab';
 import { TreatmentWriter } from '../pitch/TreatmentWriter';
 import { FestivalTracker } from '../pitch/FestivalTracker';
+import { FestivalDeadlineLadder } from '../distribution/FestivalDeadlineLadder';
 import { Applications } from '../pitch/Applications';
 import { PressKit } from '../pitch/PressKit';
 import { DeckVariants } from '../pitch/DeckVariants';
@@ -103,7 +104,12 @@ export function PitchView() {
           figures={figures}
         />
       )}
-      {tab === 'Festivals' && <FestivalTracker />}
+      {tab === 'Festivals' && (
+        <div className="space-y-6">
+          <FestivalDeadlineLadder />
+          <FestivalTracker />
+        </div>
+      )}
       {tab === 'Applications' && <Applications />}
       {tab === 'Press kit' && <PressKit />}
     </div>

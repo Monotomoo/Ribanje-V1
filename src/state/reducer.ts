@@ -37,6 +37,7 @@ import type {
   Milestone,
   Note,
   OutreachContact,
+  PermitLegal,
   PressContact,
   Producer,
   Reference,
@@ -319,7 +320,11 @@ export type Action =
   | { type: 'UPDATE_CREW_POSITION'; id: string; patch: Partial<CrewPosition> }
   | { type: 'DELETE_CREW_POSITION'; id: string }
   /* Phase 12 — Show-Day Mode toggle */
-  | { type: 'TOGGLE_SHOW_DAY_MODE'; on: boolean };
+  | { type: 'TOGGLE_SHOW_DAY_MODE'; on: boolean }
+  /* Phase 12 wave 3 — Permit / Legal Wall */
+  | { type: 'ADD_PERMIT'; permit: PermitLegal }
+  | { type: 'UPDATE_PERMIT'; id: string; patch: Partial<PermitLegal> }
+  | { type: 'DELETE_PERMIT'; id: string };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1465,6 +1470,25 @@ export function reducer(state: AppState, action: Action): AppState {
     /* Phase 12 — Show-Day Mode toggle */
     case 'TOGGLE_SHOW_DAY_MODE':
       return { ...state, showDayMode: action.on };
+
+    /* Phase 12 wave 3 — Permit / Legal Wall */
+    case 'ADD_PERMIT':
+      return {
+        ...state,
+        permits: [...state.permits, action.permit],
+      };
+    case 'UPDATE_PERMIT':
+      return {
+        ...state,
+        permits: state.permits.map((p) =>
+          p.id === action.id ? { ...p, ...action.patch } : p
+        ),
+      };
+    case 'DELETE_PERMIT':
+      return {
+        ...state,
+        permits: state.permits.filter((p) => p.id !== action.id),
+      };
 
     default:
       return state;

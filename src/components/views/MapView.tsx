@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useApp } from '../../state/AppContext';
 import { AdriaticChart, EPISODE_COLORS } from '../map/AdriaticChart';
 import { LocationDrawer } from '../map/LocationDrawer';
+import { BackupLocationChain } from '../locations/BackupLocationChain';
 
 export function MapView() {
   const { state } = useApp();
@@ -38,6 +39,9 @@ export function MapView() {
       />
 
       <Legend entries={episodeEntries} />
+
+      {/* Backup chains overview — Phase 12 */}
+      <BackupLocationChain />
 
       <LocationDrawer
         location={selected}

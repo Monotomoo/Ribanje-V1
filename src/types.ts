@@ -216,6 +216,19 @@ export interface Location {
   tideAmplitudeM?: number;    // typical tidal range, meters (Adriatic ~0.3m, head of Adriatic up to 1m)
   tideLowTime?: string;       // approx low-tide local time, free-form e.g. "06:30"
   tideHighTime?: string;      // approx high-tide local time
+  /* Phase 12 — Backup location chain.
+     If primary fails (rain · wind · sea · permit denied), fall through
+     to plan B, then plan C. Order matters — index 0 is the first backup. */
+  backupChain?: BackupChainEntry[];
+}
+
+export type BackupCondition = 'rain' | 'wind' | 'sea' | 'permit' | 'access' | 'general';
+
+export interface BackupChainEntry {
+  backupLocationId: string;
+  condition?: BackupCondition;     // what triggers the fallback
+  travelMinutes?: number;          // est. travel time from primary
+  notes?: string;
 }
 
 export interface Route {
@@ -832,6 +845,65 @@ export interface WalkieChannel {
   backup?: string;
 }
 
+/* ---------- Permit & Legal Wall (Phase 12) ----------
+
+   Cross-cuts Contracts (existing) with regulatory / governmental /
+   insurance items that don't fit the contract model. Croatian
+   production reality:
+
+     • P-1 (porez na dohodak — income tax form)
+     • JOPPD (monthly tax + social security report)
+     • Autorski ugovor (author's contract — covered by Contracts)
+     • Location permits (national parks, public spaces, harbors)
+     • Drone permits (CARO — Croatian Aviation Authority)
+     • Maritime permits (charter boat licensing)
+     • Equipment insurance (per gear bag)
+     • E&O insurance (errors & omissions)
+     • Production insurance (general liability)
+     • Music clearance (HDS-ZAMP)
+     • Talent releases (covered by Contracts)
+
+   The Wall view aggregates BOTH this entity AND filtered Contracts so
+   the producer sees one red-yellow-green grid: what blocks shoot. */
+
+export type PermitCategory =
+  | 'tax'              // P-1, JOPPD, autorski ugovor declarations
+  | 'location'         // permits for shooting at specific places
+  | 'drone'            // CARO drone permits
+  | 'maritime'         // boat charter, captain, port permissions
+  | 'insurance'        // equipment, E&O, production, liability
+  | 'music-rights'     // HDS-ZAMP, mechanical, sync
+  | 'talent-release'   // duplicates Contract for cross-view convenience
+  | 'broadcast'        // HRT delivery requirements, network compliance
+  | 'other';
+
+export type PermitStatus =
+  | 'not-started'
+  | 'in-progress'
+  | 'submitted'
+  | 'approved'
+  | 'expired'
+  | 'denied';
+
+export interface PermitLegal {
+  id: string;
+  category: PermitCategory;
+  label: string;                  // e.g. "Stari Grad Plain UNESCO permit"
+  jurisdiction?: string;          // 'Croatia', 'EU', etc.
+  authority?: string;             // 'Ministarstvo kulture', 'CARO', 'HZZO'
+  applicationDate?: string;        // ISO YYYY-MM-DD
+  decisionDate?: string;           // ISO when approved/denied
+  expiryDate?: string;             // ISO if time-limited
+  status: PermitStatus;
+  ownerId?: string;                // crew responsible
+  locationId?: string;             // tied to a specific location
+  episodeId?: string;
+  feeEur?: number;
+  blocksShoot?: boolean;           // explicit flag — RED if not approved
+  documentUrl?: string;
+  notes?: string;
+}
+
 /* ---------- Two-Boat Timeline (Phase 12) ----------
    Synchronised time-axis showing where each boat is hour-by-hour. Talent
    boat (with subjects, captain Luka) and camera boat (Tom + crew) need to
@@ -1392,6 +1464,8 @@ export interface AppState {
   cameraStatuses: CameraStatus[];
   boatWaypoints: BoatWaypoint[];
   crewPositions: CrewPosition[];
+  /* Phase 12 wave 3 — planning ammo */
+  permits: PermitLegal[];
   /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */

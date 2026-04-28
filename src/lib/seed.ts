@@ -1315,6 +1315,8 @@ export function makeInitialState(): AppState {
     cameraStatuses: [],
     boatWaypoints: [],
     crewPositions: [],
+    /* Phase 12 wave 3 — planning ammo */
+    permits: [],
     showDayMode: false,
     selectedEpisodeId: null,
     printMode: false,
