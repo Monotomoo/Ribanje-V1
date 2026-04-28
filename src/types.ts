@@ -1470,6 +1470,9 @@ export interface AppState {
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */
   showDayMode: boolean;
+  /* Phase 12 wave 4 — i18n locale. 'en' or 'hr'. Persisted so once Tomo
+     flips to Croatian, it sticks across sessions. */
+  locale: 'en' | 'hr';
   /* UI state — not persisted */
   selectedEpisodeId: string | null;
   printMode: boolean;

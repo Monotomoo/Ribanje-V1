@@ -1,0 +1,230 @@
+import type { Strings } from './en';
+
+/* ---------- Croatian strings ----------
+   Mirror of en.ts. The `Strings` type forces parity — TypeScript will
+   error if a key is missing.
+
+   Convention notes:
+     • Croatian capitalises only the first word in titles (sentence case).
+     • Verbs use imperative for buttons (dodaj · obriši · spremi).
+     • For the documentary maritime context, prefer native maritime terms
+       (sidro = anchor · plovidba = sailing) over generic loanwords. */
+
+export const hr: Strings = {
+  /* ---------- Sidebar nav ---------- */
+  'nav.overview':     'Pregled',
+  'nav.schedule':     'Raspored',
+  'nav.production':   'Produkcija',
+  'nav.episodes':     'Epizode',
+  'nav.dop':          'Direkcija fotografije',
+  'nav.sound':        'Zvuk',
+  'nav.map':          'Lokacije',
+  'nav.research':     'Istraživanje',
+  'nav.crew':         'Ekipa',
+  'nav.sponsors':     'Sponzori',
+  'nav.pitch':        'Prezentacija',
+  'nav.contracts':    'Ugovori i pravo',
+  'nav.risks':        'Rizici',
+  'nav.post':         'Postprodukcija',
+  'nav.distribution': 'Distribucija',
+  'nav.marketing':    'Marketing',
+  'nav.journal':      'Dnevnik',
+
+  /* Sidebar group headers */
+  'nav.group.plan':    'Planiranje',
+  'nav.group.make':    'Izrada',
+  'nav.group.tell':    'Ispričaj',
+  'nav.group.library': 'Biblioteka',
+
+  /* ---------- Common UI ---------- */
+  'common.add':       'Dodaj',
+  'common.delete':    'Obriši',
+  'common.edit':      'Uredi',
+  'common.save':      'Spremi',
+  'common.cancel':    'Odustani',
+  'common.close':     'Zatvori',
+  'common.confirm':   'Potvrdi',
+  'common.remove':    'Ukloni',
+  'common.open':      'Otvori',
+  'common.search':    'Traži',
+  'common.filter':    'Filtar',
+  'common.export':    'Izvezi',
+  'common.import':    'Uvezi',
+  'common.print':     'Ispis',
+  'common.notes':     'Bilješke',
+  'common.notes.placeholder':   'Bilješke',
+  'common.untitled':  'Bez naslova',
+  'common.empty':     'Prazno',
+  'common.required':  'Obavezno',
+  'common.optional':  'Opcionalno',
+  'common.today':     'Danas',
+  'common.yesterday': 'Jučer',
+  'common.tomorrow':  'Sutra',
+  'common.now':       'Sad',
+  'common.expand':    'Proširi',
+  'common.collapse':  'Sažmi',
+  'common.more':      'Više',
+  'common.show':      'Prikaži',
+  'common.hide':      'Sakrij',
+  'common.all':       'Sve',
+  'common.none':      'Ništa',
+  'common.yes':       'Da',
+  'common.no':        'Ne',
+  'common.ok':        'U redu',
+
+  /* ---------- Status pills ---------- */
+  'status.planned':    'Planirano',
+  'status.captured':   'Snimljeno',
+  'status.cut':        'Izrezano',
+  'status.deferred':   'Odgođeno',
+  'status.in-progress': 'U tijeku',
+  'status.done':       'Gotovo',
+  'status.blocked':    'Blokirano',
+  'status.target':     'Cilj',
+  'status.submitted':  'Predano',
+  'status.accepted':   'Prihvaćeno',
+  'status.declined':   'Odbijeno',
+  'status.won':        'Osvojeno',
+  'status.withdrawn':  'Povučeno',
+  'status.signed':     'Potpisano',
+  'status.drafted':    'Skica',
+  'status.sent':       'Poslano',
+  'status.expired':    'Isteklo',
+  'status.approved':   'Odobreno',
+  'status.denied':     'Odbijeno',
+  'status.not-started': 'Nije započeto',
+
+  /* ---------- Day / time ---------- */
+  'time.day':          'Dan',
+  'time.days':         'Dana',
+  'time.hour':         'Sat',
+  'time.hours':        'Sati',
+  'time.minute':       'Minuta',
+  'time.minutes':      'Minute',
+  'time.shoot.day':    'Dan snimanja',
+  'time.preshoot':     'Predprodukcija',
+  'time.wrap':         'Završetak',
+  'time.t-minus':      'T-minus',
+  'time.days.away':    'dana udaljeno',
+  'time.days.ago':     'dana prije',
+  'time.just.now':     'upravo sad',
+  'time.ago':          'prije',
+  'time.left':         'preostalo',
+  'time.until':        'do',
+
+  /* ---------- Light / sun ---------- */
+  'light.sunrise':            'Izlazak sunca',
+  'light.sunset':             'Zalazak sunca',
+  'light.golden.morning':     'Zlatni jutarnji',
+  'light.golden.evening':     'Zlatni večernji',
+  'light.solar.noon':         'Solarno podne',
+  'light.golden.ends':        'Zlatni kraj',
+  'light.golden.start':       'Zlatni početak',
+  'light.predawn':            'Predzora',
+  'light.morning':            'Jutro',
+  'light.midday':             'Podne',
+  'light.afternoon':          'Popodne',
+  'light.twilight':           'Sumrak',
+  'light.night':              'Noć',
+
+  /* ---------- Conditions feed ---------- */
+  'cond.title':           'Uvjeti uživo',
+  'cond.lane.sun':        'Putanja sunca',
+  'cond.lane.wind':       'Vjetar',
+  'cond.lane.tide':       'Plima',
+  'cond.lane.sea':        'More',
+  'cond.lane.cloud':      'Oblaci · kiša',
+  'cond.empty':           'Nema učitane prognoze',
+  'cond.seed.sun.tide':   'Učitaj sunce + plimu',
+  'cond.now.cursor':      'sad',
+
+  /* ---------- Shoot day surfaces ---------- */
+  'cam.title':            'Status kamera',
+  'cam.battery':          'Baterija',
+  'cam.card':             'Kartica',
+  'cam.sync':             'Timecode',
+  'cam.iso':              'ISO',
+  'cam.wb':               'WB',
+  'cam.operator':         'Operater',
+  'cam.fresh.setup':      'Nova postavka',
+  'cam.tap.tile.update':  'Dodirni pločicu za izmjenu',
+
+  'surprise.title':       'Iznenađenje',
+  'surprise.capture.now': 'Snimi sada',
+  'surprise.subtitle':    'jedan dodir → bilježi vrijeme + mjesto',
+  'surprise.empty':       'Još ništa nije snimljeno — dodirni gore kad se dogodi nešto neplanirano',
+  'surprise.tag.beat':    'Označi takt',
+  'surprise.add.memo':    'Dodaj glasovnu poruku',
+  'surprise.promote':     'Uvrsti u plan',
+
+  'crew.title':           'Pozicije ekipe',
+  'crew.placed':          'raspoređeno',
+  'crew.unassigned':      'neraspoređeno · ovdje za očistiti poziciju',
+
+  'pulse.title':          'Puls produkcije',
+  'pulse.subtitle':       'zdravlje dana · pregledaj u 2 sekunde',
+  'pulse.shots':          'Kadrovi',
+  'pulse.takes':          'Snimke',
+  'pulse.batteries':      'Baterije',
+  'pulse.cards':          'Kartice',
+  'pulse.sync':           'Sync',
+  'pulse.risks':          'Rizici',
+  'pulse.surprises':      'Iznenađenja',
+
+  'risk.title':           'Praćenje okidača rizika',
+  'risk.triggered':       'Aktivni',
+  'risk.watch':           'Nadzor',
+  'risk.dormant':         'Mirni',
+  'risk.all.dormant':     'Svi rizici mirni',
+
+  'twoboat.title':        'Vremenska crta dva broda',
+  'twoboat.talent':       'Brod talenata',
+  'twoboat.camera':       'Brod kamera',
+  'twoboat.support':      'Pomoćni',
+  'twoboat.rendezvous':   'Trenuci susreta',
+
+  'showday.banner':       'Mod snimanja',
+  'showday.exit':         'Izađi iz moda',
+  'showday.next.shot':    'Sljedeći kadar',
+  'showday.all.captured': 'Svi planirani kadrovi snimljeni.',
+
+  /* ---------- Pre-shoot status wall ---------- */
+  'status.wall.title':       'Status pred snimanje',
+  'status.wall.module.health': 'Zdravlje modula',
+  'status.wall.top.risks':   'Glavni rizici',
+  'status.wall.decisions':   'Odluke',
+  'status.wall.decisions.made': 'donesenih',
+  'status.wall.decisions.pending': 'na čekanju',
+  'status.wall.next.milestones': 'Sljedeće prekretnice',
+
+  /* ---------- Locations ---------- */
+  'loc.coordinates':       'Koordinate',
+  'loc.type':              'Vrsta',
+  'loc.golden.hour':       'Zlatni sat',
+  'loc.backup.title':      'Rezervni lanac',
+  'loc.backup.primary':    'primarno',
+  'loc.backup.add':        'Dodaj rezervu',
+  'loc.backup.no.fallback': 'bez rezerve',
+  'loc.backup.empty':      'Nema planiranih rezervi',
+
+  /* ---------- Permits ---------- */
+  'permit.title':           'Dozvole i pravo',
+  'permit.blocking.shoot':  'Blokira snimanje — mora se riješiti',
+  'permit.add.template':    'Dodaj iz predloška',
+  'permit.blank':           'Prazno',
+  'permit.blocks.shoot':    'blokira snimanje',
+
+  /* ---------- Festival ---------- */
+  'fest.title':             'Lista festivalskih rokova',
+  'fest.urgent':            'Hitno · u sljedećih 30 dana',
+  'fest.upcoming':          'Predstojeći',
+  'fest.past':              'Prošlo / predano',
+  'fest.mark.submitted':    'označi predano',
+  'fest.templates':         'Predlošci',
+
+  /* ---------- App chrome ---------- */
+  'app.title':              'Tomova kabina',
+  'app.subtitle':           'dokumentarac u produkciji',
+  'app.command.palette':    'Komandna paleta',
+  'app.capture':            'Hvatanje',
+};

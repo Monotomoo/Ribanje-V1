@@ -1318,6 +1318,7 @@ export function makeInitialState(): AppState {
     /* Phase 12 wave 3 — planning ammo */
     permits: [],
     showDayMode: false,
+    locale: 'en',
     selectedEpisodeId: null,
     printMode: false,
     paletteOpen: false,

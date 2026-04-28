@@ -1,4 +1,5 @@
 import { useApp } from '../../state/AppContext';
+import { PreShootStatusWall } from '../status/PreShootStatusWall';
 import { TodayBrief } from '../overview/TodayBrief';
 import { CockpitGauges } from '../overview/CockpitGauges';
 import { ProductionRibbon } from '../overview/ProductionRibbon';
@@ -54,6 +55,9 @@ export function OverviewView() {
 
   return (
     <div className="space-y-10 max-w-[1400px]">
+      {/* 0. PRE-SHOOT STATUS WALL — meta-overview at the very top */}
+      <PreShootStatusWall />
+
       {/* 1. TODAY BRIEF — date, countdown, focus cards, verse */}
       <TodayBrief onJump={jump} />
 

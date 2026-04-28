@@ -324,7 +324,9 @@ export type Action =
   /* Phase 12 wave 3 — Permit / Legal Wall */
   | { type: 'ADD_PERMIT'; permit: PermitLegal }
   | { type: 'UPDATE_PERMIT'; id: string; patch: Partial<PermitLegal> }
-  | { type: 'DELETE_PERMIT'; id: string };
+  | { type: 'DELETE_PERMIT'; id: string }
+  /* Phase 12 wave 4 — i18n locale */
+  | { type: 'SET_LOCALE'; locale: 'en' | 'hr' };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1489,6 +1491,10 @@ export function reducer(state: AppState, action: Action): AppState {
         ...state,
         permits: state.permits.filter((p) => p.id !== action.id),
       };
+
+    /* Phase 12 wave 4 — i18n locale */
+    case 'SET_LOCALE':
+      return { ...state, locale: action.locale };
 
     default:
       return state;

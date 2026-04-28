@@ -23,54 +23,56 @@ import {
 import type { ComponentType } from 'react';
 import { useApp } from '../../state/AppContext';
 import type { ViewKey } from '../../types';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 
 interface NavItem {
   key: ViewKey;
-  label: string;
+  labelKey: StringKey;
   icon: ComponentType<{ size?: number; className?: string }>;
 }
 
 interface NavGroup {
-  label: string;
+  labelKey: StringKey;
   items: NavItem[];
 }
 
 const GROUPS: NavGroup[] = [
   {
-    label: 'Plan',
+    labelKey: 'nav.group.plan',
     items: [
-      { key: 'overview', label: 'Overview',  icon: LayoutDashboard },
-      { key: 'schedule', label: 'Schedule',  icon: CalendarRange },
-      { key: 'sponsors', label: 'Sponsors',  icon: Handshake },
-      { key: 'crew',     label: 'Crew',      icon: Users },
-      { key: 'risks',    label: 'Risks',     icon: AlertTriangle },
+      { key: 'overview', labelKey: 'nav.overview', icon: LayoutDashboard },
+      { key: 'schedule', labelKey: 'nav.schedule', icon: CalendarRange },
+      { key: 'sponsors', labelKey: 'nav.sponsors', icon: Handshake },
+      { key: 'crew',     labelKey: 'nav.crew',     icon: Users },
+      { key: 'risks',    labelKey: 'nav.risks',    icon: AlertTriangle },
     ],
   },
   {
-    label: 'Make',
+    labelKey: 'nav.group.make',
     items: [
-      { key: 'episodes',   label: 'Episodes',       icon: Film },
-      { key: 'production', label: 'Production',     icon: Clapperboard },
-      { key: 'dop',        label: 'Cinematography', icon: Aperture },
-      { key: 'sound',      label: 'Sound',          icon: AudioWaveform },
-      { key: 'map',        label: 'Map',            icon: Compass },
+      { key: 'episodes',   labelKey: 'nav.episodes',   icon: Film },
+      { key: 'production', labelKey: 'nav.production', icon: Clapperboard },
+      { key: 'dop',        labelKey: 'nav.dop',        icon: Aperture },
+      { key: 'sound',      labelKey: 'nav.sound',      icon: AudioWaveform },
+      { key: 'map',        labelKey: 'nav.map',        icon: Compass },
     ],
   },
   {
-    label: 'Tell',
+    labelKey: 'nav.group.tell',
     items: [
-      { key: 'pitch',        label: 'Pitch',           icon: FileText },
-      { key: 'journal',      label: 'Journal',         icon: Notebook },
-      { key: 'contracts',    label: 'Contracts',       icon: Scroll },
-      { key: 'post',         label: 'Post-production', icon: Disc3 },
-      { key: 'distribution', label: 'Distribution',    icon: Send },
-      { key: 'marketing',    label: 'Marketing',       icon: Megaphone },
+      { key: 'pitch',        labelKey: 'nav.pitch',        icon: FileText },
+      { key: 'journal',      labelKey: 'nav.journal',      icon: Notebook },
+      { key: 'contracts',    labelKey: 'nav.contracts',    icon: Scroll },
+      { key: 'post',         labelKey: 'nav.post',         icon: Disc3 },
+      { key: 'distribution', labelKey: 'nav.distribution', icon: Send },
+      { key: 'marketing',    labelKey: 'nav.marketing',    icon: Megaphone },
     ],
   },
   {
-    label: 'Library',
+    labelKey: 'nav.group.library',
     items: [
-      { key: 'research', label: 'Research', icon: BookOpen },
+      { key: 'research', labelKey: 'nav.research', icon: BookOpen },
     ],
   },
 ];
@@ -83,6 +85,7 @@ interface SidebarProps {
 
 export function Sidebar({ drawerOpen = false, onCloseDrawer }: SidebarProps = {}) {
   const { state, dispatch, undo, redo, canUndo, canRedo } = useApp();
+  const t = useT();
 
   function setView(view: ViewKey) {
     dispatch({ type: 'SET_VIEW', view });
@@ -126,10 +129,10 @@ export function Sidebar({ drawerOpen = false, onCloseDrawer }: SidebarProps = {}
       {/* Nav groups */}
       <nav className="flex-1 overflow-y-auto px-4 pb-4">
         {GROUPS.map((group) => (
-          <div key={group.label} className="mb-7">
+          <div key={group.labelKey} className="mb-7">
             <div className="px-3 mb-2.5 flex items-center gap-2.5">
               <span className="label-caps text-[color:var(--color-brass)]/75">
-                {group.label}
+                {t(group.labelKey)}
               </span>
               <div className="flex-1 h-px bg-[color:var(--color-border-brass)]/50" />
             </div>
@@ -159,7 +162,7 @@ export function Sidebar({ drawerOpen = false, onCloseDrawer }: SidebarProps = {}
                             : 'font-sans text-[13px] font-normal'
                         }
                       >
-                        {item.label}
+                        {t(item.labelKey)}
                       </span>
                     </button>
                   </li>
@@ -226,6 +229,32 @@ export function Sidebar({ drawerOpen = false, onCloseDrawer }: SidebarProps = {}
           <span className="border-[0.5px] border-[color:var(--color-border-chrome-strong)] rounded px-1.5 py-[1px]">
             ?
           </span>
+        </div>
+
+        {/* Locale switcher — Phase 12 wave 4 */}
+        <div className="flex items-center gap-1 pt-1">
+          <button
+            type="button"
+            onClick={() => dispatch({ type: 'SET_LOCALE', locale: 'en' })}
+            className={`px-2 py-0.5 rounded-[2px] font-sans text-[10px] tracking-[0.10em] uppercase transition-colors ${
+              state.locale === 'en'
+                ? 'bg-[color:var(--color-brass)] text-[color:var(--color-paper-light)]'
+                : 'text-[color:var(--color-on-chrome-faint)] hover:text-[color:var(--color-on-chrome)] border-[0.5px] border-[color:var(--color-border-chrome-strong)]'
+            }`}
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            onClick={() => dispatch({ type: 'SET_LOCALE', locale: 'hr' })}
+            className={`px-2 py-0.5 rounded-[2px] font-sans text-[10px] tracking-[0.10em] uppercase transition-colors ${
+              state.locale === 'hr'
+                ? 'bg-[color:var(--color-brass)] text-[color:var(--color-paper-light)]'
+                : 'text-[color:var(--color-on-chrome-faint)] hover:text-[color:var(--color-on-chrome)] border-[0.5px] border-[color:var(--color-border-chrome-strong)]'
+            }`}
+          >
+            HR
+          </button>
         </div>
       </div>
     </aside>
