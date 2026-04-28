@@ -6,9 +6,11 @@ import type {
   BoatOpsDay,
   Broadcaster,
   BTSCapture,
+  CameraStatus,
   Catch,
   ColorPalette,
   ColorScriptStop,
+  ConditionsForecast,
   Contract,
   CrewMember,
   CueSheetEntry,
@@ -296,7 +298,16 @@ export type Action =
   /* Phase 9 — Cinematography rig configurations */
   | { type: 'ADD_RIG_CONFIG'; config: RigConfiguration }
   | { type: 'UPDATE_RIG_CONFIG'; id: string; patch: Partial<RigConfiguration> }
-  | { type: 'DELETE_RIG_CONFIG'; id: string };
+  | { type: 'DELETE_RIG_CONFIG'; id: string }
+  /* Phase 12 — Conditions forecasts (live shoot-day strip) */
+  | { type: 'ADD_CONDITIONS'; forecast: ConditionsForecast }
+  | { type: 'UPDATE_CONDITIONS'; id: string; patch: Partial<ConditionsForecast> }
+  | { type: 'DELETE_CONDITIONS'; id: string }
+  | { type: 'BULK_UPSERT_CONDITIONS'; date: string; locationId: string; forecasts: ConditionsForecast[] }
+  /* Phase 12 — Camera live status (per slot per day) */
+  | { type: 'UPSERT_CAMERA_STATUS'; status: CameraStatus }
+  | { type: 'UPDATE_CAMERA_STATUS'; id: string; patch: Partial<CameraStatus> }
+  | { type: 'DELETE_CAMERA_STATUS'; id: string };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1326,6 +1337,66 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         rigConfigurations: state.rigConfigurations.filter((r) => r.id !== action.id),
+      };
+
+    /* Phase 12 — Conditions forecasts */
+    case 'ADD_CONDITIONS':
+      return {
+        ...state,
+        conditionsForecasts: [...state.conditionsForecasts, action.forecast],
+      };
+    case 'UPDATE_CONDITIONS':
+      return {
+        ...state,
+        conditionsForecasts: state.conditionsForecasts.map((c) =>
+          c.id === action.id ? { ...c, ...action.patch } : c
+        ),
+      };
+    case 'DELETE_CONDITIONS':
+      return {
+        ...state,
+        conditionsForecasts: state.conditionsForecasts.filter((c) => c.id !== action.id),
+      };
+    case 'BULK_UPSERT_CONDITIONS': {
+      /* Replace all forecasts for a given date+location, keep the rest. */
+      const others = state.conditionsForecasts.filter(
+        (c) => !(c.date === action.date && c.locationId === action.locationId)
+      );
+      return {
+        ...state,
+        conditionsForecasts: [...others, ...action.forecasts],
+      };
+    }
+
+    /* Phase 12 — Camera live status */
+    case 'UPSERT_CAMERA_STATUS': {
+      /* Upsert by (slot + date) — there's only one live status per slot per day. */
+      const existingIdx = state.cameraStatuses.findIndex(
+        (s) => s.slot === action.status.slot && s.date === action.status.date
+      );
+      if (existingIdx === -1) {
+        return {
+          ...state,
+          cameraStatuses: [...state.cameraStatuses, action.status],
+        };
+      }
+      const next = state.cameraStatuses.slice();
+      next[existingIdx] = action.status;
+      return { ...state, cameraStatuses: next };
+    }
+    case 'UPDATE_CAMERA_STATUS':
+      return {
+        ...state,
+        cameraStatuses: state.cameraStatuses.map((s) =>
+          s.id === action.id
+            ? { ...s, ...action.patch, updatedAt: new Date().toISOString() }
+            : s
+        ),
+      };
+    case 'DELETE_CAMERA_STATUS':
+      return {
+        ...state,
+        cameraStatuses: state.cameraStatuses.filter((s) => s.id !== action.id),
       };
 
     default:

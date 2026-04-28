@@ -1310,6 +1310,9 @@ export function makeInitialState(): AppState {
     audioCommissions: [],
     /* Phase 9 — Cinematography rig library · Tom's vocabulary pre-seeded */
     rigConfigurations: SEED_RIG_CONFIGURATIONS,
+    /* Phase 12 — Shoot-day live surfaces (empty until first shoot day) */
+    conditionsForecasts: [],
+    cameraStatuses: [],
     selectedEpisodeId: null,
     printMode: false,
     paletteOpen: false,

@@ -227,6 +227,41 @@ export interface Route {
   etaHours?: number;
 }
 
+/* ---------- Live conditions feed (Phase 12) ----------
+   Hourly forecast snapshot per location per date. Pre-cached so it works
+   offline at sea. The strip renders one row per hour 04:00 → 22:00. */
+
+export type LightQuality =
+  | 'predawn'
+  | 'golden-am'
+  | 'morning'
+  | 'midday'
+  | 'afternoon'
+  | 'golden-pm'
+  | 'magic-pm'
+  | 'twilight'
+  | 'night';
+
+export interface ConditionsForecast {
+  id: string;
+  date: string;               // ISO YYYY-MM-DD
+  locationId: string;
+  hour: number;               // 0–23 local
+  windKnots?: number;
+  windDir?: string;           // 'N', 'NW', 'WSW', '270°' — free-form
+  gustKnots?: number;
+  tideM?: number;             // tide level above MSL (meters)
+  seaStateM?: number;         // wave height (meters)
+  cloudPct?: number;          // 0–100
+  precipChance?: number;      // 0–100
+  airTempC?: number;
+  notes?: string;
+  /* Pulled from a forecast service or hand-entered. We mark the source so
+     the strip can show "live" vs "manual" provenance. */
+  source?: 'manual' | 'forecast' | 'historical';
+  fetchedAt?: string;         // ISO timestamp
+}
+
 /* ---------- Talent pipeline ---------- */
 
 export type TalentStatus =
@@ -346,6 +381,16 @@ export interface AntiScriptMoment {
   recommendedLensId?: string;
   /* Free-form override note for the lens recommendation */
   lensReasoning?: string;
+  /* Phase 12 — Surprise Capture Log
+     A "surprise" is a moment we got that we didn't plan — the gold of
+     documentary work. It still lives in the same beat list so the editor
+     sees one ordered river of moments, but it's flagged for the
+     surprise-capture surfaces. */
+  isSurprise?: boolean;
+  capturedAt?: string;        // ISO timestamp of when we captured it
+  capturedAtLocationId?: string;
+  voiceMemoId?: string;       // optional link to a VoiceMemo
+  beatTags?: string[];        // free-form tags ('verse' · 'klapa' · 'storm' · etc.)
 }
 
 /* ---------- DOP cockpit ---------- */
@@ -785,6 +830,28 @@ export interface WalkieChannel {
   crewId: string;
   primary: string;
   backup?: string;
+}
+
+/* ---------- Camera status strip (Phase 12) ----------
+   Per-camera-slot live status during a shoot day. Big touch tiles, RYG
+   colour, readable in sun. Updated by whoever's near the cameras. */
+
+export type CameraSyncStatus = 'synced' | 'drift' | 'offline' | 'unknown';
+
+export interface CameraStatus {
+  id: string;
+  slot: CameraSlot;
+  date: string;               // ISO YYYY-MM-DD — per shoot day
+  operatorId?: string;        // crew id
+  batteryPct?: number;        // 0–100
+  cardPct?: number;           // 0–100, % of card filled
+  cardGbRemaining?: number;   // optional explicit GB remaining
+  syncStatus?: CameraSyncStatus;
+  isoValue?: number;
+  wbKelvin?: number;
+  rigConfigId?: string;       // current rig configuration in use
+  notes?: string;
+  updatedAt: string;          // ISO timestamp
 }
 
 /* ---------- Post-production module (Phase 9 Tier B) ---------- */
@@ -1277,6 +1344,9 @@ export interface AppState {
   audioCommissions: AudioCommission[];
   /* Phase 9 — Cinematography rig library */
   rigConfigurations: RigConfiguration[];
+  /* Phase 12 — Shoot-day live surfaces */
+  conditionsForecasts: ConditionsForecast[];
+  cameraStatuses: CameraStatus[];
   /* UI state — not persisted */
   selectedEpisodeId: string | null;
   printMode: boolean;

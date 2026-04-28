@@ -6,9 +6,11 @@ import { TimeAndLight } from '../dop/TimeAndLight';
 import { DailyPlan } from '../dop/DailyPlan';
 import { Continuity } from '../dop/Continuity';
 import { SpecialtyTab } from '../dop/SpecialtyTab';
+import { CamerasTab } from '../dop/CamerasTab';
 
 const TABS = [
   'Kit',
+  'Cameras',
   'Lenses',
   'Color & look',
   'Time & light',
@@ -61,6 +63,7 @@ export function DOPView() {
       </div>
 
       {tab === 'Kit' && <KitDashboard />}
+      {tab === 'Cameras' && <CamerasTab />}
       {tab === 'Lenses' && <LensLibrary />}
       {tab === 'Color & look' && <ColorAndLook />}
       {tab === 'Time & light' && <TimeAndLight />}

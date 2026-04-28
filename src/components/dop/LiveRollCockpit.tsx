@@ -21,6 +21,7 @@ import type {
   TakeStatus,
 } from '../../types';
 import { newId } from '../episode/shared';
+import { VoiceMemoPerTake } from '../primitives/VoiceMemoPerTake';
 
 /* Live Roll Cockpit — DURING-shoot transformation of Daily Plan top.
    Toggle PLANNING / LIVE. In LIVE mode, each camera lane has ROLL/CUT
@@ -548,7 +549,7 @@ function TakeLogRow({ take }: { take: Take }) {
       ? 'text-[color:var(--color-coral-deep)]'
       : 'text-[color:var(--color-on-paper)]';
   return (
-    <li className="grid grid-cols-[55px_55px_1fr_60px_60px] gap-2 items-baseline prose-body italic text-[11px]">
+    <li className="grid grid-cols-[55px_55px_1fr_60px_60px_28px] gap-2 items-center prose-body italic text-[11px]">
       <span className="text-[color:var(--color-on-paper-muted)] tabular-nums">
         {startedTime}
       </span>
@@ -565,6 +566,9 @@ function TakeLogRow({ take }: { take: Take }) {
       </span>
       <span className="text-[color:var(--color-on-paper-muted)] tabular-nums text-right">
         {take.durationSec ? `${Math.round(take.durationSec)}s` : '—'}
+      </span>
+      <span className="flex justify-end">
+        <VoiceMemoPerTake take={take} compact />
       </span>
     </li>
   );
@@ -585,6 +589,8 @@ function CutModal({
   onCommit: (p: { slot: SlotKey; takeId: string; status: TakeStatus; notes: string }) => void;
   onCancel: () => void;
 }) {
+  const { state } = useApp();
+  const take = state.takes.find((t) => t.id === takeId);
   const [status, setStatus] = useState<TakeStatus>('OK');
   const [notes, setNotes] = useState('');
   const [recognizing, setRecognizing] = useState(false);
@@ -719,6 +725,16 @@ function CutModal({
               className="w-full bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-border-paper-strong)] focus:border-[color:var(--color-brass)] outline-none rounded-[2px] px-3 py-2 prose-body italic text-[12px] text-[color:var(--color-on-paper)] leading-relaxed"
             />
           </div>
+
+          {/* Voice memo — Phase 12 — full audio attachment alongside notes */}
+          {take && (
+            <div>
+              <div className="label-caps text-[color:var(--color-brass-deep)] mb-2">
+                voice memo
+              </div>
+              <VoiceMemoPerTake take={take} />
+            </div>
+          )}
 
           <div className="flex items-baseline justify-end gap-2">
             <button

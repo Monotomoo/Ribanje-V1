@@ -24,6 +24,7 @@ import { BeatLibrary } from './BeatLibrary';
 import { BeatTimeline } from './BeatTimeline';
 import { SketchSection } from './SketchSection';
 import { MoodBoardSection } from './MoodBoardSection';
+import { SurpriseCaptureLog } from '../surprise/SurpriseCaptureLog';
 
 export function StoryTab({ episodeId }: { episodeId: string }) {
   const { state, dispatch } = useApp();
@@ -124,6 +125,9 @@ export function StoryTab({ episodeId }: { episodeId: string }) {
             className="prose-body text-[16px] text-[color:var(--color-on-paper)] leading-[1.55]"
           />
         </Field>
+
+        {/* Surprise capture log — full editorial review surface */}
+        <SurpriseCaptureLog episodeId={episodeId} />
 
         {/* Three-column row: Library · Timeline · Hektorović + Refs */}
         <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] xl:grid-cols-[220px_1fr_280px] gap-4 md:gap-6">

@@ -30,6 +30,9 @@ import {
   shotsForShootDay,
   sunTimesFor,
 } from './productionSelectors';
+import { LiveConditionsFeed } from '../conditions/LiveConditionsFeed';
+import { CameraStatusStrip } from '../dop/CameraStatusStrip';
+import { SurpriseCaptureLog } from '../surprise/SurpriseCaptureLog';
 
 interface Props {
   /* Optional override — used by the Production shell's "preview day N" picker. */
@@ -144,6 +147,20 @@ export function TodayTab({ previewDateIso }: Props) {
           </div>
         )}
       </section>
+
+      {/* Live conditions strip — Phase 12 */}
+      <LiveConditionsFeed date={day.date} locationId={anchorage?.id} />
+
+      {/* Camera status strip — Phase 12 */}
+      <CameraStatusStrip date={day.date} compact />
+
+      {/* Surprise capture log — Phase 12 */}
+      <SurpriseCaptureLog
+        episodeId={episode?.id}
+        locationId={anchorage?.id}
+        date={day.date}
+        compact
+      />
 
       {/* Three-column body */}
       <div className="grid grid-cols-3 gap-6">

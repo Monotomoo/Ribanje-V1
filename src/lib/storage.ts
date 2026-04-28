@@ -153,6 +153,9 @@ function migrateState(loaded: Partial<AppState>): AppState {
     audioCommissions: loaded.audioCommissions ?? defaults.audioCommissions,
     /* Phase 9 — Cinematography rig library */
     rigConfigurations: loaded.rigConfigurations ?? defaults.rigConfigurations,
+    /* Phase 12 — Shoot-day live surfaces */
+    conditionsForecasts: loaded.conditionsForecasts ?? defaults.conditionsForecasts,
+    cameraStatuses: loaded.cameraStatuses ?? defaults.cameraStatuses,
     /* Scenarios deserve a per-key merge so a saved state with old funding
        keys doesn't lose the brief's full keyset. Shallow merge is enough
        since the inner shape hasn't changed. */

@@ -1,7 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useMemo } from 'react';
 import type { Episode, Location } from '../../types';
 import { EPISODE_COLORS } from './AdriaticChart';
+import { LiveConditionsFeed } from '../conditions/LiveConditionsFeed';
+import { useApp } from '../../state/AppContext';
 
 interface Props {
   location: Location | null;
@@ -10,6 +13,24 @@ interface Props {
 }
 
 export function LocationDrawer({ location, episodes, onClose }: Props) {
+  const { state } = useApp();
+  /* Pick the most-relevant date for this location:
+     1. The next shoot day assigned to this anchorage, or
+     2. The first shoot day assigned to this anchorage (past or future), or
+     3. Today's local date as fallback. */
+  const conditionsDate = useMemo(() => {
+    if (!location) return null;
+    const today = new Date();
+    const todayIso = `${today.getFullYear()}-${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    const days = state.shootDays
+      .filter((d) => d.anchorageId === location.id)
+      .sort((a, b) => a.date.localeCompare(b.date));
+    if (days.length === 0) return todayIso;
+    const upcoming = days.find((d) => d.date >= todayIso);
+    return upcoming?.date ?? days[0].date;
+  }, [location, state.shootDays]);
   return (
     <AnimatePresence>
       {location && (
@@ -76,6 +97,16 @@ export function LocationDrawer({ location, episodes, onClose }: Props) {
                     {location.goldenHourNotes}
                   </p>
                 </Field>
+              )}
+
+              {conditionsDate && (
+                <div className="pt-2">
+                  <LiveConditionsFeed
+                    date={conditionsDate}
+                    locationId={location.id}
+                    compact
+                  />
+                </div>
               )}
 
               <div className="pt-3 border-t-[0.5px] border-[color:var(--color-border-paper)] prose-body italic text-[12px] text-[color:var(--color-on-paper-muted)]">
