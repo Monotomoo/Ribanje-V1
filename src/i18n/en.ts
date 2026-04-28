@@ -220,6 +220,51 @@ export const en = {
   'app.subtitle':           'a documentary in production',
   'app.command.palette':    'Command palette',
   'app.capture':            'Capture',
+
+  /* ---------- Overview view ---------- */
+  'overview.voyage':                'Voyage',
+  'overview.voyage.main':           'main',
+  'overview.voyage.specials':       'specials',
+  'overview.finance':               'Finance',
+  'overview.finance.scenario.suffix': 'scenario',
+  'overview.finance.detailed':      'Detailed finance — editable tables & charts',
+  'overview.footer.total.funding':  'Total funding',
+  'overview.footer.thousands':      'all values in thousands',
+  'overview.footer.scenario.in':    'scenario',
+
+  /* ---------- Schedule view ---------- */
+  'schedule.subtitle':               'macro arc · shoot-month detail · deadline tracker',
+  'schedule.tab.timeline':           'Production timeline',
+  'schedule.tab.calendar':           'Shoot calendar',
+  'schedule.tab.twoboats':           'Two boats',
+  'schedule.tab.deadlines':          'Deadlines',
+  'schedule.phases':                 'Phases',
+  'schedule.milestones':             'Milestones',
+
+  /* ---------- Episodes view ---------- */
+  'episodes.main.label':             'Six main episodes · drag to reorder',
+  'episodes.specials':               'Specials',
+  'episodes.phase.hint':             'grid drag-to-reorder is live · click any episode card to open its hub: Story · People · Subject · Craft · or tap make-sheet for a printable A4 brief',
+  'episodes.runtime.suffix':         'min',
+  'episodes.aria.open.makesheet':    'open episode make-sheet',
+  'episodes.title.makesheet':        'Episode make-sheet (A4 print)',
+  'episodes.aria.drag':              'drag to reorder',
+
+  /* ---------- Production shell ---------- */
+  'prod.tab.today':                  'Today',
+  'prod.tab.today.hint':             'the daily cockpit',
+  'prod.tab.shots':                  'Shot list',
+  'prod.tab.shots.hint':             'scenes · shots · takes',
+  'prod.tab.boat':                   'Boat ops',
+  'prod.tab.boat.hint':              'anchorage · fuel · weather',
+  'prod.tab.data':                   'Data',
+  'prod.tab.data.hint':              'two-drive rule · backups',
+  'prod.tab.safety':                 'Safety',
+  'prod.tab.safety.hint':            'briefing · MOB · comms',
+  'prod.tab.wrap':                   'Wrap',
+  'prod.tab.wrap.hint':              "today's debrief · call sheet",
+  'prod.preview.day':                'preview day',
+  'prod.show.day':                   'show day',
 } as const;
 
 export type StringKey = keyof typeof en;

@@ -227,4 +227,49 @@ export const hr: Strings = {
   'app.subtitle':           'dokumentarac u produkciji',
   'app.command.palette':    'Komandna paleta',
   'app.capture':            'Hvatanje',
+
+  /* ---------- Overview view ---------- */
+  'overview.voyage':                'Plovidba',
+  'overview.voyage.main':           'glavnih',
+  'overview.voyage.specials':       'specijala',
+  'overview.finance':               'Financije',
+  'overview.finance.scenario.suffix': 'scenarij',
+  'overview.finance.detailed':      'Detaljne financije — uređljive tablice i grafovi',
+  'overview.footer.total.funding':  'Ukupno financiranje',
+  'overview.footer.thousands':      'sve vrijednosti u tisućama',
+  'overview.footer.scenario.in':    'scenarij',
+
+  /* ---------- Schedule view ---------- */
+  'schedule.subtitle':               'makrolukovi · detalji mjeseca snimanja · praćenje rokova',
+  'schedule.tab.timeline':           'Vremenska crta produkcije',
+  'schedule.tab.calendar':           'Kalendar snimanja',
+  'schedule.tab.twoboats':           'Dva broda',
+  'schedule.tab.deadlines':          'Rokovi',
+  'schedule.phases':                 'Faze',
+  'schedule.milestones':             'Prekretnice',
+
+  /* ---------- Episodes view ---------- */
+  'episodes.main.label':             'Šest glavnih epizoda · povuci za promjenu redoslijeda',
+  'episodes.specials':               'Specijali',
+  'episodes.phase.hint':             'povlačenje za promjenu redoslijeda je aktivno · klikni karticu epizode za otvaranje hub-a: Priča · Ljudi · Subjekt · Zanat · ili dodirni make-sheet za ispisivi A4 brief',
+  'episodes.runtime.suffix':         'min',
+  'episodes.aria.open.makesheet':    'otvori make-sheet epizode',
+  'episodes.title.makesheet':        'Make-sheet epizode (A4 ispis)',
+  'episodes.aria.drag':              'povuci za promjenu redoslijeda',
+
+  /* ---------- Production shell ---------- */
+  'prod.tab.today':                  'Danas',
+  'prod.tab.today.hint':             'dnevna kabina',
+  'prod.tab.shots':                  'Lista kadrova',
+  'prod.tab.shots.hint':             'scene · kadrovi · snimke',
+  'prod.tab.boat':                   'Brodske operacije',
+  'prod.tab.boat.hint':              'sidrište · gorivo · vrijeme',
+  'prod.tab.data':                   'Podaci',
+  'prod.tab.data.hint':              'pravilo dva diska · backup',
+  'prod.tab.safety':                 'Sigurnost',
+  'prod.tab.safety.hint':            'briefing · MOB · komunikacija',
+  'prod.tab.wrap':                   'Završetak',
+  'prod.tab.wrap.hint':              'današnji debrief · raspored',
+  'prod.preview.day':                'pretpregled dana',
+  'prod.show.day':                   'mod snimanja',
 };

@@ -8,26 +8,29 @@ import { SafetyTab } from './SafetyTab';
 import { WrapTab } from './WrapTab';
 import { ShowDayShell } from './ShowDayShell';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 
 type TabKey = 'today' | 'shots' | 'boat' | 'data' | 'safety' | 'wrap';
 
 interface TabDef {
   key: TabKey;
-  label: string;
-  hint: string;
+  labelKey: StringKey;
+  hintKey: StringKey;
 }
 
 const TABS: TabDef[] = [
-  { key: 'today', label: 'Today', hint: 'the daily cockpit' },
-  { key: 'shots', label: 'Shot list', hint: 'scenes · shots · takes' },
-  { key: 'boat', label: 'Boat ops', hint: 'anchorage · fuel · weather' },
-  { key: 'data', label: 'Data', hint: 'two-drive rule · backups' },
-  { key: 'safety', label: 'Safety', hint: 'briefing · MOB · comms' },
-  { key: 'wrap', label: 'Wrap', hint: "today's debrief · call sheet" },
+  { key: 'today',  labelKey: 'prod.tab.today',  hintKey: 'prod.tab.today.hint' },
+  { key: 'shots',  labelKey: 'prod.tab.shots',  hintKey: 'prod.tab.shots.hint' },
+  { key: 'boat',   labelKey: 'prod.tab.boat',   hintKey: 'prod.tab.boat.hint' },
+  { key: 'data',   labelKey: 'prod.tab.data',   hintKey: 'prod.tab.data.hint' },
+  { key: 'safety', labelKey: 'prod.tab.safety', hintKey: 'prod.tab.safety.hint' },
+  { key: 'wrap',   labelKey: 'prod.tab.wrap',   hintKey: 'prod.tab.wrap.hint' },
 ];
 
 export function ProductionShell() {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [tab, setTab] = useState<TabKey>('today');
   /* Optional preview-day picker (for demo before October 2026 — lets Tomo
      show "what Day 12 will look like" by jumping forward in time). */
@@ -46,15 +49,15 @@ export function ProductionShell() {
         aria-label="production sections"
         className="flex items-baseline gap-1.5 border-b-[0.5px] border-[color:var(--color-border-paper)]"
       >
-        {TABS.map((t) => {
-          const active = tab === t.key;
+        {TABS.map((tabDef) => {
+          const active = tab === tabDef.key;
           return (
             <button
-              key={t.key}
+              key={tabDef.key}
               type="button"
               role="tab"
               aria-selected={active}
-              onClick={() => setTab(t.key)}
+              onClick={() => setTab(tabDef.key)}
               className={`relative px-4 py-2.5 transition-colors ${
                 active
                   ? 'text-[color:var(--color-on-paper)]'
@@ -68,13 +71,13 @@ export function ProductionShell() {
                     : 'font-sans text-[12px] tracking-[0.12em] uppercase'
                 }
               >
-                {t.label}
+                {t(tabDef.labelKey)}
               </span>
               {active && (
                 <>
                   <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[color:var(--color-brass)]" />
                   <span className="block prose-body italic text-[10px] text-[color:var(--color-on-paper-faint)] mt-0.5">
-                    {t.hint}
+                    {t(tabDef.hintKey)}
                   </span>
                 </>
               )}
@@ -95,7 +98,7 @@ export function ProductionShell() {
             size={11}
             className="group-hover:rotate-180 transition-transform duration-300"
           />
-          <span className="display-italic text-[12px]">show day</span>
+          <span className="display-italic text-[12px]">{t('prod.show.day')}</span>
         </button>
       </nav>
 
@@ -121,10 +124,11 @@ function PreviewDatePicker({
   value?: string;
   onChange: (v: string | undefined) => void;
 }) {
+  const t = useT();
   return (
     <div className="flex items-center gap-2 pl-4 border-l-[0.5px] border-[color:var(--color-border-paper)] py-1">
       <span className="label-caps text-[color:var(--color-on-paper-faint)]">
-        preview day
+        {t('prod.preview.day')}
       </span>
       <input
         type="date"
@@ -140,7 +144,7 @@ function PreviewDatePicker({
           onClick={() => onChange(undefined)}
           className="prose-body italic text-[11px] text-[color:var(--color-on-paper-faint)] hover:text-[color:var(--color-coral-deep)] transition-colors"
         >
-          today
+          {t('common.today')}
         </button>
       )}
     </div>

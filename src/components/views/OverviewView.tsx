@@ -1,4 +1,5 @@
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import { PreShootStatusWall } from '../status/PreShootStatusWall';
 import { TodayBrief } from '../overview/TodayBrief';
 import { CockpitGauges } from '../overview/CockpitGauges';
@@ -36,6 +37,7 @@ import type { ViewKey } from '../../types';
 */
 export function OverviewView() {
   const { state, dispatch } = useApp();
+  const t = useT();
   const sc = state.scenarios[state.activeScenario];
 
   const cost = totalCost(sc.costs);
@@ -70,8 +72,8 @@ export function OverviewView() {
       {/* 4. VOYAGE STRIP — six episode cards */}
       <section>
         <SectionMarker
-          label="Voyage"
-          hint={`${state.episodes.length} main · ${state.specials.length} specials`}
+          label={t('overview.voyage')}
+          hint={`${state.episodes.length} ${t('overview.voyage.main')} · ${state.specials.length} ${t('overview.voyage.specials')}`}
           ornament
         />
         <VoyageStrip onJump={jump} />
@@ -85,7 +87,11 @@ export function OverviewView() {
 
       {/* 7. FINANCE — collapsed pill with detail */}
       <section>
-        <SectionMarker label="Finance" hint={`${state.activeScenario} scenario`} ornament />
+        <SectionMarker
+          label={t('overview.finance')}
+          hint={`${state.activeScenario} ${t('overview.finance.scenario.suffix')}`}
+          ornament
+        />
         <div className="space-y-5 mt-3">
           <FinancialBlock onJump={jump} />
           <StateAidBanner stateAid={sa} totalBudget={cost} rebate={reb} />
@@ -96,11 +102,11 @@ export function OverviewView() {
         <details className="group mt-7">
           <summary className="flex items-baseline justify-between cursor-pointer pb-3 border-b-[0.5px] border-[color:var(--color-border-paper-strong)]">
             <span className="display-italic text-[18px] text-[color:var(--color-on-paper)]">
-              Detailed finance — editable tables &amp; charts
+              {t('overview.finance.detailed')}
             </span>
             <span className="label-caps text-[color:var(--color-brass-deep)] group-open:text-[color:var(--color-on-paper)]">
-              <span className="group-open:hidden">expand</span>
-              <span className="hidden group-open:inline">collapse</span>
+              <span className="group-open:hidden">{t('common.expand')}</span>
+              <span className="hidden group-open:inline">{t('common.collapse')}</span>
             </span>
           </summary>
 
@@ -127,7 +133,7 @@ export function OverviewView() {
 
       {/* Closing footer */}
       <p className="prose-body italic text-[12px] text-[color:var(--color-on-paper-faint)] text-center pt-6">
-        Total funding {fund}k € · all values in thousands · scenario {state.activeScenario}
+        {t('overview.footer.total.funding')} {fund}k € · {t('overview.footer.thousands')} · {t('overview.footer.scenario.in')} {state.activeScenario}
       </p>
     </div>
   );

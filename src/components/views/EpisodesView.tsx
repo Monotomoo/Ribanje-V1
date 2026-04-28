@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import { SlateStrip } from '../primitives/SlateStrip';
 import { Pill } from '../primitives/Pill';
 import { PhaseHint } from '../primitives/PhaseHint';
@@ -25,6 +26,7 @@ import { FileText, GripVertical } from 'lucide-react';
 
 export function EpisodesView() {
   const { state, dispatch } = useApp();
+  const t = useT();
   const selectedId = state.selectedEpisodeId;
   const [makeSheetEpId, setMakeSheetEpId] = useState<string | null>(null);
 
@@ -62,7 +64,7 @@ export function EpisodesView() {
   return (
     <div className="space-y-12 max-w-[1400px]">
       <section>
-        <SectionLabel>Six main episodes · drag to reorder</SectionLabel>
+        <SectionLabel>{t('episodes.main.label')}</SectionLabel>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -87,7 +89,7 @@ export function EpisodesView() {
       </section>
 
       <section>
-        <SectionLabel>Specials</SectionLabel>
+        <SectionLabel>{t('episodes.specials')}</SectionLabel>
         <div className="grid grid-cols-2 gap-6 mt-5">
           {state.specials.map((ep) => (
             <EpisodeCard
@@ -102,7 +104,7 @@ export function EpisodesView() {
 
       <PhaseHint
         phase={3}
-        text="grid drag-to-reorder is live · click any episode card to open its hub: Story · People · Subject · Craft · or tap make-sheet for a printable A4 brief"
+        text={t('episodes.phase.hint')}
       />
 
       {makeSheetEp && (
@@ -208,6 +210,7 @@ function ClickableCardContent({
   ep: Episode;
   onOpen: () => void;
 }) {
+  const t = useT();
   return (
     <button
       type="button"
@@ -226,7 +229,7 @@ function ClickableCardContent({
           </span>
           <span className="text-[color:var(--color-on-paper-faint)]">·</span>
           <span className="font-sans text-[11px] tracking-[0.14em] uppercase text-[color:var(--color-on-paper-muted)]">
-            {ep.runtime} min
+            {ep.runtime} {t('episodes.runtime.suffix')}
           </span>
         </div>
         <p className="prose-body text-[15px] text-[color:var(--color-on-paper)] leading-[1.55]">
