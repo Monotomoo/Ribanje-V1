@@ -379,14 +379,23 @@ export const hr: Strings = {
 
   /* Promotion */
   'spark.promote':                     'Promoviraj',
+  'spark.promote.title':               'Promoviraj iskru',
   'spark.promote.subtitle':            'pomakni iskru u plan',
-  'spark.promote.to.beat':             'kao anti-script takt',
-  'spark.promote.to.shot':             'kao kadar',
-  'spark.promote.to.location':         'kao lokaciju',
-  'spark.promote.to.reference':        'kao referencu',
-  'spark.promote.to.task':             'kao zadatak',
+  'spark.promote.to.beat':             'Takt',
+  'spark.promote.to.beat.hint':        'kao anti-script trenutak',
+  'spark.promote.to.shot':             'Kadar',
+  'spark.promote.to.shot.hint':        'kao kadar u sceni',
+  'spark.promote.to.location':         'Lokacija',
+  'spark.promote.to.location.hint':    'treba koordinate · prvo dodaj pin na karti',
+  'spark.promote.to.reference':        'Referenca',
+  'spark.promote.to.reference.hint':   'za kasnije · film · knjiga · pjesma',
+  'spark.promote.to.task':             'Zadatak',
+  'spark.promote.to.task.hint':        'dodijeli ekipi · s rokom',
   'spark.promote.success':             'Iskra promovirana',
   'spark.promote.linked':              'povezano s',
+  'spark.promote.error.no.episode':    'Nema epizode za prikvačiti. Prvo otvori Epizode.',
+  'spark.promote.error.no.scene':      'U ovoj epizodi još nema scene — stvori jednu u Produkcija · Lista kadrova.',
+  'spark.promote.error.location':      'Promocija u lokaciju treba koordinate. Koristi Lokacije za dodavanje pina.',
 
   /* Dispatch view */
   'spark.dispatch.title':              'Dnevni dispatch',

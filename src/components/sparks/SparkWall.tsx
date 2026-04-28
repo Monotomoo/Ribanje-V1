@@ -5,7 +5,6 @@ import { useT } from '../../i18n';
 import type { Spark, SparkKind, SparkStatus } from '../../types';
 import { SparkCard } from './SparkCard';
 import { SparkCaptureModal } from './SparkCaptureModal';
-import { promoteSpark } from './sparkPromote';
 import { SPARK_KINDS, SPARK_STATUSES } from './sparkKinds';
 
 /* ---------- SparkWall (Phase 13) ----------
@@ -92,10 +91,6 @@ export function SparkWall({ selectedForCompareIds, onToggleCompareSelection }: P
     dispatch({ type: 'SET_SPARK_STATUS', id: sparkId, status: column });
     setDraggedId(null);
     setOverColumn(null);
-  }
-
-  function handlePromote(spark: Spark) {
-    promoteSpark(spark, state, dispatch, 'beat');
   }
 
   const visibleColumns: SparkStatus[] = showParked
@@ -249,7 +244,6 @@ export function SparkWall({ selectedForCompareIds, onToggleCompareSelection }: P
                           setDraggedId(null);
                           setOverColumn(null);
                         }}
-                        onPromote={handlePromote}
                         onSelectForCompare={onToggleCompareSelection}
                         isSelectedForCompare={selectedForCompareIds?.has(spark.id)}
                       />

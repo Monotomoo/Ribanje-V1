@@ -372,14 +372,23 @@ export const en = {
 
   /* Promotion */
   'spark.promote':                     'Promote',
+  'spark.promote.title':               'Promote spark',
   'spark.promote.subtitle':            'move this spark into the plan',
-  'spark.promote.to.beat':             'as Anti-script beat',
-  'spark.promote.to.shot':             'as a Shot',
-  'spark.promote.to.location':         'as a Location pin',
-  'spark.promote.to.reference':        'as a Reference',
-  'spark.promote.to.task':             'as a Task',
+  'spark.promote.to.beat':             'Beat',
+  'spark.promote.to.beat.hint':        'as an Anti-script moment',
+  'spark.promote.to.shot':             'Shot',
+  'spark.promote.to.shot.hint':        'as a Shot in a scene',
+  'spark.promote.to.location':         'Location',
+  'spark.promote.to.location.hint':    'needs map coordinates · drop pin first',
+  'spark.promote.to.reference':        'Reference',
+  'spark.promote.to.reference.hint':   'chase later · film · book · song',
+  'spark.promote.to.task':             'Task',
+  'spark.promote.to.task.hint':        'assign to crew · with deadline',
   'spark.promote.success':             'Spark promoted',
   'spark.promote.linked':              'linked to',
+  'spark.promote.error.no.episode':    'No episode to attach to. Open Episodes first.',
+  'spark.promote.error.no.scene':      'No scene in this episode yet — create one in Production · Shot list.',
+  'spark.promote.error.location':      'Location promotion needs map coordinates. Use the Map view to drop a pin first.',
 
   /* Dispatch view */
   'spark.dispatch.title':              'Daily dispatch',

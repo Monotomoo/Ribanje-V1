@@ -5,7 +5,6 @@ import { useT, useI18n } from '../../i18n';
 import type { Spark } from '../../types';
 import { SparkCard } from './SparkCard';
 import { SparkCaptureModal } from './SparkCaptureModal';
-import { promoteSpark } from './sparkPromote';
 
 /* ---------- DemoDispatch (Phase 13) ----------
    Chronological feed of all sparks for a given date, bucketed by
@@ -64,10 +63,6 @@ export function DemoDispatch() {
     state.sparks.forEach((s) => set.add(s.capturedAt.split('T')[0]));
     return Array.from(set).sort().reverse();
   }, [state.sparks]);
-
-  function handlePromote(spark: Spark) {
-    promoteSpark(spark, state, dispatch, 'beat');
-  }
 
   return (
     <div className="space-y-5 max-w-[900px]">
@@ -157,11 +152,7 @@ export function DemoDispatch() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {sparks.map((spark) => (
-                    <SparkCard
-                      key={spark.id}
-                      spark={spark}
-                      onPromote={handlePromote}
-                    />
+                    <SparkCard key={spark.id} spark={spark} />
                   ))}
                 </div>
               </section>

@@ -13,6 +13,7 @@ import { useApp } from '../../state/AppContext';
 import { useT, useI18n } from '../../i18n';
 import type { Spark, SparkStatus } from '../../types';
 import { SPARK_KIND_BY_KIND, SPARK_STATUSES } from './sparkKinds';
+import { PromoteMenu } from './PromoteMenu';
 
 /* ---------- SparkCard (Phase 13) ----------
    Renders a single Spark. Used inside SparkWall columns, DemoDispatch
@@ -29,7 +30,6 @@ import { SPARK_KIND_BY_KIND, SPARK_STATUSES } from './sparkKinds';
 
 interface Props {
   spark: Spark;
-  onPromote?: (s: Spark) => void;
   onSelectForCompare?: (s: Spark) => void;
   isSelectedForCompare?: boolean;
   draggable?: boolean;
@@ -40,7 +40,6 @@ interface Props {
 
 export function SparkCard({
   spark,
-  onPromote,
   onSelectForCompare,
   isSelectedForCompare,
   draggable = false,
@@ -53,6 +52,7 @@ export function SparkCard({
   const { locale } = useI18n();
   const [expanded, setExpanded] = useState(false);
   const [editingTitle, setEditingTitle] = useState(false);
+  const [promoteOpen, setPromoteOpen] = useState(false);
 
   const kindMeta = SPARK_KIND_BY_KIND[spark.kind];
   const statusMeta = SPARK_STATUSES.find((s) => s.status === spark.status)!;
@@ -308,10 +308,10 @@ export function SparkCard({
                   A·B
                 </button>
               )}
-              {onPromote && spark.status !== 'promoted' && (
+              {spark.status !== 'promoted' && (
                 <button
                   type="button"
-                  onClick={() => onPromote(spark)}
+                  onClick={() => setPromoteOpen(true)}
                   className="label-caps text-[9px] px-1.5 py-0.5 rounded-[2px] bg-[color:var(--color-success)]/15 text-[color:var(--color-success)] hover:bg-[color:var(--color-success)]/25 transition-colors"
                 >
                   {t('spark.promote')}
@@ -335,6 +335,13 @@ export function SparkCard({
           </div>
         )}
       </div>
+
+      {/* Promote target picker — Phase 13 */}
+      <PromoteMenu
+        spark={spark}
+        open={promoteOpen}
+        onClose={() => setPromoteOpen(false)}
+      />
     </article>
   );
 }
