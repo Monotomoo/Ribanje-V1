@@ -288,6 +288,131 @@ export const hr: Strings = {
   'prod.today.ep.prefix':              'Ep',
   'prod.today.captured':               'snimljeno',
 
+  /* ---------- Spark Wall (Phase 13) ---------- */
+  /* Nav + view */
+  'nav.sparks':                        'Iskre',
+  'spark.wall.title':                  'Zid iskri',
+  'spark.wall.subtitle':               'Kreativno hvatanje · za trenutke prije nego što su trenuci',
+
+  /* Tabs */
+  'spark.tab.wall':                    'Zid',
+  'spark.tab.dispatch':                'Dispatch',
+  'spark.tab.compare':                 'Usporedba',
+
+  /* Capture button + modal */
+  'spark.capture.button':              'Iskra',
+  'spark.capture.button.hint':         'jedan dodir → bilježi vrijeme + mjesto',
+  'spark.capture.modal.title':         'Uhvati iskru',
+  'spark.capture.modal.pick.kind':     'Odaberi vrstu',
+  'spark.capture.modal.headline':      'Naslov',
+  'spark.capture.modal.body':          'Reci više (opcionalno)',
+  'spark.capture.modal.save':          'Spremi iskru',
+
+  /* Columns */
+  'spark.column.raw':                  'Sirovo',
+  'spark.column.raw.hint':             'upravo uhvaćeno',
+  'spark.column.brewing':              'Vrije',
+  'spark.column.brewing.hint':         'aktivno razmatranje',
+  'spark.column.promoted':             'U planu',
+  'spark.column.promoted.hint':        'preneseno u plan',
+  'spark.column.parked':               'Parkirano',
+  'spark.column.parked.hint':          'odloženo',
+  'spark.column.show.parked':          'prikaži parkirano',
+
+  /* Empty states */
+  'spark.empty.wall':                  'Još nema iskri. Dodirni mjedenu iskru gore za prvo hvatanje.',
+  'spark.empty.column':                'Spusti iskru ovdje',
+
+  /* Status pills */
+  'spark.status.raw':                  'sirovo',
+  'spark.status.brewing':              'vrije',
+  'spark.status.promoted':             'u planu',
+  'spark.status.parked':               'parkirano',
+
+  /* 12 kinds — labels + hints */
+  'spark.kind.idea':                   'Ideja',
+  'spark.kind.idea.hint':              'fragment misli',
+  'spark.kind.voice':                  'Glas',
+  'spark.kind.voice.hint':             'pritisni i drži · transkript radi u pozadini',
+  'spark.kind.image':                  'Slika',
+  'spark.kind.image.hint':             'fotografija · ubaci',
+  'spark.kind.sketch':                 'Skica',
+  'spark.kind.sketch.hint':            'brza linija na ekranu',
+  'spark.kind.test.shot':              'Test kadar',
+  'spark.kind.test.shot.hint':         'nešto što smo snimili, vrijedno pamćenja',
+  'spark.kind.verse':                  'Stih',
+  'spark.kind.verse.hint':             'Hektorović · tekstualni fragment',
+  'spark.kind.quote':                  'Citat',
+  'spark.kind.quote.hint':             'netko je rekao nešto',
+  'spark.kind.place':                  'Mjesto',
+  'spark.kind.place.hint':             'vrijedno povratka',
+  'spark.kind.character':              'Lik',
+  'spark.kind.character.hint':         'osoba koju trebamo slijediti',
+  'spark.kind.sound':                  'Zvuk',
+  'spark.kind.sound.hint':             'zvučna tekstura',
+  'spark.kind.taste':                  'Okus',
+  'spark.kind.taste.hint':             'hrana · piće · senzorno',
+  'spark.kind.reference':              'Referenca',
+  'spark.kind.reference.hint':         'film · knjiga · pjesma za kasnije',
+
+  /* Filters */
+  'spark.filter.kind':                 'vrsta',
+  'spark.filter.location':             'lokacija',
+  'spark.filter.episode':              'epizoda',
+  'spark.filter.date':                 'datum',
+  'spark.filter.crew':                 'ekipa',
+  'spark.filter.date.today':           'danas',
+  'spark.filter.date.week':            'ovaj tjedan',
+  'spark.filter.date.trip':            'ovo putovanje',
+  'spark.filter.date.all':             'sve vrijeme',
+
+  /* Card fields */
+  'spark.field.title':                 'naslov',
+  'spark.field.body':                  'opis',
+  'spark.field.notes':                 'bilješke',
+  'spark.field.rating':                'ocjena',
+  'spark.field.tags':                  'oznake',
+  'spark.field.location':              'gdje',
+  'spark.field.episode':               'epizoda',
+  'spark.field.crew':                  'uhvatio',
+  'spark.field.url':                   'link',
+
+  /* Promotion */
+  'spark.promote':                     'Promoviraj',
+  'spark.promote.subtitle':            'pomakni iskru u plan',
+  'spark.promote.to.beat':             'kao anti-script takt',
+  'spark.promote.to.shot':             'kao kadar',
+  'spark.promote.to.location':         'kao lokaciju',
+  'spark.promote.to.reference':        'kao referencu',
+  'spark.promote.to.task':             'kao zadatak',
+  'spark.promote.success':             'Iskra promovirana',
+  'spark.promote.linked':              'povezano s',
+
+  /* Dispatch view */
+  'spark.dispatch.title':              'Dnevni dispatch',
+  'spark.dispatch.subtitle':           'sve iskre u vremenskom redoslijedu — za večernji pregled',
+  'spark.dispatch.morning':            'Jutro',
+  'spark.dispatch.midday':             'Podne',
+  'spark.dispatch.afternoon':          'Popodne',
+  'spark.dispatch.evening':            'Večer',
+  'spark.dispatch.night':              'Noć',
+  'spark.dispatch.empty':              'Danas još ništa uhvaćeno.',
+
+  /* Compare view */
+  'spark.compare.title':               'A · B · C usporedba',
+  'spark.compare.subtitle':            'jedno do drugog · označi pobjednika · ostalo zadrži',
+  'spark.compare.pick.partners':       'Odaberi 2-4 iskre za usporedbu',
+  'spark.compare.winner':              'pobjednik',
+  'spark.compare.mark.winner':         'označi pobjednika',
+  'spark.compare.unmark':              'ukloni oznaku',
+  'spark.compare.no.selection':        'Odaberi iskre sa zida za usporedbu.',
+
+  /* Demo trip mode */
+  'spark.demo.banner':                 'Demo putovanje',
+  'spark.demo.day':                    'Dan',
+  'spark.demo.of':                     'od',
+  'spark.demo.captured':               'iskri uhvaćeno',
+
   /* ---------- Episode Hub ---------- */
   'epHub.tab.story':                   'Priča',
   'epHub.tab.people':                  'Ljudi',

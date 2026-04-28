@@ -17,6 +17,7 @@ import {
   RotateCcw,
   Scroll,
   Send,
+  Sparkles,
   Undo2,
   Users,
 } from 'lucide-react';
@@ -51,6 +52,7 @@ const GROUPS: NavGroup[] = [
   {
     labelKey: 'nav.group.make',
     items: [
+      { key: 'sparks',     labelKey: 'nav.sparks',     icon: Sparkles },
       { key: 'episodes',   labelKey: 'nav.episodes',   icon: Film },
       { key: 'production', labelKey: 'nav.production', icon: Clapperboard },
       { key: 'dop',        labelKey: 'nav.dop',        icon: Aperture },

@@ -13,6 +13,7 @@ import { SponsorsView } from './components/views/SponsorsView';
 import { CrewView } from './components/views/CrewView';
 import { RisksView } from './components/views/RisksView';
 import { EpisodesView } from './components/views/EpisodesView';
+import { SparksView } from './components/views/SparksView';
 import { ProductionView } from './components/views/ProductionView';
 import { MapView } from './components/views/MapView';
 import { DOPView } from './components/views/DOPView';
@@ -51,6 +52,7 @@ function renderView(view: ViewKey) {
     case 'crew':         return <CrewView />;
     case 'risks':        return <RisksView />;
     case 'episodes':     return <EpisodesView />;
+    case 'sparks':       return <SparksView />;
     case 'production':   return <ProductionView />;
     case 'map':          return <MapView />;
     case 'dop':          return <DOPView />;

@@ -159,6 +159,7 @@ function migrateState(loaded: Partial<AppState>): AppState {
     boatWaypoints: loaded.boatWaypoints ?? defaults.boatWaypoints,
     crewPositions: loaded.crewPositions ?? defaults.crewPositions,
     permits: loaded.permits ?? defaults.permits,
+    sparks: loaded.sparks ?? defaults.sparks,
     showDayMode: loaded.showDayMode ?? defaults.showDayMode,
     locale: loaded.locale ?? defaults.locale,
     /* Scenarios deserve a per-key merge so a saved state with old funding

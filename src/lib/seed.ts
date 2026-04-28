@@ -1317,6 +1317,8 @@ export function makeInitialState(): AppState {
     crewPositions: [],
     /* Phase 12 wave 3 — planning ammo */
     permits: [],
+    /* Phase 13 — Spark Wall (creative capture) */
+    sparks: [],
     showDayMode: false,
     locale: 'en',
     selectedEpisodeId: null,

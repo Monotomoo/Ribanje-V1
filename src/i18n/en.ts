@@ -281,6 +281,131 @@ export const en = {
   'prod.today.ep.prefix':              'Ep',
   'prod.today.captured':               'captured',
 
+  /* ---------- Spark Wall (Phase 13) ---------- */
+  /* Nav + view */
+  'nav.sparks':                        'Sparks',
+  'spark.wall.title':                  'The Spark Wall',
+  'spark.wall.subtitle':               'Creative capture · for the moments before they\'re moments',
+
+  /* Tabs */
+  'spark.tab.wall':                    'Wall',
+  'spark.tab.dispatch':                'Dispatch',
+  'spark.tab.compare':                 'Compare',
+
+  /* Capture button + modal */
+  'spark.capture.button':              'Spark',
+  'spark.capture.button.hint':         'one tap → captures time + place',
+  'spark.capture.modal.title':         'Capture a spark',
+  'spark.capture.modal.pick.kind':     'Pick a kind',
+  'spark.capture.modal.headline':      'Headline',
+  'spark.capture.modal.body':          'Tell me more (optional)',
+  'spark.capture.modal.save':          'Save spark',
+
+  /* Columns */
+  'spark.column.raw':                  'Raw',
+  'spark.column.raw.hint':             'just caught',
+  'spark.column.brewing':              'Brewing',
+  'spark.column.brewing.hint':         'actively considering',
+  'spark.column.promoted':             'Promoted',
+  'spark.column.promoted.hint':        'moved into the plan',
+  'spark.column.parked':               'Parked',
+  'spark.column.parked.hint':          'set aside',
+  'spark.column.show.parked':          'show parked',
+
+  /* Empty states */
+  'spark.empty.wall':                  'No sparks yet. Tap the brass spark above to catch your first.',
+  'spark.empty.column':                'Drop a spark here',
+
+  /* Status pills */
+  'spark.status.raw':                  'raw',
+  'spark.status.brewing':              'brewing',
+  'spark.status.promoted':             'promoted',
+  'spark.status.parked':               'parked',
+
+  /* 12 kinds — labels + hints */
+  'spark.kind.idea':                   'Idea',
+  'spark.kind.idea.hint':              'a fragment of thought',
+  'spark.kind.voice':                  'Voice',
+  'spark.kind.voice.hint':             'tap & hold · transcript runs',
+  'spark.kind.image':                  'Image',
+  'spark.kind.image.hint':             'phone photo · drop in',
+  'spark.kind.sketch':                 'Sketch',
+  'spark.kind.sketch.hint':            'quick pen on the screen',
+  'spark.kind.test.shot':              'Test shot',
+  'spark.kind.test.shot.hint':         'something we shot, want to remember',
+  'spark.kind.verse':                  'Verse',
+  'spark.kind.verse.hint':             'Hektorović · text fragment overheard',
+  'spark.kind.quote':                  'Quote',
+  'spark.kind.quote.hint':             'someone said something',
+  'spark.kind.place':                  'Place',
+  'spark.kind.place.hint':             'worth coming back to',
+  'spark.kind.character':              'Character',
+  'spark.kind.character.hint':         'a person we should pursue',
+  'spark.kind.sound':                  'Sound',
+  'spark.kind.sound.hint':             'auditory texture',
+  'spark.kind.taste':                  'Taste',
+  'spark.kind.taste.hint':             'food · drink · sensory',
+  'spark.kind.reference':              'Reference',
+  'spark.kind.reference.hint':         'film · book · song to chase',
+
+  /* Filters */
+  'spark.filter.kind':                 'kind',
+  'spark.filter.location':             'location',
+  'spark.filter.episode':              'episode',
+  'spark.filter.date':                 'date',
+  'spark.filter.crew':                 'crew',
+  'spark.filter.date.today':           'today',
+  'spark.filter.date.week':            'this week',
+  'spark.filter.date.trip':            'this trip',
+  'spark.filter.date.all':             'all time',
+
+  /* Card fields */
+  'spark.field.title':                 'headline',
+  'spark.field.body':                  'detail',
+  'spark.field.notes':                 'notes',
+  'spark.field.rating':                'rating',
+  'spark.field.tags':                  'beat tags',
+  'spark.field.location':              'where',
+  'spark.field.episode':               'episode',
+  'spark.field.crew':                  'caught by',
+  'spark.field.url':                   'link',
+
+  /* Promotion */
+  'spark.promote':                     'Promote',
+  'spark.promote.subtitle':            'move this spark into the plan',
+  'spark.promote.to.beat':             'as Anti-script beat',
+  'spark.promote.to.shot':             'as a Shot',
+  'spark.promote.to.location':         'as a Location pin',
+  'spark.promote.to.reference':        'as a Reference',
+  'spark.promote.to.task':             'as a Task',
+  'spark.promote.success':             'Spark promoted',
+  'spark.promote.linked':              'linked to',
+
+  /* Dispatch view */
+  'spark.dispatch.title':              'Daily dispatch',
+  'spark.dispatch.subtitle':           'every spark in time order — for the end-of-day reel',
+  'spark.dispatch.morning':            'Morning',
+  'spark.dispatch.midday':             'Midday',
+  'spark.dispatch.afternoon':          'Afternoon',
+  'spark.dispatch.evening':            'Evening',
+  'spark.dispatch.night':              'Night',
+  'spark.dispatch.empty':              'Nothing caught yet today.',
+
+  /* Compare view */
+  'spark.compare.title':               'A · B · C compare',
+  'spark.compare.subtitle':            'side-by-side · mark a winner · keep the rest',
+  'spark.compare.pick.partners':       'Pick 2-4 sparks to compare',
+  'spark.compare.winner':              'winner',
+  'spark.compare.mark.winner':         'mark winner',
+  'spark.compare.unmark':              'unmark',
+  'spark.compare.no.selection':        'Select sparks from the wall to compare them here.',
+
+  /* Demo trip mode */
+  'spark.demo.banner':                 'Demo trip',
+  'spark.demo.day':                    'Day',
+  'spark.demo.of':                     'of',
+  'spark.demo.captured':               'sparks caught',
+
   /* ---------- Episode Hub ---------- */
   'epHub.tab.story':                   'Story',
   'epHub.tab.people':                  'People',

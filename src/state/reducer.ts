@@ -53,6 +53,7 @@ import type {
   Shot,
   SocialPost,
   Sketch,
+  Spark,
   Sponsor,
   SponsorDeliverable,
   Subject,
@@ -326,7 +327,12 @@ export type Action =
   | { type: 'UPDATE_PERMIT'; id: string; patch: Partial<PermitLegal> }
   | { type: 'DELETE_PERMIT'; id: string }
   /* Phase 12 wave 4 — i18n locale */
-  | { type: 'SET_LOCALE'; locale: 'en' | 'hr' };
+  | { type: 'SET_LOCALE'; locale: 'en' | 'hr' }
+  /* Phase 13 — Spark Wall */
+  | { type: 'ADD_SPARK'; spark: Spark }
+  | { type: 'UPDATE_SPARK'; id: string; patch: Partial<Spark> }
+  | { type: 'DELETE_SPARK'; id: string }
+  | { type: 'SET_SPARK_STATUS'; id: string; status: import('../types').SparkStatus };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1495,6 +1501,32 @@ export function reducer(state: AppState, action: Action): AppState {
     /* Phase 12 wave 4 — i18n locale */
     case 'SET_LOCALE':
       return { ...state, locale: action.locale };
+
+    /* Phase 13 — Spark Wall */
+    case 'ADD_SPARK':
+      return {
+        ...state,
+        sparks: [...state.sparks, action.spark],
+      };
+    case 'UPDATE_SPARK':
+      return {
+        ...state,
+        sparks: state.sparks.map((s) =>
+          s.id === action.id ? { ...s, ...action.patch } : s
+        ),
+      };
+    case 'DELETE_SPARK':
+      return {
+        ...state,
+        sparks: state.sparks.filter((s) => s.id !== action.id),
+      };
+    case 'SET_SPARK_STATUS':
+      return {
+        ...state,
+        sparks: state.sparks.map((s) =>
+          s.id === action.id ? { ...s, status: action.status } : s
+        ),
+      };
 
     default:
       return state;

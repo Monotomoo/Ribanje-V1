@@ -845,6 +845,85 @@ export interface WalkieChannel {
   backup?: string;
 }
 
+/* ---------- Spark Wall (Phase 13) ----------
+
+   The creative-capture surface. Built for the exploratory phase: demo
+   trips, brainstorming sessions, test-shoot cycles. Where a Take or a
+   Beat needs structure up-front, a Spark accepts the rawest input and
+   sorts later.
+
+   Twelve kinds cover the multi-sensory ways a documentary actually gets
+   discovered:
+     idea · image · voice · sketch · reference · test-shot ·
+     verse · quote · place · character · sound · taste
+
+   Four statuses track how mature an idea is:
+     raw      — just caught, not classified
+     brewing  — actively being considered
+     promoted — moved into a beat / shot / location / reference / task
+     parked   — set aside, not now
+
+   Any Spark can be promoted to a real planning entity (AntiScriptMoment,
+   Shot, Location, Reference, Task), preserving the link so editorial
+   can trace why the entity exists. */
+
+export type SparkKind =
+  | 'idea'
+  | 'image'
+  | 'voice'
+  | 'sketch'
+  | 'reference'
+  | 'test-shot'
+  | 'verse'
+  | 'quote'
+  | 'place'
+  | 'character'
+  | 'sound'
+  | 'taste';
+
+export type SparkStatus = 'raw' | 'brewing' | 'promoted' | 'parked';
+
+export type SparkPromotionType =
+  | 'beat'           // → AntiScriptMoment
+  | 'shot'           // → Shot
+  | 'location'       // → Location
+  | 'reference'      // → Reference
+  | 'task';          // → Task
+
+export interface SparkPromotion {
+  type: SparkPromotionType;
+  targetId: string;
+  promotedAt: string;        // ISO timestamp
+}
+
+export interface Spark {
+  id: string;
+  kind: SparkKind;
+  title: string;             // short headline; required
+  body?: string;              // longer description / context
+  /* Multi-sensory attachments — at most one per kind generally, but
+     nothing prevents a quote spark from also having a voice memo of it. */
+  voiceMemoId?: string;       // attached audio (links to VoiceMemo)
+  sketchId?: string;          // attached sketch (links to Sketch)
+  imageDataUrl?: string;      // base64 data URL or external URL
+  referenceUrl?: string;      // external link
+  /* Auto-context */
+  capturedAt: string;         // ISO timestamp at creation
+  capturedBy?: string;        // crew member id who caught it
+  locationId?: string;        // anchorage / location pin if known
+  episodeId?: string;         // 'general' / 'hektorovic' / actual episode id
+  shootDayDate?: string;      // ISO YYYY-MM-DD if captured on a shoot day
+  /* Free-form classification */
+  beatTags?: string[];        // e.g. 'sunrise' · 'klapa' · 'storm'
+  rating?: 1 | 2 | 3 | 4 | 5;
+  /* State */
+  status: SparkStatus;
+  promotedTo?: SparkPromotion;
+  /* For A/B/C compare flows. Sparks list their siblings here. */
+  comparePartnerIds?: string[];
+  notes?: string;
+}
+
 /* ---------- Permit & Legal Wall (Phase 12) ----------
 
    Cross-cuts Contracts (existing) with regulatory / governmental /
@@ -1371,6 +1450,7 @@ export type ViewKey =
   | 'crew'
   | 'risks'
   | 'episodes'
+  | 'sparks'
   | 'production'
   | 'map'
   | 'dop'
@@ -1466,6 +1546,8 @@ export interface AppState {
   crewPositions: CrewPosition[];
   /* Phase 12 wave 3 — planning ammo */
   permits: PermitLegal[];
+  /* Phase 13 — Spark Wall (creative capture for demo trips + brainstorm) */
+  sparks: Spark[];
   /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */
