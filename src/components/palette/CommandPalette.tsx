@@ -53,6 +53,7 @@ const VIEW_META: Record<ViewKey, { label: string; icon: LucideIcon }> = {
   episodes: { label: 'Episodes', icon: Film },
   sparks: { label: 'Sparks', icon: Sparkles },
   almanac: { label: 'Almanac', icon: Anchor },
+  bridge: { label: 'Bridge', icon: Compass },
   production: { label: 'Production', icon: Clapperboard },
   map: { label: 'Map', icon: Compass },
   dop: { label: 'Cinematography', icon: Aperture },

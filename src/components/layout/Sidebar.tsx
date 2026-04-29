@@ -55,6 +55,7 @@ const GROUPS: NavGroup[] = [
     items: [
       { key: 'sparks',     labelKey: 'nav.sparks',     icon: Sparkles },
       { key: 'almanac',    labelKey: 'nav.almanac',    icon: Anchor },
+      { key: 'bridge',     labelKey: 'nav.bridge',     icon: Compass },
       { key: 'episodes',   labelKey: 'nav.episodes',   icon: Film },
       { key: 'production', labelKey: 'nav.production', icon: Clapperboard },
       { key: 'dop',        labelKey: 'nav.dop',        icon: Aperture },

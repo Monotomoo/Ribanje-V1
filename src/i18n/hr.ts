@@ -352,6 +352,83 @@ export const hr: Strings = {
   /* Nav + view */
   'nav.sparks':                        'Iskre',
   'nav.almanac':                       'Almanah',
+  'nav.bridge':                        'Most',
+
+  /* ---------- Kapetanski most (Phase 15) ---------- */
+  'bridge.title':                      'Kapetanski most',
+  'bridge.subtitle':                   'atlas vjetrova · sidrenje · bura · plovidba · pojmovnik',
+  'bridge.tab.wind':                   'Vjetrovi',
+  'bridge.tab.anchor':                 'Sidro',
+  'bridge.tab.bura':                   'Bura',
+  'bridge.tab.passage':                'Plovidba',
+  'bridge.tab.glossary':               'Pojmovnik',
+
+  /* Wind atlas */
+  'bridge.wind.title':                 'Atlas vjetrova po sidrištu',
+  'bridge.wind.subtitle':              'koji vjetrovi štite ili izlažu · audit po lokaciji',
+  'bridge.wind.pick':                  'odaberi lokaciju',
+  'bridge.wind.no.atlas':              'još nema podataka o vjetrovima za ovu lokaciju',
+  'bridge.wind.shelter':               'štiti',
+  'bridge.wind.expose':                'izlaže',
+  'bridge.wind.mixed':                 'mješovito',
+  'bridge.wind.set.all':               'postavi default',
+  'bridge.wind.compass.legend':        'kompas · 8 imenovanih jadranskih vjetrova',
+
+  /* Anchor holding */
+  'bridge.anchor.title':               'Karta sidrenja',
+  'bridge.anchor.subtitle':            'tip dna · dubina · radijus · oprema',
+  'bridge.anchor.bottom.type':         'tip dna',
+  'bridge.anchor.depth':               'dubina',
+  'bridge.anchor.swing':               'radijus zaokreta',
+  'bridge.anchor.tackle':              'oprema za sidrenje',
+  'bridge.anchor.no.data':             'audituj ovo sidrište tijekom putovanja',
+  'bridge.anchor.bottom.pijesak':      'pijesak · dobro drži',
+  'bridge.anchor.bottom.stijena':      'stijena · slabo drži',
+  'bridge.anchor.bottom.trava':        'trava · slabo',
+  'bridge.anchor.bottom.blato':        'blato · najbolje drži',
+  'bridge.anchor.bottom.šljunak':      'šljunak · varira',
+  'bridge.anchor.bottom.mješovito':    'mješovito',
+
+  /* Bura Watch */
+  'bridge.bura.title':                 'Bura watch',
+  'bridge.bura.subtitle':              'usporedba prognoze s atlasom vjetrova',
+  'bridge.bura.no.alert':              'nema upozorenja za sljedećih 48h',
+  'bridge.bura.alert':                 'upozorenje na vjetar',
+  'bridge.bura.peak':                  'vrhunac',
+  'bridge.bura.shelter.candidates':    'sigurna sidrišta',
+  'bridge.bura.action.move':           'premjesti se u zavjetrinu',
+  'bridge.bura.action.stay':           'ostani · prati',
+
+  /* Passage Planner */
+  'bridge.passage.title':              'Plan plovidbe',
+  'bridge.passage.subtitle':           'A → B · udaljenost · ETA · gorivo · sunce',
+  'bridge.passage.from':               'od',
+  'bridge.passage.to':                 'do',
+  'bridge.passage.distance':           'udaljenost',
+  'bridge.passage.eta.motor':          'ETA na motor',
+  'bridge.passage.eta.sail':           'ETA na jedra',
+  'bridge.passage.fuel.estimate':      'procjena goriva',
+  'bridge.passage.depart.at':          'polazak u',
+  'bridge.passage.arrival':            'dolazak',
+  'bridge.passage.sun.during':         'sunce tijekom plovidbe',
+
+  /* Glossary */
+  'bridge.glossary.title':             'Pomorski pojmovnik',
+  'bridge.glossary.subtitle':          'hrvatski pomorski pojmovi · vjetrovi · sidrenje · manevri · ribolov',
+  'bridge.glossary.search':            'pretraži',
+  'bridge.glossary.cat.all':           'sve',
+  'bridge.glossary.cat.wind':          'vjetar',
+  'bridge.glossary.cat.maneuver':      'manevar',
+  'bridge.glossary.cat.anchor':        'sidrenje',
+  'bridge.glossary.cat.sail':          'jedra',
+  'bridge.glossary.cat.boat':          'brod',
+  'bridge.glossary.cat.weather':       'vrijeme',
+  'bridge.glossary.cat.navigation':    'navigacija',
+  'bridge.glossary.cat.fishing':       'ribolov',
+  'bridge.glossary.cat.place':         'mjesto',
+  'bridge.glossary.cat.other':         'ostalo',
+  'bridge.glossary.example':           'primjer',
+  'bridge.glossary.pronunciation':     'izgovor',
 
   /* ---------- Ribarski almanah (Phase 14) ---------- */
   'almanac.title':                     'Ribarski almanah',

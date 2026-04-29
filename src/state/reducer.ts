@@ -56,6 +56,7 @@ import type {
   Spark,
   SpeciesCard,
   Sponsor,
+  GlossaryTerm,
   SponsorDeliverable,
   Subject,
   SubtitleTrack,
@@ -339,7 +340,11 @@ export type Action =
   /* Phase 14 — Fisherman's Almanac species library */
   | { type: 'ADD_SPECIES'; species: SpeciesCard }
   | { type: 'UPDATE_SPECIES'; id: string; patch: Partial<SpeciesCard> }
-  | { type: 'DELETE_SPECIES'; id: string };
+  | { type: 'DELETE_SPECIES'; id: string }
+  /* Phase 15 — Captain's Bridge maritime glossary */
+  | { type: 'ADD_GLOSSARY'; term: GlossaryTerm }
+  | { type: 'UPDATE_GLOSSARY'; id: string; patch: Partial<GlossaryTerm> }
+  | { type: 'DELETE_GLOSSARY'; id: string };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1553,6 +1558,22 @@ export function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         species: state.species.filter((s) => s.id !== action.id),
+      };
+
+    /* Phase 15 — Captain's Bridge maritime glossary */
+    case 'ADD_GLOSSARY':
+      return { ...state, glossaryTerms: [...state.glossaryTerms, action.term] };
+    case 'UPDATE_GLOSSARY':
+      return {
+        ...state,
+        glossaryTerms: state.glossaryTerms.map((g) =>
+          g.id === action.id ? { ...g, ...action.patch } : g
+        ),
+      };
+    case 'DELETE_GLOSSARY':
+      return {
+        ...state,
+        glossaryTerms: state.glossaryTerms.filter((g) => g.id !== action.id),
       };
 
     default:

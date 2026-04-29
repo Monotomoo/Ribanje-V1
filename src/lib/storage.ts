@@ -160,6 +160,7 @@ function migrateState(loaded: Partial<AppState>): AppState {
     sparks: loaded.sparks ?? defaults.sparks,
     demoTrip: loaded.demoTrip ?? defaults.demoTrip,
     species: loaded.species ?? defaults.species,
+    glossaryTerms: loaded.glossaryTerms ?? defaults.glossaryTerms,
     showDayMode: loaded.showDayMode ?? defaults.showDayMode,
     locale: loaded.locale ?? defaults.locale,
     /* Scenarios deserve a per-key merge so a saved state with old funding

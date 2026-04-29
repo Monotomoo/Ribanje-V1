@@ -220,6 +220,12 @@ export interface Location {
      If primary fails (rain · wind · sea · permit denied), fall through
      to plan B, then plan C. Order matters — index 0 is the first backup. */
   backupChain?: BackupChainEntry[];
+  /* Phase 15 — Captain's Bridge: anchor holding + per-location wind atlas */
+  bottomType?: BottomType;
+  anchorDepthRangeM?: { min: number; max: number };
+  swingRoomM?: number;
+  groundTackleNotes?: string;
+  windAtlas?: WindAtlasEntry[];
 }
 
 export type BackupCondition = 'rain' | 'wind' | 'sea' | 'permit' | 'access' | 'general';
@@ -1008,6 +1014,71 @@ export interface SpeciesCard {
   imageUrl?: string;        // optional — base64 or external URL
 }
 
+/* ---------- Captain's Bridge · Kapetanski most (Phase 15) ----------
+
+   Sailor-side operational toolkit. Six surfaces in one view that
+   Luka and Ivan use the way they navigate today, formalised for
+   the documentary crew:
+
+     • Wind Atlas per anchorage — which 8 winds shelter or expose
+     • Anchor Holding — bottom type · depth · swing · ground tackle
+     • Bura Watch — auto-detection of high-wind events
+     • Passage Planner — A→B with distance · ETA · sun arc
+     • Maritime Glossary — Croatian-first terminology
+
+   The 8 named Adriatic winds form the compass of every Croatian
+   sailor. North → south clockwise: tramontana · burin/bura · levanat ·
+   jugo · ošter (south-east turning) · lebić (south-west) · pulenat
+   (west) · maestral (NW summer breeze). */
+
+export type WindName =
+  | 'tramontana'
+  | 'bura'
+  | 'levanat'
+  | 'jugo'
+  | 'ošter'
+  | 'lebić'
+  | 'pulenat'
+  | 'maestral';
+
+export type ShelterStatus = 'shelter' | 'expose' | 'mixed';
+
+export type BottomType =
+  | 'pijesak'        // sand
+  | 'stijena'        // rock
+  | 'trava'           // sea grass · poor holding
+  | 'blato'           // mud · best holding
+  | 'šljunak'         // gravel
+  | 'mješovito';      // mixed
+
+export interface WindAtlasEntry {
+  wind: WindName;
+  shelter: ShelterStatus;
+  notes?: string;
+}
+
+export type GlossaryCategory =
+  | 'wind'
+  | 'maneuver'
+  | 'anchor'
+  | 'sail'
+  | 'boat'
+  | 'weather'
+  | 'navigation'
+  | 'fishing'
+  | 'place'
+  | 'other';
+
+export interface GlossaryTerm {
+  id: string;
+  termCro: string;          // canonical Croatian
+  termEng?: string;
+  category: GlossaryCategory;
+  definition: string;
+  pronunciation?: string;   // approximate phonetic for non-native speakers
+  example?: string;         // usage in context
+}
+
 /* ---------- Demo Trip (Phase 13 wave 2) ----------
    Lightweight session marker for the upcoming 3-day demo trip (and any
    future exploratory trip). When set, the Sparks view shows a banner
@@ -1548,6 +1619,7 @@ export type ViewKey =
   | 'episodes'
   | 'sparks'
   | 'almanac'
+  | 'bridge'
   | 'production'
   | 'map'
   | 'dop'
@@ -1651,6 +1723,8 @@ export interface AppState {
   demoTrip: DemoTrip | null;
   /* Phase 14 — Fisherman's Almanac (species library) */
   species: SpeciesCard[];
+  /* Phase 15 — Captain's Bridge (maritime glossary) */
+  glossaryTerms: GlossaryTerm[];
   /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */

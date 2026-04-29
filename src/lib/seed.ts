@@ -48,6 +48,7 @@ import type {
   WrapEntry,
 } from '../types';
 import { SEED_SPECIES } from './species/adriatic';
+import { SEED_GLOSSARY } from './glossary/maritime';
 
 /* ---------- Funding & costs metadata ---------- */
 
@@ -1320,6 +1321,8 @@ export function makeInitialState(): AppState {
     demoTrip: null,
     /* Phase 14 — Fisherman's Almanac · 33 Adriatic species seeded */
     species: SEED_SPECIES,
+    /* Phase 15 — Captain's Bridge · 56 maritime glossary terms seeded */
+    glossaryTerms: SEED_GLOSSARY,
     showDayMode: false,
     locale: 'en',
     selectedEpisodeId: null,

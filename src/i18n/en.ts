@@ -345,6 +345,83 @@ export const en = {
   /* Nav + view */
   'nav.sparks':                        'Sparks',
   'nav.almanac':                       'Almanac',
+  'nav.bridge':                        'Bridge',
+
+  /* ---------- Captain's Bridge (Phase 15) ---------- */
+  'bridge.title':                      'Captain\'s Bridge',
+  'bridge.subtitle':                   'wind atlas · anchor holding · bura watch · passage · glossary',
+  'bridge.tab.wind':                   'Wind Atlas',
+  'bridge.tab.anchor':                 'Anchor',
+  'bridge.tab.bura':                   'Bura Watch',
+  'bridge.tab.passage':                'Passage',
+  'bridge.tab.glossary':               'Glossary',
+
+  /* Wind atlas */
+  'bridge.wind.title':                 'Wind Atlas per anchorage',
+  'bridge.wind.subtitle':              'which winds shelter or expose · audit per location',
+  'bridge.wind.pick':                  'pick a location',
+  'bridge.wind.no.atlas':              'no wind data for this location yet',
+  'bridge.wind.shelter':               'shelter',
+  'bridge.wind.expose':                'expose',
+  'bridge.wind.mixed':                 'mixed',
+  'bridge.wind.set.all':               'seed defaults',
+  'bridge.wind.compass.legend':        'compass · 8 named Adriatic winds',
+
+  /* Anchor holding */
+  'bridge.anchor.title':               'Anchor Holding Chart',
+  'bridge.anchor.subtitle':            'bottom type · depth · swing room · ground tackle',
+  'bridge.anchor.bottom.type':         'bottom type',
+  'bridge.anchor.depth':               'depth',
+  'bridge.anchor.swing':               'swing room',
+  'bridge.anchor.tackle':              'ground tackle',
+  'bridge.anchor.no.data':             'audit this anchorage during the trip',
+  'bridge.anchor.bottom.pijesak':      'sand · good holding',
+  'bridge.anchor.bottom.stijena':      'rock · poor holding',
+  'bridge.anchor.bottom.trava':        'sea grass · poor',
+  'bridge.anchor.bottom.blato':        'mud · best holding',
+  'bridge.anchor.bottom.šljunak':      'gravel · variable',
+  'bridge.anchor.bottom.mješovito':    'mixed',
+
+  /* Bura Watch */
+  'bridge.bura.title':                 'Bura Watch',
+  'bridge.bura.subtitle':              'cross-references conditions forecast against shelter geography',
+  'bridge.bura.no.alert':              'no high-wind events in next 48h forecast',
+  'bridge.bura.alert':                 'wind alert',
+  'bridge.bura.peak':                  'peak',
+  'bridge.bura.shelter.candidates':    'shelter candidates',
+  'bridge.bura.action.move':           'move to lee',
+  'bridge.bura.action.stay':           'stay · monitor',
+
+  /* Passage Planner */
+  'bridge.passage.title':              'Passage Planner',
+  'bridge.passage.subtitle':           'A → B · distance · ETA · fuel · sun arc',
+  'bridge.passage.from':               'from',
+  'bridge.passage.to':                 'to',
+  'bridge.passage.distance':           'distance',
+  'bridge.passage.eta.motor':          'ETA at motor',
+  'bridge.passage.eta.sail':           'ETA at sail',
+  'bridge.passage.fuel.estimate':      'fuel estimate',
+  'bridge.passage.depart.at':          'depart at',
+  'bridge.passage.arrival':            'arrival',
+  'bridge.passage.sun.during':         'sun during passage',
+
+  /* Glossary */
+  'bridge.glossary.title':             'Maritime Glossary',
+  'bridge.glossary.subtitle':          'Croatian sailor terms · winds · anchor · maneuvers · fishing',
+  'bridge.glossary.search':            'search terms',
+  'bridge.glossary.cat.all':           'all',
+  'bridge.glossary.cat.wind':          'wind',
+  'bridge.glossary.cat.maneuver':      'maneuver',
+  'bridge.glossary.cat.anchor':        'anchor',
+  'bridge.glossary.cat.sail':          'sail',
+  'bridge.glossary.cat.boat':          'boat',
+  'bridge.glossary.cat.weather':       'weather',
+  'bridge.glossary.cat.navigation':    'navigation',
+  'bridge.glossary.cat.fishing':       'fishing',
+  'bridge.glossary.cat.place':         'place',
+  'bridge.glossary.cat.other':         'other',
+  'bridge.glossary.example':           'example',
+  'bridge.glossary.pronunciation':     'pronunciation',
 
   /* ---------- Fisherman\'s Almanac (Phase 14) ---------- */
   'almanac.title':                     'Fisherman\'s Almanac',
