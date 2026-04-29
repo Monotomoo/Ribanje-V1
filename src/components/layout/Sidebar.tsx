@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  Anchor,
   Aperture,
   AudioWaveform,
   BookOpen,
@@ -53,6 +54,7 @@ const GROUPS: NavGroup[] = [
     labelKey: 'nav.group.make',
     items: [
       { key: 'sparks',     labelKey: 'nav.sparks',     icon: Sparkles },
+      { key: 'almanac',    labelKey: 'nav.almanac',    icon: Anchor },
       { key: 'episodes',   labelKey: 'nav.episodes',   icon: Film },
       { key: 'production', labelKey: 'nav.production', icon: Clapperboard },
       { key: 'dop',        labelKey: 'nav.dop',        icon: Aperture },

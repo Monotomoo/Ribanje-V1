@@ -297,7 +297,22 @@ export interface Talent {
 
 /* ---------- Catch log ---------- */
 
-export type CatchMethod = 'line' | 'spear' | 'net' | 'trap' | 'other';
+export type CatchMethod =
+  /* Generic (legacy) */
+  | 'line'
+  | 'spear'
+  | 'net'
+  | 'trap'
+  | 'other'
+  /* Phase 14 — Croatian-specific traditional methods */
+  | 'parangal'    // longline with multiple hooks
+  | 'panula'       // trolling
+  | 'koža'         // night squid jigging under torchlight
+  | 'osti'         // spear / harpoon
+  | 'vrše'         // woven traps
+  | 'mreže'        // nets (plural, traditional)
+  | 'kanjci'       // small hand-line for kanjac etc.
+  | 'pučina';      // open-sea hand-line
 
 export interface Catch {
   id: string;
@@ -313,6 +328,13 @@ export interface Catch {
   hektorovicVerseRef?: string;
   photoBase64?: string;
   notes: string;
+  /* Phase 14 — Almanac extensions for the catch log */
+  caughtAt?: string;        // ISO timestamp (full datetime)
+  shootDayDate?: string;    // ISO YYYY-MM-DD if on a shoot day
+  caughtBy?: string;        // crew member id
+  speciesId?: string;       // links to SpeciesCard (preferred over free-form fishCro)
+  lengthCm?: number;
+  releasedAlive?: boolean;  // catch-and-release flag
 }
 
 /* ---------- Meal log ---------- */
@@ -924,6 +946,68 @@ export interface Spark {
   notes?: string;
 }
 
+/* ---------- Fisherman's Almanac (Phase 14) ----------
+
+   30+ Adriatic species with full biology + dialect + method profiles.
+   This is Ivan's life-knowledge in editorial form — looks like a 1910
+   sailor's pocketbook, runs on iPad. Per-species fields support:
+     • Catch Windows grid (species × month heatmap)
+     • Window Finder (next 48h fishing window per species)
+     • Catch Log (Ivan's per-trip log)
+     • Species Cards (browseable encyclopedia)
+
+   All Croatian-first: nameCro is canonical, dialects record island
+   variants (hvarski · viški · brački · dalmatinski). */
+
+export type SpeciesCategory =
+  | 'pelagic'
+  | 'demersal'
+  | 'cephalopod'
+  | 'crustacean'
+  | 'shellfish'
+  | 'other';
+
+/* IUCN Red List status — global. */
+export type IucnStatus = 'LC' | 'NT' | 'VU' | 'EN' | 'CR' | 'DD';
+
+/* Adriatic-specific stock condition (folk + scientific synthesis). */
+export type StockStatus =
+  | 'healthy'
+  | 'stable'
+  | 'declining'
+  | 'depleted'
+  | 'protected'
+  | 'unknown';
+
+export type FishingTimeWindow = 'dawn' | 'midday' | 'dusk' | 'night' | 'all';
+
+export interface SpeciesDialect {
+  region: string;          // 'hvarski' · 'viški' · 'brački' · 'dalmatinski' · etc.
+  name: string;
+  notes?: string;
+}
+
+export interface SpeciesCard {
+  id: string;
+  nameCro: string;          // canonical Croatian
+  nameEng: string;
+  scientific: string;       // Latin binomial
+  category: SpeciesCategory;
+  dialects?: SpeciesDialect[];
+  /* Catch profile */
+  depthRangeM?: { min: number; max: number };
+  minSizeCm?: number;       // legal minimum size if regulated
+  monthsActive?: number[];  // 1–12 — best months for catching
+  bestTimeOfDay?: FishingTimeWindow[];
+  methods?: string[];       // 'parangal' · 'panula' · 'koža' · 'vrše' · etc.
+  baits?: string[];         // 'sardela' · 'lignja' · 'rakovica' · etc.
+  /* Status + cultural */
+  iucn?: IucnStatus;
+  adriaticStock?: StockStatus;
+  notes?: string;
+  imageUrl?: string;        // optional — base64 or external URL
+}
+
 /* ---------- Demo Trip (Phase 13 wave 2) ----------
    Lightweight session marker for the upcoming 3-day demo trip (and any
    future exploratory trip). When set, the Sparks view shows a banner
@@ -1463,6 +1547,7 @@ export type ViewKey =
   | 'risks'
   | 'episodes'
   | 'sparks'
+  | 'almanac'
   | 'production'
   | 'map'
   | 'dop'
@@ -1564,6 +1649,8 @@ export interface AppState {
      When set, the Sparks view shows a banner with day counter and
      spark stats for the trip date range. Default null = no trip active. */
   demoTrip: DemoTrip | null;
+  /* Phase 14 — Fisherman's Almanac (species library) */
+  species: SpeciesCard[];
   /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */

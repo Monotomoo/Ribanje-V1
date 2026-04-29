@@ -54,6 +54,7 @@ import type {
   SocialPost,
   Sketch,
   Spark,
+  SpeciesCard,
   Sponsor,
   SponsorDeliverable,
   Subject,
@@ -334,7 +335,11 @@ export type Action =
   | { type: 'DELETE_SPARK'; id: string }
   | { type: 'SET_SPARK_STATUS'; id: string; status: import('../types').SparkStatus }
   /* Phase 13 wave 2 — Demo trip */
-  | { type: 'SET_DEMO_TRIP'; trip: import('../types').DemoTrip | null };
+  | { type: 'SET_DEMO_TRIP'; trip: import('../types').DemoTrip | null }
+  /* Phase 14 — Fisherman's Almanac species library */
+  | { type: 'ADD_SPECIES'; species: SpeciesCard }
+  | { type: 'UPDATE_SPECIES'; id: string; patch: Partial<SpeciesCard> }
+  | { type: 'DELETE_SPECIES'; id: string };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1533,6 +1538,22 @@ export function reducer(state: AppState, action: Action): AppState {
     /* Phase 13 wave 2 — Demo trip */
     case 'SET_DEMO_TRIP':
       return { ...state, demoTrip: action.trip };
+
+    /* Phase 14 — Fisherman's Almanac species library */
+    case 'ADD_SPECIES':
+      return { ...state, species: [...state.species, action.species] };
+    case 'UPDATE_SPECIES':
+      return {
+        ...state,
+        species: state.species.map((s) =>
+          s.id === action.id ? { ...s, ...action.patch } : s
+        ),
+      };
+    case 'DELETE_SPECIES':
+      return {
+        ...state,
+        species: state.species.filter((s) => s.id !== action.id),
+      };
 
     default:
       return state;

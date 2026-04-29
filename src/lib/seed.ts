@@ -47,6 +47,7 @@ import type {
   WalkieChannel,
   WrapEntry,
 } from '../types';
+import { SEED_SPECIES } from './species/adriatic';
 
 /* ---------- Funding & costs metadata ---------- */
 
@@ -1317,6 +1318,8 @@ export function makeInitialState(): AppState {
     /* Phase 13 — Spark Wall (creative capture) */
     sparks: [],
     demoTrip: null,
+    /* Phase 14 — Fisherman's Almanac · 33 Adriatic species seeded */
+    species: SEED_SPECIES,
     showDayMode: false,
     locale: 'en',
     selectedEpisodeId: null,
