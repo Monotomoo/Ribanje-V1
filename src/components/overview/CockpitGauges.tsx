@@ -43,7 +43,7 @@ export function CockpitGauges({ onJump }: GaugeJumpProps) {
   const fundingPct = Math.min(100, Math.round((fundingTotal / fundingTarget) * 100));
 
   const crewTotal = state.crew.length;
-  const crewTarget = 6;
+  const crewTarget = 5;
 
   const episodesTotal = state.episodes.length;
   const episodesLocked = state.episodes.filter((e) => e.status === 'locked' || e.status === 'cut').length;

@@ -1110,7 +1110,7 @@ export const SEED_RESEARCH_SOURCES: ResearchSource[] = [
     author: 'Various',
     year: 2015,
     summary:
-      'Modern scholarly framing — Hektorović sits in the Dalmatian humanist tradition with Marko Marulić, Petar Zoranić. Vernacular language as cultural anchor.',
+      'Modern scholarly framing — Hektorović sits in the Dalmatian humanist tradition with Marulić, Petar Zoranić. Vernacular language as cultural anchor.',
     whyItMatters:
       'For Pitch + festival context — situate the show against Dalmatian humanism, not just a 16th-century voyage.',
   },
