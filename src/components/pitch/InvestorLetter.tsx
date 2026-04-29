@@ -93,7 +93,7 @@ export function InvestorLetter({ figures }: { figures: Figures }) {
           Six episodes shot across Croatia's outer Adriatic in October 2026 —
           Dubrovnik to Istria. Observational philosophy, no scripts on the boat,
           built around your craft as a sailor and Rene's encyclopedic palate.
-          Tom Lebarić shoots, Marko cuts. The DNA traces back to Hektorović's
+          Tom Lebarić shoots, in-house edit. The DNA traces back to Hektorović's
           1568 fishing voyage; the cast is the show.
         </p>
         <p className="prose-body text-[15px] text-[color:var(--color-on-paper)] leading-[1.65] mt-3">

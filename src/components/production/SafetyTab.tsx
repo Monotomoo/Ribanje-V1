@@ -165,7 +165,7 @@ export function SafetyTab({ previewDateIso }: Props) {
             rows={2}
             value={today?.notes ?? ''}
             onChange={patchNotes}
-            placeholder="RF check pending — Marko swapping channels. Sea state OK."
+            placeholder="RF check pending — operator swapping channels. Sea state OK."
             className="prose-body italic text-[13px] text-[color:var(--color-on-paper)] leading-relaxed block w-full"
           />
         </div>

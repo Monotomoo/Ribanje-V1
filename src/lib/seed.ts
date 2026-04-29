@@ -65,13 +65,13 @@ export const FUNDING_SOURCES: FundingSourceMeta[] = [
 export const COST_CATEGORIES: CostCategoryMeta[] = [
   { key: 'tom',  label: "Tom's package (DOP + kit, 30 days)" },
   { key: 'eq',   label: 'Other equipment (B-cam, audio, drones)' },
-  { key: 'crew', label: 'Crew (Marko, brother, assist)' },
+  { key: 'crew', label: 'Crew (assistants)' },
   { key: 'tal',  label: 'Talent fees (per diems + guests)' },
   { key: 'fuel', label: 'Fuel + dockage (both boats)' },
   { key: 'tf',   label: 'Travel / accommodation / food' },
   { key: 'ins',  label: 'Insurance / permits / legal' },
   { key: 'pre',  label: 'Pre-production' },
-  { key: 'ed',   label: 'Editor (Marko-led)' },
+  { key: 'ed',   label: 'Editor' },
   { key: 'col',  label: 'Color grading' },
   { key: 'sm',   label: 'Sound design + mix + music' },
   { key: 'ai',   label: 'AI tooling + historical VFX' },
@@ -173,7 +173,6 @@ export const SEED_CREW: CrewMember[] = [
   { id: 'c2', name: 'Tom Lebarić',      role: 'Director of Photography',          link: 'https://tom-lebaric.com', notes: 'Trinity owner / underwater specialist / ACO/SOC/SOA.' },
   { id: 'c3', name: 'Ivan Paladina',    role: 'Principal / Lead talent / Sailor',                                  notes: 'Show owner. Permits and access. Lead fisherman.' },
   { id: 'c4', name: 'Rene Bakalović',   role: 'Principal / Co-host',                                               notes: 'Wine and food encyclopedist. Storytelling principal.' },
-  { id: 'c5', name: 'Marko Stanic',     role: 'Camera B / Sound recordist',                                        notes: 'Marko. Third on camera boat. Multi-discipline.' },
   { id: 'c6', name: 'Luka Paladina',    role: 'Captain (talent boat) / Sailor',                                    notes: 'Luka. Family connection to Ivan.' },
 ];
 
@@ -187,7 +186,7 @@ export const SEED_RISKS: Risk[] = [
   { id: 'r5',  title: 'Klapa music rights',              probability: 'low',  impact: 'high', description: 'Traditional songs are public domain but specific arrangements and recordings are not.', mitigation: 'Commission new arrangements. Clear all recordings explicitly. Composer of record handles licensing.',                       category: 'legal',       probabilityScale: 2, impactScale: 4, residualP: 1, residualI: 3, status: 'mitigating' },
   { id: 'r6',  title: 'Fish welfare on camera',          probability: 'high', impact: 'low',  description: 'International audiences increasingly sensitive to on-camera fishing practices.',         mitigation: 'Documented mixed catch-and-eat / catch-and-release policy. Transparent in all materials.',                                category: 'operational', probabilityScale: 4, impactScale: 2, residualP: 2, residualI: 2, status: 'mitigating' },
   { id: 'r7',  title: 'Underwater filming legality',     probability: 'low',  impact: 'high', description: 'Croatia tightened spearfishing regulations recently. Filming + fishing line is thin.',  mitigation: "Verify Ivan's licenses for on-camera underwater fishing. Document compliance.",                                          category: 'regulatory',  probabilityScale: 2, impactScale: 5, residualP: 1, residualI: 4, status: 'mitigating' },
-  { id: 'r8',  title: 'Post-production schedule slip',   probability: 'high', impact: 'high', description: 'Observational doc post is 30–50% longer than planned doc post.',                          mitigation: '20-week post buffer minimum. Marko-led edit allows flexibility. Festival deadlines mapped early.',                          category: 'post',        probabilityScale: 5, impactScale: 4, residualP: 3, residualI: 3, status: 'open' },
+  { id: 'r8',  title: 'Post-production schedule slip',   probability: 'high', impact: 'high', description: 'Observational doc post is 30–50% longer than planned doc post.',                          mitigation: '20-week post buffer minimum. In-house edit allows flexibility. Festival deadlines mapped early.',                          category: 'post',        probabilityScale: 5, impactScale: 4, residualP: 3, residualI: 3, status: 'open' },
   { id: 'r9',  title: 'Sponsor delivery shortfall',      probability: 'high', impact: 'low',  description: "Soft commitments don't convert to wire transfers.",                                       mitigation: 'Pipeline 2× what budget needs. Sign in writing, not handshake. Sponsor outreach starts post-pilot trailer.',              category: 'financial',   probabilityScale: 4, impactScale: 2, residualP: 2, residualI: 2, status: 'open' },
   { id: 'r10', title: 'HRT slot timing slip',            probability: 'low',  impact: 'high', description: 'Public broadcaster scheduling can shift by quarters.',                                    mitigation: 'Lock HRT co-production agreement with target air date written in. Festival circuit as parallel distribution path.',          category: 'operational', probabilityScale: 2, impactScale: 4, residualP: 2, residualI: 3, status: 'open' },
 ];
@@ -633,7 +632,6 @@ export const SEED_CONTRACTS: Contract[] = [
   { id: 'ct2', type: 'talent-release',    partyName: 'Rene Bakalović',  episodeId: 'general', status: 'drafted', notes: 'Co-host release.' },
   { id: 'ct3', type: 'talent-release',    partyName: 'Luka Paladina',   episodeId: 'general', status: 'drafted', notes: 'Captain release.' },
   { id: 'ct4', type: 'crew',              partyName: 'Tom Lebarić',     episodeId: 'general', status: 'drafted', notes: 'DOP agreement + kit rental.' },
-  { id: 'ct5', type: 'crew',              partyName: 'Marko Stanic',    episodeId: 'general', status: 'drafted', notes: 'Camera B + sound + edit.' },
   { id: 'ct6', type: 'location-release',  partyName: 'Mljet NP authority', episodeId: 'ep1',  status: 'drafted', notes: 'National park filming permit.' },
   { id: 'ct7', type: 'location-release',  partyName: 'Kornati NP authority', episodeId: 'ep3', status: 'drafted', notes: '' },
   { id: 'ct8', type: 'music-clearance',   partyName: 'Klapa rights bundle', episodeId: 'general', status: 'drafted', notes: 'Per Risk #5 — bundle clearance via composer of record.' },
@@ -812,7 +810,7 @@ export const SEED_SCENES: Scene[] = [
   { id: 'sc-3-2', episodeId: 'ep3', label: 'Abandoned konobe',         slug: 'konobe',     dayIdx: 12 },
   /* Episode 4 — Sol */
   { id: 'sc-4-1', episodeId: 'ep4', label: 'Salt traditions · Silba',  slug: 'salt',       dayIdx: 18 },
-  { id: 'sc-4-2', episodeId: 'ep4', label: 'Marko fishing · Olib',     slug: 'olib-fish',  dayIdx: 16 },
+  { id: 'sc-4-2', episodeId: 'ep4', label: 'Solo fishing · Olib',      slug: 'olib-fish',  dayIdx: 16 },
   /* Episode 5 — Glas */
   { id: 'sc-5-1', episodeId: 'ep5', label: 'Klapa session · Mali Lošinj', slug: 'klapa',   dayIdx: 21 },
   { id: 'sc-5-2', episodeId: 'ep5', label: 'Susak · women in dress',   slug: 'susak',      dayIdx: 22 },
@@ -825,26 +823,26 @@ export const SEED_SHOTS: Shot[] = [
   /* 1.1 Departure */
   { id: 'sh-1-1-1', episodeId: 'ep1', sceneId: 'sc-1-1', number: '1', description: 'Lines off the bollard · close on knot release',         cameraSlot: 'A',     framing: 'ECU', movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
   { id: 'sh-1-1-2', episodeId: 'ep1', sceneId: 'sc-1-1', number: '2', description: 'Ivan at the helm · old town receding behind',           cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'lav',     operator: 'c2', durationEstMin: 2, status: 'planned' },
-  { id: 'sh-1-1-3', episodeId: 'ep1', sceneId: 'sc-1-1', number: '3', description: 'Drone wide · boat clearing harbour mouth',              cameraSlot: 'drone', framing: 'EWS', movement: 'drone',    audioPlan: 'MOS',     operator: 'c5', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-1-1-3', episodeId: 'ep1', sceneId: 'sc-1-1', number: '3', description: 'Drone wide · boat clearing harbour mouth',              cameraSlot: 'drone', framing: 'EWS', movement: 'drone',    audioPlan: 'MOS',     operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 1.2 First haul */
   { id: 'sh-1-2-1', episodeId: 'ep1', sceneId: 'sc-1-2', number: '1', description: 'Hands on net · pull · weight in the hands',             cameraSlot: 'A',     framing: 'MCU', movement: 'handheld', audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 3, status: 'planned' },
-  { id: 'sh-1-2-2', episodeId: 'ep1', sceneId: 'sc-1-2', number: '2', description: 'Fish in the net · silver against the morning',          cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',     operator: 'c5', durationEstMin: 2, status: 'planned' },
-  { id: 'sh-1-2-3', episodeId: 'ep1', sceneId: 'sc-1-2', number: '3', description: 'Marko presents the catch to Ivan · half-laughing',     cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-1-2-2', episodeId: 'ep1', sceneId: 'sc-1-2', number: '2', description: 'Fish in the net · silver against the morning',          cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',     operator: 'c2', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-1-2-3', episodeId: 'ep1', sceneId: 'sc-1-2', number: '3', description: 'Catch presentation to Ivan · half-laughing',           cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 2, status: 'planned' },
   /* 2.1 Crossing */
   { id: 'sh-2-1-1', episodeId: 'ep2', sceneId: 'sc-2-1', number: '1', description: 'Spray on the bow · slow-motion emphasis',               cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'wild',    operator: 'c2', durationEstMin: 2, status: 'planned' },
-  { id: 'sh-2-1-2', episodeId: 'ep2', sceneId: 'sc-2-1', number: '2', description: "Compass needle · macro · crossing 16°20'",              cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'ambient', operator: 'c5', durationEstMin: 1, status: 'planned' },
-  { id: 'sh-2-1-3', episodeId: 'ep2', sceneId: 'sc-2-1', number: '3', description: 'Open sea · drone reveal · only Palagruža in frame',    cameraSlot: 'drone', framing: 'EWS', movement: 'drone',    audioPlan: 'MOS',     operator: 'c5', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-2-1-2', episodeId: 'ep2', sceneId: 'sc-2-1', number: '2', description: "Compass needle · macro · crossing 16°20'",              cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-2-1-3', episodeId: 'ep2', sceneId: 'sc-2-1', number: '3', description: 'Open sea · drone reveal · only Palagruža in frame',    cameraSlot: 'drone', framing: 'EWS', movement: 'drone',    audioPlan: 'MOS',     operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 2.2 Keeper */
   { id: 'sh-2-2-1', episodeId: 'ep2', sceneId: 'sc-2-2', number: '1', description: 'Keeper at the door · wind in the cypresses',           cameraSlot: 'A',     framing: 'MS',  movement: 'static',   audioPlan: 'lav',     operator: 'c2', durationEstMin: 3, status: 'planned' },
-  { id: 'sh-2-2-2', episodeId: 'ep2', sceneId: 'sc-2-2', number: '2', description: 'Hands turning the manual lens crank',                  cameraSlot: 'B',     framing: 'MCU', movement: 'handheld', audioPlan: 'boom',    operator: 'c5', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-2-2-2', episodeId: 'ep2', sceneId: 'sc-2-2', number: '2', description: 'Hands turning the manual lens crank',                  cameraSlot: 'B',     framing: 'MCU', movement: 'handheld', audioPlan: 'boom',    operator: 'c2', durationEstMin: 2, status: 'planned' },
   { id: 'sh-2-2-3', episodeId: 'ep2', sceneId: 'sc-2-2', number: '3', description: 'Lighthouse exterior · golden hour · solitude',         cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 3.1 Stone walls */
-  { id: 'sh-3-1-1', episodeId: 'ep3', sceneId: 'sc-3-1', number: '1', description: 'Terraced walls · drone descending along the slope',    cameraSlot: 'drone', framing: 'WS',  movement: 'drone',    audioPlan: 'MOS',     operator: 'c5', durationEstMin: 2, status: 'captured' },
+  { id: 'sh-3-1-1', episodeId: 'ep3', sceneId: 'sc-3-1', number: '1', description: 'Terraced walls · drone descending along the slope',    cameraSlot: 'drone', framing: 'WS',  movement: 'drone',    audioPlan: 'MOS',     operator: 'c2', durationEstMin: 2, status: 'captured' },
   { id: 'sh-3-1-2', episodeId: 'ep3', sceneId: 'sc-3-1', number: '2', description: 'Stone joinery · macro · centuries-old fit',            cameraSlot: 'A',     framing: 'MCU', movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 1, status: 'captured' },
   { id: 'sh-3-1-3', episodeId: 'ep3', sceneId: 'sc-3-1', number: '3', description: 'Ivan walking the wall · contemplative',                cameraSlot: 'A',     framing: 'MS',  movement: 'trinity',  audioPlan: 'lav',     operator: 'c2', durationEstMin: 3, status: 'captured' },
   /* 3.2 Konobe */
   { id: 'sh-3-2-1', episodeId: 'ep3', sceneId: 'sc-3-2', number: '1', description: 'Interior · wide · light through closed shutters',      cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 2, status: 'planned' },
-  { id: 'sh-3-2-2', episodeId: 'ep3', sceneId: 'sc-3-2', number: '2', description: 'Door hinge · rust · close',                            cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c5', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-3-2-2', episodeId: 'ep3', sceneId: 'sc-3-2', number: '2', description: 'Door hinge · rust · close',                            cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 1, status: 'planned' },
   { id: 'sh-3-2-3', episodeId: 'ep3', sceneId: 'sc-3-2', number: '3', description: 'Rene tasting old bottle · disbelief into laughter',    cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 4, status: 'planned' },
   /* 4.1 Salt */
   { id: 'sh-4-1-1', episodeId: 'ep4', sceneId: 'sc-4-1', number: '1', description: 'Hands working salt into rough piles',                  cameraSlot: 'A',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 2, status: 'planned' },
@@ -852,20 +850,20 @@ export const SEED_SHOTS: Shot[] = [
   { id: 'sh-4-1-3', episodeId: 'ep4', sceneId: 'sc-4-1', number: '3', description: 'Shore at dusk · salt pans · the colour goes',          cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 4.2 Olib fishing */
   { id: 'sh-4-2-1', episodeId: 'ep4', sceneId: 'sc-4-2', number: '1', description: 'Bay wide · single boat in centre frame',               cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
-  { id: 'sh-4-2-2', episodeId: 'ep4', sceneId: 'sc-4-2', number: '2', description: 'Marko casting · concentration',                        cameraSlot: 'A',     framing: 'MCU', movement: 'handheld', audioPlan: 'boom',    operator: 'c2', durationEstMin: 2, status: 'planned' },
-  { id: 'sh-4-2-3', episodeId: 'ep4', sceneId: 'sc-4-2', number: '3', description: 'Rod bending · the strike',                             cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',    operator: 'c5', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-4-2-2', episodeId: 'ep4', sceneId: 'sc-4-2', number: '2', description: 'Solo casting · concentration',                          cameraSlot: 'A',     framing: 'MCU', movement: 'handheld', audioPlan: 'boom',    operator: 'c2', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-4-2-3', episodeId: 'ep4', sceneId: 'sc-4-2', number: '3', description: 'Rod bending · the strike',                             cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 5.1 Klapa */
   { id: 'sh-5-1-1', episodeId: 'ep5', sceneId: 'sc-5-1', number: '1', description: 'Klapa group on the konoba terrace · wide',             cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 4, status: 'planned' },
-  { id: 'sh-5-1-2', episodeId: 'ep5', sceneId: 'sc-5-1', number: '2', description: 'Mouths singing · breath · the close vowels',           cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'lav',     operator: 'c5', durationEstMin: 3, status: 'planned' },
+  { id: 'sh-5-1-2', episodeId: 'ep5', sceneId: 'sc-5-1', number: '2', description: 'Mouths singing · breath · the close vowels',           cameraSlot: 'B',     framing: 'CU',  movement: 'static',   audioPlan: 'lav',     operator: 'c2', durationEstMin: 3, status: 'planned' },
   { id: 'sh-5-1-3', episodeId: 'ep5', sceneId: 'sc-5-1', number: '3', description: 'Audience listening · old men remembering',             cameraSlot: 'A',     framing: 'MS',  movement: 'handheld', audioPlan: 'ambient', operator: 'c2', durationEstMin: 2, status: 'planned' },
   /* 5.2 Susak */
   { id: 'sh-5-2-1', episodeId: 'ep5', sceneId: 'sc-5-2', number: '1', description: 'Women in traditional dress walking sandy path',        cameraSlot: 'A',     framing: 'MS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 3, status: 'planned' },
-  { id: 'sh-5-2-2', episodeId: 'ep5', sceneId: 'sc-5-2', number: '2', description: 'Embroidery · close on hands and thread',               cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c5', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-5-2-2', episodeId: 'ep5', sceneId: 'sc-5-2', number: '2', description: 'Embroidery · close on hands and thread',               cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 2, status: 'planned' },
   { id: 'sh-5-2-3', episodeId: 'ep5', sceneId: 'sc-5-2', number: '3', description: 'Sandy island wide · footprints in late light',         cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'ambient', operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 6.1 Brijuni */
-  { id: 'sh-6-1-1', episodeId: 'ep6', sceneId: 'sc-6-1', number: '1', description: 'Approaching Brijuni · drone wide · the closing horizon', cameraSlot: 'drone', framing: 'EWS', movement: 'drone',  audioPlan: 'MOS',     operator: 'c5', durationEstMin: 2, status: 'planned' },
+  { id: 'sh-6-1-1', episodeId: 'ep6', sceneId: 'sc-6-1', number: '1', description: 'Approaching Brijuni · drone wide · the closing horizon', cameraSlot: 'drone', framing: 'EWS', movement: 'drone',  audioPlan: 'MOS',     operator: 'c2', durationEstMin: 2, status: 'planned' },
   { id: 'sh-6-1-2', episodeId: 'ep6', sceneId: 'sc-6-1', number: '2', description: 'Ivan reading the letter · paper in his hands',         cameraSlot: 'A',     framing: 'MCU', movement: 'static',   audioPlan: 'lav',     operator: 'c2', durationEstMin: 4, status: 'planned' },
-  { id: 'sh-6-1-3', episodeId: 'ep6', sceneId: 'sc-6-1', number: '3', description: 'Wax seal · the verse closing',                         cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c5', durationEstMin: 1, status: 'planned' },
+  { id: 'sh-6-1-3', episodeId: 'ep6', sceneId: 'sc-6-1', number: '3', description: 'Wax seal · the verse closing',                         cameraSlot: 'B',     framing: 'ECU', movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 1, status: 'planned' },
   /* 6.2 Dinner */
   { id: 'sh-6-2-1', episodeId: 'ep6', sceneId: 'sc-6-2', number: '1', description: 'Crew dinner around long table · wide',                 cameraSlot: 'A',     framing: 'WS',  movement: 'static',   audioPlan: 'boom+lav', operator: 'c2', durationEstMin: 5, status: 'planned' },
   { id: 'sh-6-2-2', episodeId: 'ep6', sceneId: 'sc-6-2', number: '2', description: 'Wine glasses clinking · the moment of recognition',    cameraSlot: 'A',     framing: 'CU',  movement: 'static',   audioPlan: 'wild',    operator: 'c2', durationEstMin: 1, status: 'planned' },
@@ -877,7 +875,6 @@ export const SEED_WALKIE_CHANNELS: WalkieChannel[] = [
   { id: 'w-c2', crewId: 'c2', primary: '3',  backup: '4'  }, // Tom
   { id: 'w-c3', crewId: 'c3', primary: '5',  backup: '6'  }, // Ivan
   { id: 'w-c4', crewId: 'c4', primary: '7',  backup: '8'  }, // Rene
-  { id: 'w-c5', crewId: 'c5', primary: '9',  backup: '10' }, // Marko
   { id: 'w-c6', crewId: 'c6', primary: '11', backup: '12' }, // Captain
 ];
 
@@ -898,7 +895,7 @@ export const SEED_WRAP_ENTRIES: WrapEntry[] = [
     id: 'wrap-d11',
     date: '2026-10-11',
     whatWorked: "Drone over the terraced walls in clean morning light. Ivan walked the wall in one take. Tom's LogC + low-contrast LUT held all the stone tone.",
-    whatDidnt: "RF interference on Marko's lav after 11am — likely a charter boat in the bay running on overlapping freq. Crashed audio on scene 3.1 shot 3.",
+    whatDidnt: "RF interference on the lav after 11am — likely a charter boat in the bay running on overlapping freq. Crashed audio on scene 3.1 shot 3.",
     tomorrowTweaks: 'Move first call to 06:30 to catch konobe interior before sun gets harsh. Swap to MKH-50 boom on scene 3.2 — boom only, drop the lavs.',
     moodMarks: { c1: 'good', c2: 'great', c3: 'good', c4: 'great', c5: 'rough', c6: 'good' },
     hoursRolled: 8.5,
@@ -917,7 +914,7 @@ export const SEED_BOAT_OPS_DAYS: BoatOpsDay[] = [
     waterPct: 62,
     provisionsPct: 71,
     skipperId: 'c6',
-    watchRotation: '00–04 captain · 04–08 Tomo · 08–12 Marko',
+    watchRotation: '00–04 captain · 04–08 Tomo · 08–12 DOP',
     weatherNotes: 'Clear morning, NW 8kn forecast climbing to 14kn by 14:00. Good window 06:30–11:00.',
     windDir: 'NW 8kn → 14kn pm',
     seaStateM: 0.8,
@@ -934,7 +931,7 @@ export const SEED_SAFETY_DAYS: SafetyDay[] = [
     mobDrillScheduled: false,
     commsOK: false,
     briefingComplete: false,
-    notes: 'RF check pending — Marko swapping to backup channel.',
+    notes: 'RF check pending — operator swapping to backup channel.',
   },
 ];
 

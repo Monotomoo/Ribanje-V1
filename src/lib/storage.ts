@@ -33,7 +33,6 @@ export function loadState(): AppState | null {
    string (preserves any user-edited names). */
 const CREW_NAME_MIGRATIONS: Record<string, { from: string; to: string }> = {
   c1: { from: 'Tomo',           to: 'Tomislav Kovacic' },
-  c5: { from: 'Marko',          to: 'Marko Stanic' },
   c6: { from: "Ivan's brother", to: 'Luka Paladina' },
 };
 
@@ -46,7 +45,6 @@ const LEGACY_CREW_RATES: Record<string, string> = {
   c2: 'DOP day rate + kit',
   c3: 'Per diem + back-end equity',
   c4: 'Per diem + back-end equity',
-  c5: 'Day rate',
   c6: 'Project fee',
 };
 

@@ -22,7 +22,7 @@ import type { CrewPosition, CrewPositionSlot } from '../../types';
 
    The board is a moveable map of the operation — quick glance answers
    "do we have everyone on the talent boat?" / "who's at lunch?" /
-   "where is Marko right now?".
+   "where is the boom op right now?".
 
    Per shoot day. Historical snapshots remain so you can reconstruct
    "where was the boom op at 14:00 last Wednesday?" if needed for

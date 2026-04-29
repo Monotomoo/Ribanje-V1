@@ -117,7 +117,7 @@ export function WrapTab({ previewDateIso }: Props) {
             <DebriefField
               label="What worked"
               value={todayWrap?.whatWorked ?? ''}
-              placeholder="The catch came in by 8am, light held all morning, Marko was a natural…"
+              placeholder="The catch came in by 8am, light held all morning, talent was natural…"
               onChange={(v) => patchWrap(todayDate, { whatWorked: v })}
             />
             <DebriefField

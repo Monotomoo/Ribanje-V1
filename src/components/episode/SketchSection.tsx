@@ -73,9 +73,9 @@ export function SketchSection({ episodeId }: Props) {
       {sketches.length === 0 ? (
         <div className="border-[0.5px] border-dashed border-[color:var(--color-border-paper-strong)] rounded-[3px] px-7 py-10 text-center">
           <p className="prose-body italic text-[14px] text-[color:var(--color-on-paper-muted)] max-w-[480px] mx-auto leading-relaxed">
-            Quick frame thumbnails for shots and beats. Pen-and-ink fast — over Marko's
-            shoulder looking at the net · the lighthouse keeper at the door · the catch in
-            the morning.
+            Quick frame thumbnails for shots and beats. Pen-and-ink fast — over a
+            fisherman's shoulder looking at the net · the lighthouse keeper at the door ·
+            the catch in the morning.
           </p>
         </div>
       ) : (
@@ -170,7 +170,7 @@ function SketchModal({ initialPng, initialLabel, onSave, onClose }: ModalProps) 
             <EditableText
               value={label}
               onChange={setLabel}
-              placeholder="label this sketch · e.g. Marko at the helm, sunset framing"
+              placeholder="label this sketch · e.g. Captain at the helm, sunset framing"
               className="display-italic text-[18px] text-[color:var(--color-on-paper)] block w-full"
             />
           </div>
