@@ -10,6 +10,8 @@ import {
   X,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 import type { BoatRole, BoatWaypoint } from '../../types';
 
 /* ---------- Two-Boat Timeline (Phase 12) ----------
@@ -35,10 +37,10 @@ const HOUR_W = 38;
 const LANE_H = 56;
 const LABEL_W = 96;
 
-const ROLES: { role: BoatRole; label: string; description: string; Icon: typeof Sailboat }[] = [
-  { role: 'talent',  label: 'Talent boat',  description: 'subjects + Captain Luka', Icon: Sailboat },
-  { role: 'camera',  label: 'Camera boat',  description: 'Tom + crew',              Icon: Ship },
-  { role: 'support', label: 'Support',      description: 'optional · backup boat',  Icon: Anchor },
+const ROLES: { role: BoatRole; labelKey: StringKey; descKey: StringKey; Icon: typeof Sailboat }[] = [
+  { role: 'talent',  labelKey: 'twoboat.talent',  descKey: 'twoboat.boat.talent.desc',  Icon: Sailboat },
+  { role: 'camera',  labelKey: 'twoboat.camera',  descKey: 'twoboat.boat.camera.desc',  Icon: Ship },
+  { role: 'support', labelKey: 'twoboat.support', descKey: 'twoboat.boat.support.desc', Icon: Anchor },
 ];
 
 interface Props {
@@ -48,6 +50,7 @@ interface Props {
 
 export function TwoBoatTimeline({ date, compact = false }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [editing, setEditing] = useState<BoatWaypoint | null>(null);
   const [drafting, setDrafting] = useState<{ role: BoatRole; time: string } | null>(null);
 
@@ -116,15 +119,15 @@ export function TwoBoatTimeline({ date, compact = false }: Props) {
         <div>
           <h3 className="display-italic text-[16px] text-[color:var(--color-on-paper)] leading-tight flex items-center gap-2">
             <Sailboat size={14} className="text-[color:var(--color-brass)]" />
-            Two-boat timeline
+            {t('twoboat.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5">
-            {fmtDate(date)} · click an empty hour to add a waypoint
+            {fmtDate(date)} · {t('twoboat.click.hour')}
           </div>
         </div>
         {rendezvous.length > 0 && (
           <span className="prose-body italic text-[11px] text-[color:var(--color-brass-deep)] tabular-nums">
-            {rendezvous.length} rendezvous planned
+            {rendezvous.length} {t('twoboat.rendezvous.planned')}
           </span>
         )}
       </header>
@@ -185,11 +188,11 @@ export function TwoBoatTimeline({ date, compact = false }: Props) {
                     />
                     <div>
                       <div className="display-italic text-[12px] text-[color:var(--color-on-paper)] leading-tight">
-                        {laneSpec.label}
+                        {t(laneSpec.labelKey)}
                       </div>
                       {!compact && (
                         <div className="prose-body italic text-[9px] text-[color:var(--color-on-paper-faint)] leading-tight mt-0.5">
-                          {laneSpec.description}
+                          {t(laneSpec.descKey)}
                         </div>
                       )}
                     </div>
@@ -298,9 +301,7 @@ export function TwoBoatTimeline({ date, compact = false }: Props) {
 
       {!compact && waypoints.length === 0 && (
         <div className="prose-body italic text-[12px] text-[color:var(--color-on-paper-muted)] mt-3">
-          No waypoints yet. Hover any hour cell on a lane and click the +
-          to plan an arrival or departure. Tie-lines highlight when both
-          boats hit the same location in the same hour.
+          {t('twoboat.empty')}
         </div>
       )}
 
@@ -350,6 +351,7 @@ function WaypointEditor({
   onRemove: () => void;
   onClose: () => void;
 }) {
+  const t = useT();
   const isDraft = !waypoint;
   const [draft, setDraft] = useState<Partial<BoatWaypoint>>({});
 
@@ -368,7 +370,7 @@ function WaypointEditor({
       <div className="bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] rounded-[3px] w-full max-w-[480px] overflow-hidden">
         <header className="px-5 py-3 bg-[color:var(--color-paper)] border-b-[0.5px] border-[color:var(--color-border-brass)]/40 flex items-baseline justify-between">
           <h3 className="display-italic text-[18px] text-[color:var(--color-on-paper)]">
-            {isDraft ? 'New waypoint' : 'Edit waypoint'}
+            {isDraft ? t('twoboat.editor.new') : t('twoboat.editor.edit')}
           </h3>
           <button
             type="button"
@@ -383,7 +385,7 @@ function WaypointEditor({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-                time
+                {t('twoboat.field.time')}
               </div>
               <input
                 type="time"
@@ -394,7 +396,7 @@ function WaypointEditor({
             </div>
             <div>
               <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-                action
+                {t('twoboat.field.action')}
               </div>
               <select
                 value={value.arriveOrDepart ?? 'arrive'}
@@ -405,23 +407,23 @@ function WaypointEditor({
                 }
                 className="w-full px-2 py-1.5 rounded-[3px] bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-border-paper)] text-[13px] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]"
               >
-                <option value="arrive">arrive</option>
-                <option value="depart">depart</option>
-                <option value="pass">pass through</option>
+                <option value="arrive">{t('twoboat.action.arrive')}</option>
+                <option value="depart">{t('twoboat.action.depart')}</option>
+                <option value="pass">{t('twoboat.action.pass')}</option>
               </select>
             </div>
           </div>
 
           <div>
             <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-              location
+              {t('twoboat.field.location')}
             </div>
             <select
               value={value.locationId ?? ''}
               onChange={(e) => update({ locationId: e.target.value || undefined })}
               className="w-full px-2 py-1.5 rounded-[3px] bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-border-paper)] text-[13px] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]"
             >
-              <option value="">— pick or use custom label —</option>
+              <option value="">{t('twoboat.field.location.pick')}</option>
               {locations.map((l) => (
                 <option key={l.id} value={l.id}>
                   {l.label}
@@ -432,27 +434,27 @@ function WaypointEditor({
 
           <div>
             <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-              custom label (if not a saved location)
+              {t('twoboat.field.custom.label')}
             </div>
             <input
               type="text"
               value={value.customLabel ?? ''}
               onChange={(e) => update({ customLabel: e.target.value || undefined })}
-              placeholder="e.g. open water · drift point · refuel stop"
+              placeholder={t('twoboat.field.custom.placeholder')}
               className="w-full px-2 py-1.5 rounded-[3px] bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-border-paper)] text-[13px] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]"
             />
           </div>
 
           <div>
             <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-              notes
+              {t('common.notes')}
             </div>
             <textarea
               value={value.notes ?? ''}
               onChange={(e) => update({ notes: e.target.value || undefined })}
               rows={2}
               className="w-full px-2 py-1.5 rounded-[3px] bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-border-paper)] text-[12px] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)] resize-none"
-              placeholder="Any context for the captain or producer"
+              placeholder={t('twoboat.field.notes.placeholder')}
             />
           </div>
 

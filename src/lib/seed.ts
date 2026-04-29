@@ -1319,6 +1319,7 @@ export function makeInitialState(): AppState {
     permits: [],
     /* Phase 13 — Spark Wall (creative capture) */
     sparks: [],
+    demoTrip: null,
     showDayMode: false,
     locale: 'en',
     selectedEpisodeId: null,

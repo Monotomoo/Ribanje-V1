@@ -332,7 +332,9 @@ export type Action =
   | { type: 'ADD_SPARK'; spark: Spark }
   | { type: 'UPDATE_SPARK'; id: string; patch: Partial<Spark> }
   | { type: 'DELETE_SPARK'; id: string }
-  | { type: 'SET_SPARK_STATUS'; id: string; status: import('../types').SparkStatus };
+  | { type: 'SET_SPARK_STATUS'; id: string; status: import('../types').SparkStatus }
+  /* Phase 13 wave 2 — Demo trip */
+  | { type: 'SET_DEMO_TRIP'; trip: import('../types').DemoTrip | null };
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -1527,6 +1529,10 @@ export function reducer(state: AppState, action: Action): AppState {
           s.id === action.id ? { ...s, status: action.status } : s
         ),
       };
+
+    /* Phase 13 wave 2 — Demo trip */
+    case 'SET_DEMO_TRIP':
+      return { ...state, demoTrip: action.trip };
 
     default:
       return state;

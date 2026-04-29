@@ -11,6 +11,8 @@ import {
   Users,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 import type { CrewPosition, CrewPositionSlot } from '../../types';
 
 /* ---------- Crew Position Board (Phase 12) ----------
@@ -30,15 +32,15 @@ import type { CrewPosition, CrewPositionSlot } from '../../types';
      · Production · Today                  compact embed
      · Production · Crew board (its own surface) */
 
-const SLOTS: { slot: CrewPositionSlot; label: string; description: string; Icon: typeof Sailboat }[] = [
-  { slot: 'talent-boat',  label: 'Talent boat',  description: 'with subjects + Captain Luka', Icon: Sailboat },
-  { slot: 'camera-boat',  label: 'Camera boat',  description: 'Tom + the rolling cams',       Icon: Ship },
-  { slot: 'support-boat', label: 'Support boat', description: 'optional · backup',            Icon: Anchor },
-  { slot: 'shore',        label: 'Shore',        description: 'on land · prep · interviews',  Icon: Home },
-  { slot: 'lunch',        label: 'Lunch',        description: 'eating · short break',         Icon: Coffee },
-  { slot: 'prep',         label: 'Prep',         description: 'gear setup · cards · charging', Icon: Settings },
-  { slot: 'travel',       label: 'Travel',       description: 'in transit between points',    Icon: Truck },
-  { slot: 'off',          label: 'Off',          description: 'not on shift',                  Icon: UserX },
+const SLOTS: { slot: CrewPositionSlot; labelKey: StringKey; descKey: StringKey; Icon: typeof Sailboat }[] = [
+  { slot: 'talent-boat',  labelKey: 'crew.slot.talent-boat',  descKey: 'crew.slot.talent-boat.desc',  Icon: Sailboat },
+  { slot: 'camera-boat',  labelKey: 'crew.slot.camera-boat',  descKey: 'crew.slot.camera-boat.desc',  Icon: Ship },
+  { slot: 'support-boat', labelKey: 'crew.slot.support-boat', descKey: 'crew.slot.support-boat.desc', Icon: Anchor },
+  { slot: 'shore',        labelKey: 'crew.slot.shore',        descKey: 'crew.slot.shore.desc',        Icon: Home },
+  { slot: 'lunch',        labelKey: 'crew.slot.lunch',        descKey: 'crew.slot.lunch.desc',        Icon: Coffee },
+  { slot: 'prep',         labelKey: 'crew.slot.prep',         descKey: 'crew.slot.prep.desc',         Icon: Settings },
+  { slot: 'travel',       labelKey: 'crew.slot.travel',       descKey: 'crew.slot.travel.desc',       Icon: Truck },
+  { slot: 'off',          labelKey: 'crew.slot.off',          descKey: 'crew.slot.off.desc',          Icon: UserX },
 ];
 
 interface Props {
@@ -48,6 +50,7 @@ interface Props {
 
 export function CrewPositionBoard({ date, compact = false }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [draggedCrewId, setDraggedCrewId] = useState<string | null>(null);
   const [overSlot, setOverSlot] = useState<CrewPositionSlot | null>(null);
 
@@ -139,16 +142,14 @@ export function CrewPositionBoard({ date, compact = false }: Props) {
         <div>
           <h3 className="display-italic text-[16px] text-[color:var(--color-on-paper)] leading-tight flex items-center gap-2">
             <Users size={14} className="text-[color:var(--color-brass)]" />
-            Crew positions
+            {t('crew.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5">
-            {compact
-              ? 'tap a chip to cycle slot'
-              : 'drag a chip between lanes · or tap to cycle'}
+            {compact ? t('crew.tap.cycle') : t('crew.drag.between')}
           </div>
         </div>
         <span className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] tabular-nums">
-          {state.crew.length - unassignedCrew().length}/{state.crew.length} placed
+          {state.crew.length - unassignedCrew().length}/{state.crew.length} {t('crew.placed')}
         </span>
       </header>
 
@@ -164,7 +165,7 @@ export function CrewPositionBoard({ date, compact = false }: Props) {
           }`}
         >
           <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1.5">
-            unassigned · drop here to clear position
+            {t('crew.unassigned')}
           </div>
           <div className="flex flex-wrap gap-1.5">
             {unassignedCrew().map((c) => (
@@ -209,7 +210,7 @@ export function CrewPositionBoard({ date, compact = false }: Props) {
                   className="text-[color:var(--color-on-paper-muted)] shrink-0"
                 />
                 <div className="display-italic text-[12px] text-[color:var(--color-on-paper)] leading-tight flex-1">
-                  {laneSpec.label}
+                  {t(laneSpec.labelKey)}
                 </div>
                 <span className="prose-body italic text-[10px] text-[color:var(--color-on-paper-faint)] tabular-nums">
                   {crewInSlot.length}
@@ -218,7 +219,7 @@ export function CrewPositionBoard({ date, compact = false }: Props) {
 
               {!compact && (
                 <div className="prose-body italic text-[9px] text-[color:var(--color-on-paper-faint)] mb-2 leading-tight">
-                  {laneSpec.description}
+                  {t(laneSpec.descKey)}
                 </div>
               )}
 
@@ -247,8 +248,7 @@ export function CrewPositionBoard({ date, compact = false }: Props) {
 
       {compact && unassignedCrew().length > 0 && (
         <div className="mt-3 prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)]">
-          {unassignedCrew().length} unassigned — open Crew board for full
-          drag-and-drop.
+          {unassignedCrew().length} {t('crew.unassigned.hint')}
         </div>
       )}
     </section>

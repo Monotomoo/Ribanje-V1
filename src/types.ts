@@ -924,6 +924,18 @@ export interface Spark {
   notes?: string;
 }
 
+/* ---------- Demo Trip (Phase 13 wave 2) ----------
+   Lightweight session marker for the upcoming 3-day demo trip (and any
+   future exploratory trip). When set, the Sparks view shows a banner
+   with "Day X of Y · N caught · M promoted" and date-range filters
+   default to the trip window. */
+
+export interface DemoTrip {
+  label: string;             // e.g. 'Stari Grad demo · April 2026'
+  startDate: string;         // ISO YYYY-MM-DD (inclusive)
+  days: number;              // total trip length in days (1-30)
+}
+
 /* ---------- Permit & Legal Wall (Phase 12) ----------
 
    Cross-cuts Contracts (existing) with regulatory / governmental /
@@ -1548,6 +1560,10 @@ export interface AppState {
   permits: PermitLegal[];
   /* Phase 13 — Spark Wall (creative capture for demo trips + brainstorm) */
   sparks: Spark[];
+  /* Phase 13 wave 2 — Demo trip mode.
+     When set, the Sparks view shows a banner with day counter and
+     spark stats for the trip date range. Default null = no trip active. */
+  demoTrip: DemoTrip | null;
   /* Phase 12 — Show-Day Mode toggle (persisted: typically left on for days
      while the shoot is in flight, off otherwise). Not strictly UI state —
      it changes which tabs render and affects font sizes / chrome / etc. */

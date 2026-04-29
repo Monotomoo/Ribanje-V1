@@ -12,6 +12,7 @@ import {
   Wind,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import {
   countShotStatus,
   resolveShootDay,
@@ -47,6 +48,7 @@ interface Props {
 
 export function ProductionPulse({ date: dateOverride, compact = false }: Props) {
   const { state } = useApp();
+  const t = useT();
   const resolved = resolveShootDay(state, dateOverride);
   const date = dateOverride ?? resolved?.day.date;
 
@@ -83,10 +85,10 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
                   : 'text-[color:var(--color-coral-deep)]'
               }
             />
-            Production pulse
+            {t('pulse.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5">
-            day health · scan in 2 seconds
+            {t('pulse.subtitle')}
           </div>
         </div>
         <HealthGauge health={health} />
@@ -100,7 +102,7 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
         }`}
       >
         <Tile
-          label="shots"
+          label={t('pulse.shots')}
           Icon={Clapperboard}
           value={`${metrics.shotsCaptured}/${metrics.shotsTotal}`}
           subtitle={metrics.shotsTotal > 0 ? `${Math.round((metrics.shotsCaptured / metrics.shotsTotal) * 100)}%` : '—'}
@@ -115,17 +117,17 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="takes"
+          label={t('pulse.takes')}
           Icon={Camera}
           value={String(metrics.takesToday)}
-          subtitle={`${metrics.takesPrint} print`}
+          subtitle={`${metrics.takesPrint} ${t('pulse.tile.print')}`}
           tone={metrics.takesToday > 0 ? 'ok' : 'muted'}
         />
         <Tile
-          label="batteries"
+          label={t('pulse.batteries')}
           Icon={Battery}
-          value={metrics.batteryRedFlags > 0 ? `${metrics.batteryRedFlags}` : 'OK'}
-          subtitle={metrics.batteryRedFlags > 0 ? 'red flags' : 'all green'}
+          value={metrics.batteryRedFlags > 0 ? `${metrics.batteryRedFlags}` : t('pulse.tile.ok')}
+          subtitle={metrics.batteryRedFlags > 0 ? t('pulse.tile.red.flags') : t('pulse.tile.all.green')}
           tone={
             metrics.batteryRedFlags === 0
               ? 'ok'
@@ -135,10 +137,10 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="cards"
+          label={t('pulse.cards')}
           Icon={HardDrive}
-          value={metrics.cardRedFlags > 0 ? `${metrics.cardRedFlags}` : 'OK'}
-          subtitle={metrics.cardRedFlags > 0 ? 'over 80% full' : 'all green'}
+          value={metrics.cardRedFlags > 0 ? `${metrics.cardRedFlags}` : t('pulse.tile.ok')}
+          subtitle={metrics.cardRedFlags > 0 ? t('pulse.tile.over.full') : t('pulse.tile.all.green')}
           tone={
             metrics.cardRedFlags === 0
               ? 'ok'
@@ -148,10 +150,10 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="sync"
+          label={t('pulse.sync')}
           Icon={Radio}
-          value={metrics.syncIssues > 0 ? `${metrics.syncIssues}` : 'OK'}
-          subtitle={metrics.syncIssues > 0 ? 'TC drift/off' : 'all synced'}
+          value={metrics.syncIssues > 0 ? `${metrics.syncIssues}` : t('pulse.tile.ok')}
+          subtitle={metrics.syncIssues > 0 ? t('pulse.tile.tc.drift') : t('pulse.tile.all.synced')}
           tone={
             metrics.syncIssues === 0
               ? 'ok'
@@ -161,15 +163,15 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="risks"
+          label={t('pulse.risks')}
           Icon={AlertTriangle}
-          value={metrics.risksTriggered > 0 ? `${metrics.risksTriggered}` : 'OK'}
+          value={metrics.risksTriggered > 0 ? `${metrics.risksTriggered}` : t('pulse.tile.ok')}
           subtitle={
             metrics.risksTriggered > 0
-              ? 'triggered'
+              ? t('pulse.tile.triggered')
               : metrics.risksWatch > 0
-              ? `${metrics.risksWatch} watch`
-              : 'dormant'
+              ? `${metrics.risksWatch} ${t('pulse.tile.watch.suffix')}`
+              : t('pulse.tile.dormant')
           }
           tone={
             metrics.risksTriggered > 0
@@ -180,10 +182,10 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="crew"
+          label={t('pulse.crew')}
           Icon={Users}
           value={`${metrics.crewPlaced}/${metrics.crewTotal}`}
-          subtitle="placed"
+          subtitle={t('pulse.tile.placed')}
           tone={
             metrics.crewTotal > 0 && metrics.crewPlaced >= metrics.crewTotal
               ? 'ok'
@@ -193,10 +195,10 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
           }
         />
         <Tile
-          label="surprises"
+          label={t('pulse.surprises')}
           Icon={Sparkles}
           value={String(metrics.surprises)}
-          subtitle={metrics.surprises > 0 ? 'today' : '—'}
+          subtitle={metrics.surprises > 0 ? t('pulse.tile.today') : '—'}
           tone={metrics.surprises > 0 ? 'ok' : 'muted'}
         />
       </div>
@@ -205,11 +207,11 @@ export function ProductionPulse({ date: dateOverride, compact = false }: Props) 
         <div className="mt-3 pt-3 border-t-[0.5px] border-[color:var(--color-border-paper)] flex items-center gap-4 prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] tabular-nums">
           <span className="flex items-center gap-1.5">
             <Wind size={11} />
-            peak wind today: {metrics.peakWind ? `${metrics.peakWind} kn` : '—'}
+            {t('pulse.peak.wind')}: {metrics.peakWind ? `${metrics.peakWind} kn` : '—'}
           </span>
           {metrics.peakSea > 0 && (
             <span className="flex items-center gap-1.5">
-              · peak sea: {metrics.peakSea.toFixed(1)} m
+              · {t('pulse.peak.sea')}: {metrics.peakSea.toFixed(1)} m
             </span>
           )}
         </div>

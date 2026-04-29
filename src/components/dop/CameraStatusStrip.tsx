@@ -11,6 +11,7 @@ import {
   Settings2,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import type {
   CameraSlot,
   CameraStatus,
@@ -52,6 +53,7 @@ interface Props {
 
 export function CameraStatusStrip({ date, compact = false }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [openSlot, setOpenSlot] = useState<CameraSlot | null>(null);
 
   const statusBySlot = useMemo(() => {
@@ -93,10 +95,10 @@ export function CameraStatusStrip({ date, compact = false }: Props) {
       <header className="flex items-baseline justify-between mb-3">
         <div>
           <h3 className="display-italic text-[16px] text-[color:var(--color-on-paper)] leading-tight">
-            Camera status
+            {t('cam.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5">
-            {compact ? 'tap a slot to edit' : 'tap a tile to update · big touch on iPad'}
+            {t('cam.tap.tile.update')}
           </div>
         </div>
         <button
@@ -104,7 +106,7 @@ export function CameraStatusStrip({ date, compact = false }: Props) {
           onClick={() => setOpenSlot(null)}
           className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] hover:text-[color:var(--color-on-paper)] transition-colors"
         >
-          {openSlot ? 'collapse' : null}
+          {openSlot ? t('common.collapse') : null}
         </button>
       </header>
 
@@ -306,22 +308,23 @@ function SlotEditor({
   onPatch: (patch: Partial<CameraStatus>) => void;
   crew: { id: string; name: string }[];
 }) {
+  const t = useT();
   return (
     <div className="mt-3 p-4 rounded-[3px] bg-[color:var(--color-paper)] border-[0.5px] border-[color:var(--color-brass)]/40">
       <div className="display-italic text-[15px] text-[color:var(--color-on-paper)] mb-3">
-        Update {slotLabel(slot)}
+        {t('common.edit')} · {slotLabel(slot)}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <NumField
-          label="battery %"
+          label={t('cam.battery')}
           value={status?.batteryPct}
           onChange={(v) => onPatch({ batteryPct: v })}
           min={0}
           max={100}
         />
         <NumField
-          label="card %"
+          label={t('cam.card')}
           value={status?.cardPct}
           onChange={(v) => onPatch({ cardPct: v })}
           min={0}
@@ -337,18 +340,18 @@ function SlotEditor({
           crew={crew}
         />
         <NumField
-          label="ISO"
+          label={t('cam.iso')}
           value={status?.isoValue}
           onChange={(v) => onPatch({ isoValue: v })}
         />
         <NumField
-          label="WB (K)"
+          label={t('cam.wb')}
           value={status?.wbKelvin}
           onChange={(v) => onPatch({ wbKelvin: v })}
           step={50}
         />
         <NumField
-          label="GB left"
+          label="GB"
           value={status?.cardGbRemaining}
           onChange={(v) => onPatch({ cardGbRemaining: v })}
           step={1}
@@ -357,14 +360,13 @@ function SlotEditor({
 
       <div className="mt-3">
         <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-          notes
+          {t('common.notes')}
         </div>
         <textarea
           value={status?.notes ?? ''}
           onChange={(e) => onPatch({ notes: e.target.value })}
           rows={2}
           className="w-full px-2 py-1.5 rounded-[3px] bg-[color:var(--color-paper-light)] border-[0.5px] border-[color:var(--color-border-paper)] text-[12px] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)] resize-none"
-          placeholder="Quick note — battery swap, card swap, lens change…"
         />
       </div>
 
@@ -381,7 +383,7 @@ function SlotEditor({
           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] bg-[color:var(--color-brass)] text-[color:var(--color-paper)] text-[11px] hover:bg-[color:var(--color-brass-deep)] transition-colors"
         >
           <RefreshCw size={11} />
-          <span className="prose-body italic">fresh setup</span>
+          <span className="prose-body italic">{t('cam.fresh.setup')}</span>
         </button>
         {status?.updatedAt && (
           <span className="prose-body italic text-[10px] text-[color:var(--color-on-paper-faint)] tabular-nums">
@@ -400,10 +402,11 @@ function SyncSelector({
   value?: CameraSyncStatus;
   onChange: (v: CameraSyncStatus | undefined) => void;
 }) {
+  const t = useT();
   return (
     <label className="block">
       <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-        timecode
+        {t('cam.sync')}
       </div>
       <select
         value={value ?? ''}
@@ -429,10 +432,11 @@ function OperatorSelector({
   onChange: (v: string | undefined) => void;
   crew: { id: string; name: string }[];
 }) {
+  const t = useT();
   return (
     <label className="block">
       <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1">
-        operator
+        {t('cam.operator')}
       </div>
       <select
         value={value ?? ''}

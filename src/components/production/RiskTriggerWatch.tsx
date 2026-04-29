@@ -11,6 +11,7 @@ import {
   User,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import type {
   ConditionsForecast,
   Risk,
@@ -59,6 +60,7 @@ interface TriggeredRisk {
 
 export function RiskTriggerWatch({ date, compact = false }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
 
   const triggered = useMemo(
@@ -67,10 +69,10 @@ export function RiskTriggerWatch({ date, compact = false }: Props) {
   );
 
   const buckets = useMemo(() => {
-    const t = triggered.filter((r) => r.bucket === 'triggered');
+    const tr = triggered.filter((r) => r.bucket === 'triggered');
     const w = triggered.filter((r) => r.bucket === 'watch');
     const d = triggered.filter((r) => r.bucket === 'dormant');
-    return { triggered: t, watch: w, dormant: d };
+    return { triggered: tr, watch: w, dormant: d };
   }, [triggered]);
 
   function setStatus(id: string, status: RiskStatus) {
@@ -92,10 +94,10 @@ export function RiskTriggerWatch({ date, compact = false }: Props) {
                   : 'text-[color:var(--color-success)]'
               }
             />
-            Risk trigger watch
+            {t('risk.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5 tabular-nums">
-            {buckets.triggered.length} triggered · {buckets.watch.length} watch · {buckets.dormant.length} dormant
+            {buckets.triggered.length} {t('risk.triggered').toLowerCase()} · {buckets.watch.length} {t('risk.watch').toLowerCase()} · {buckets.dormant.length} {t('risk.dormant').toLowerCase()}
           </div>
         </div>
       </header>
@@ -133,7 +135,7 @@ export function RiskTriggerWatch({ date, compact = false }: Props) {
         <div className="flex items-center gap-2 prose-body italic text-[12px] text-[color:var(--color-success)]">
           <CheckCircle2 size={12} />
           <span>
-            All risks dormant. {state.risks.length === 0 ? 'No risks logged yet.' : 'Conditions look fine for the day.'}
+            {t('risk.all.dormant')}. {state.risks.length === 0 ? t('risk.all.dormant.empty') : t('risk.all.dormant.hint')}
           </span>
         </div>
       )}
@@ -147,7 +149,7 @@ export function RiskTriggerWatch({ date, compact = false }: Props) {
             className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] hover:text-[color:var(--color-on-paper)] flex items-center gap-1 transition-colors"
           >
             {expanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
-            {expanded ? 'hide dormant' : `show ${buckets.dormant.length} dormant`}
+            {expanded ? t('risk.hide.dormant') : `${t('risk.show.dormant')} (${buckets.dormant.length})`}
           </button>
           {expanded && (
             <div className="mt-2 space-y-1.5">

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Sun, Wind, Waves, Droplets, Cloud, RefreshCcw, Plus } from 'lucide-react';
 import SunCalc from 'suncalc';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
+import type { StringKey } from '../../i18n';
 import type { ConditionsForecast, Location } from '../../types';
 
 /* ---------- Live Conditions Feed (Phase 12) ----------
@@ -40,6 +42,7 @@ interface Props {
 
 export function LiveConditionsFeed({ date, locationId, compact = false }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [now, setNow] = useState<Date>(new Date());
 
   /* Tick the "now" cursor every minute. */
@@ -151,8 +154,8 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
   if (!location && locationId) {
     return (
       <ConditionsCard
-        title="Live conditions"
-        subtitle="No location selected"
+        title={t('cond.title')}
+        subtitle="—"
         empty
       />
     );
@@ -167,7 +170,7 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
 
   return (
     <ConditionsCard
-      title="Live conditions"
+      title={t('cond.title')}
       subtitle={
         location
           ? `${location.label} · ${formatDate(date)}`
@@ -181,7 +184,7 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] bg-[color:var(--color-brass)] text-[color:var(--color-paper)] text-[11px] hover:bg-[color:var(--color-brass-deep)] transition-colors"
           >
             <RefreshCcw size={11} />
-            <span className="prose-body italic">seed sun + tide</span>
+            <span className="prose-body italic">{t('cond.seed.sun.tide')}</span>
           </button>
         ) : null
       }
@@ -218,7 +221,7 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
                   <div className="flex items-start gap-1.5 pt-1">
                     <LaneIcon lane={lane} />
                     <div className="display-italic text-[12px] text-[color:var(--color-on-paper)] leading-tight">
-                      {LANE_LABELS[lane]}
+                      {t(LANE_LABEL_KEYS[lane])}
                     </div>
                   </div>
                 </foreignObject>
@@ -284,7 +287,7 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
                 textAnchor="middle"
                 className="text-[9px] fill-[color:var(--color-brass)] tabular-nums display-italic"
               >
-                now
+                {t('cond.now.cursor')}
               </text>
             </g>
           )}
@@ -301,10 +304,7 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
 
       {!hasAny && (
         <div className="mt-3 prose-body italic text-[12px] text-[color:var(--color-on-paper-muted)]">
-          Empty forecast.
-          {locationId && sunData
-            ? ' Click "seed sun + tide" to compute the light + tide curves from this location.'
-            : ' Select a location to compute sun + tide automatically.'}
+          {t('cond.empty')}
         </div>
       )}
     </ConditionsCard>
@@ -312,6 +312,14 @@ export function LiveConditionsFeed({ date, locationId, compact = false }: Props)
 }
 
 /* ---------- Lane renderers ---------- */
+
+const LANE_LABEL_KEYS: Record<'sun' | 'wind' | 'tide' | 'sea' | 'cloud', StringKey> = {
+  sun:   'cond.lane.sun',
+  wind:  'cond.lane.wind',
+  tide:  'cond.lane.tide',
+  sea:   'cond.lane.sea',
+  cloud: 'cond.lane.cloud',
+};
 
 const LANE_LABELS = {
   sun: 'sun arc',

@@ -6,6 +6,7 @@ import type { Spark } from '../../types';
 import { SparkWall } from '../sparks/SparkWall';
 import { DemoDispatch } from '../sparks/DemoDispatch';
 import { SparkCompare } from '../sparks/SparkCompare';
+import { DemoTripBanner } from '../sparks/DemoTripBanner';
 
 /* ---------- SparksView (Phase 13) ----------
    Top-level view. Three tabs:
@@ -64,6 +65,9 @@ export function SparksView() {
           </button>
         )}
       </div>
+
+      {/* Demo trip banner — Phase 13 wave 2 */}
+      <DemoTripBanner />
 
       {/* Tab strip */}
       <div className="flex items-baseline gap-1 border-[0.5px] border-[color:var(--color-border-paper)] rounded-[2px] p-1 w-fit max-w-full overflow-x-auto">

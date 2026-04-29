@@ -10,6 +10,7 @@ import {
   Check,
 } from 'lucide-react';
 import { useApp } from '../../state/AppContext';
+import { useT } from '../../i18n';
 import type {
   AntiScriptMoment,
   Episode,
@@ -70,6 +71,7 @@ export function SurpriseCaptureLog({
   compact = false,
 }: Props) {
   const { state, dispatch } = useApp();
+  const t = useT();
   const [recordingFor, setRecordingFor] = useState<string | null>(null);
 
   /* Resolve active episode if not given. */
@@ -160,17 +162,17 @@ export function SurpriseCaptureLog({
         <div>
           <h3 className="display-italic text-[16px] text-[color:var(--color-on-paper)] leading-tight flex items-center gap-2">
             <Sparkles size={14} className="text-[color:var(--color-brass)]" />
-            Surprise capture
+            {t('surprise.title')}
           </h3>
           <div className="prose-body italic text-[11px] text-[color:var(--color-on-paper-muted)] mt-0.5">
             {activeEpisode
               ? `Ep ${activeEpisode.number} · ${activeEpisode.title}`
-              : 'pick an episode in the timeline'}
+              : t('surprise.empty')}
             {todaySurprises.length > 0 && (
               <>
                 {' · '}
                 <span className="tabular-nums">
-                  {todaySurprises.length} captured today
+                  {todaySurprises.length} {t('prod.today.captured')}
                 </span>
               </>
             )}
@@ -188,17 +190,15 @@ export function SurpriseCaptureLog({
           size={18}
           className="group-hover:rotate-12 transition-transform"
         />
-        <span className="display-italic text-[18px]">capture now</span>
+        <span className="display-italic text-[18px]">{t('surprise.capture.now')}</span>
         <span className="prose-body italic text-[11px] opacity-70">
-          (one tap → logs time + place)
+          ({t('surprise.subtitle')})
         </span>
       </button>
 
       {(compact ? todaySurprises : surprises).length === 0 ? (
         <div className="prose-body italic text-[12px] text-[color:var(--color-on-paper-muted)] py-2">
-          {compact
-            ? 'Nothing yet today. The unplanned moment is the gold.'
-            : 'No surprises captured yet. Tap above when something happens that wasn\'t on the shotlist — a verse spoken, a sudden storm, an elder pausing mid-sentence.'}
+          {t('surprise.empty')}
         </div>
       ) : (
         <ul className="space-y-2">
@@ -260,6 +260,7 @@ function SurpriseRow({
   onCancelRecording,
   onAttachVoiceMemo,
 }: RowProps) {
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
   const loc = locations.find((l) => l.id === moment.capturedAtLocationId);
   const memo = voiceMemos.find((v) => v.id === moment.voiceMemoId);
@@ -338,7 +339,7 @@ function SurpriseRow({
           {/* Beat tags */}
           <div>
             <div className="prose-body italic text-[10px] text-[color:var(--color-on-paper-muted)] mb-1.5">
-              tag the beat
+              {t('surprise.tag.beat')}
             </div>
             <div className="flex flex-wrap gap-1.5">
               {QUICK_TAGS.map((t) => {
@@ -407,7 +408,7 @@ function SurpriseRow({
               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] bg-[color:var(--color-brass)]/15 text-[color:var(--color-on-paper)] text-[11px] hover:bg-[color:var(--color-brass)]/25 transition-colors"
             >
               <Mic size={11} />
-              <span className="prose-body italic">add voice memo</span>
+              <span className="prose-body italic">{t('surprise.add.memo')}</span>
             </button>
           )}
 
@@ -419,7 +420,7 @@ function SurpriseRow({
               className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[3px] text-[10px] text-[color:var(--color-success)] hover:bg-[color:var(--color-success)]/10 transition-colors"
             >
               <ArrowUpRight size={11} />
-              <span className="prose-body italic">promote to planned beat</span>
+              <span className="prose-body italic">{t('surprise.promote')}</span>
             </button>
             <button
               type="button"
